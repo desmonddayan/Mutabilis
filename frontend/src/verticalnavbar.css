@@ -1,0 +1,56 @@
+.applicationnavbar{
+    width: 17%;
+    display: flex;
+    background-color: rgba(20,20,23);
+    border-right: 1px solid rgba(45,45,45);
+    flex-direction: column;
+    align-items: center;
+}
+.sideNavbarListContainer{
+    width: 85%;
+    margin-top: 1.5rem;
+}
+.sideNavbarButtonContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+.sideNavbarButton{
+    display: flex;
+    align-items: center;
+    background-color: rgba(30,30,30);
+    color: white;
+    border: none;
+    text-align: left;
+    background-color: rgba(30,30,35);
+    padding: 0.2rem 0 0.2rem 0.75rem;
+    font-size: 0.875rem;
+    width: 100%;
+    border-radius: 0.5rem;
+}
+
+.sideNavbarButton::before{
+    content: '\2022';
+    margin-right: 1rem;
+    color: rgba(39, 102, 255);
+    font-size: 1.5rem;
+}
+.main{
+    flex: 1;
+    overflow-y: auto;
+}
+.title{
+    color: white;
+}
+.logoTitle{
+    margin-top: 1.5rem;
+    width: 80%;
+}
+.navbarLink{
+    text-decoration: none;
+}
+
+.bulletPointRemoval{
+    list-style: none;
+    width: 100%;
+}

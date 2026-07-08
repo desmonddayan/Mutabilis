@@ -1,0 +1,28 @@
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.7rem 0;
+}
+.websiteName{
+    font-size: 1.2rem;
+    margin-left: 2rem;
+}
+.topNavbarLink{
+    list-style: none;
+    color: white;
+}
+.signUpButton{
+    color: white;
+    background-color: #1577FF;
+    padding: 0.3rem 1.5rem;
+    border: none;
+    border-radius: 0.2rem;
+    margin-right: 2rem;
+    font-size: 0.9rem;
+}
+.navbarLine{
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.6);
+}
