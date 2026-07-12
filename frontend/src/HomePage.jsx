@@ -7,7 +7,6 @@ function HomePage(){
         <>
             <div className="screen">
                 <VerticalNavbar />
-
             </div>
         </>
         )

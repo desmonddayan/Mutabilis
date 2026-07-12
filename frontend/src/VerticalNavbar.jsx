@@ -9,8 +9,8 @@ function VerticalNavbar(){
                 <nav className="sideNavbarListContainer">
                     <ul className="sideNavbarButtonContainer">
                         <li className="bulletPointRemoval"><Link className="navbarLink" to="/home"><button className="sideNavbarButton">Home</button></Link></li>
-                        <li className="bulletPointRemoval"><Link className="navbarLink" to="/home/track"><button className="sideNavbarButton">Track</button></Link></li>
-                        <li className="bulletPointRemoval"><Link className="navbarLink" to="/home/community"><button className="sideNavbarButton">Community</button></Link></li>
+                        <li className="bulletPointRemoval"><Link className="navbarLink" to="/track"><button className="sideNavbarButton">Track</button></Link></li>
+                        <li className="bulletPointRemoval"><Link className="navbarLink" to="/community"><button className="sideNavbarButton">Community</button></Link></li>
                     </ul>
                 </nav>
                 <div>

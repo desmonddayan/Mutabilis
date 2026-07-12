@@ -1,7 +1,9 @@
 import SignUpButton from "./SignUpButton.jsx";
+
 import './landingpage.css'
 
 function LandingPage() {
+
 
   return (
     <>
