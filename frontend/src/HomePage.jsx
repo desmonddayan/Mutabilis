@@ -1,38 +1,50 @@
 import VerticalNavbar from './VerticalNavbar.jsx'
-
 import './homepage.css'
-import Session from "./Session.jsx";
-
-function HomePage(){
-
-            const saveUser = async () => {
-
-                const session = await Session();
-
-                const logInResponse = await fetch('http://localhost:8080/api/v1/users/me', {
-                        method: 'POST',
-                        headers: {'Authorization': `Bearer ${session.access_token}`,
-                            'Content-Type': 'application/json'},
-                        body: JSON.stringify({
-                            email: session.user.email,
-                            name: session.user.user_metadata.full_name,
-                            avatarURL: session.user.user_metadata.avatar_url
-                        })
-                    }
-                )
-                console.log(logInResponse.status);
-                const data = await logInResponse.json();
-                console.log(data);
-            }
-            saveUser();
+import {Link} from 'react-router-dom'
+import {useEffect} from "react";
+function HomePage({session}){
 
 
+    useEffect( () => {
+        function goToHome(){
+            console.log(session?.user?.user_metadata.avatar_url);
+        }
+        goToHome();
+    }, []);
+
+    // Get User Data On Their Routine and Notes
+    // async function getUserProfile(){
+    //     const session = await Session();
+    //     await fetch('http://localhost/api/v1/users/me',{
+    //             method: 'GET',
+    //             headers: {'Authorization': `Bearer ${session.access_token}`, ContentType: 'application/json'},
+    //             body: JSON.stringify({})
+    //         }
+    //     )
+    // }
 
     return(
-
         <>
             <div className="screen">
                 <VerticalNavbar />
+                <div className="contentScreen">
+                    <div className="contentContainer">
+                        <div className="userInformationContainer">
+                            <div className="userInformation">
+                                <img className="profilePictureHomePage" src={session?.user?.user_metadata?.avatar_url}  alt="User Profile Picture"/>
+                                <div className="messageContainer">
+                                    <h2 className="welcomeMessage">Welcome!</h2>
+                                    <h2 className="userName">{session.user.user_metadata.full_name}</h2>
+                                </div>
+                            </div>
+                            <Link to="/track"><button className="trackPageRedirect">Today's Check In</button></Link>
+                        </div>
+                        <div className="routineAndNoteContainer">
+                            <div className="routineContainer"></div>
+                            <div className="noteContainer"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
         )

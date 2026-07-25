@@ -1,5 +1,57 @@
 .screen{
+    width: 100%;
+}
+.profilePictureHomePage{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.contentScreen{
+    overflow-y: auto;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 17rem;
     height: 100vh;
-    overflow: hidden;
+}
+.userName{
+    color: white;
+}
+.contentContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.messageContainer{
+    margin-left: 1.5rem;
+}
+.trackPageRedirect{
+    background-color: #1577FF;
+    border: none;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: white;
+}
+.userInformationContainer{
+    display: flex;
+    width: 80%;
+    background-color: rgba(20,20,23);
+    box-sizing: border-box;
+    padding: 2rem 3rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(45,45,45);
+    align-items: center;
+    justify-content: space-between;
+}
+.welcomeMessage{
+    color: white;
+    font-size: 1.1rem;
+}
+.userInformation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

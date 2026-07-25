@@ -17,9 +17,16 @@ public class UserLogController {
 
     @PostMapping("/me")
     public ResponseEntity<UserLog> createUserEntry(@RequestBody UserLog userLog, @AuthenticationPrincipal Jwt jwt){
+
         String userId = jwt.getSubject();
-        UserLog saved = userService.createEntry(userLog, userId);
-        return ResponseEntity.status(200).body(saved);
+        UserLog userCheck = userService.findByUserId(userId);
+        if(userCheck == null){
+            UserLog saved = userService.createEntry(userLog, userId);
+            return ResponseEntity.status(200).body(saved);
+        }
+        else {
+            return ResponseEntity.status(400).body(null);
+        }
     }
 }
 

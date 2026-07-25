@@ -1,8 +1,8 @@
 import VerticalNavbar from './VerticalNavbar.jsx'
-
+import
 import './trackpage.css'
 
-function TrackPage(){
+function TrackPage({session}){
     return(
         <>
             <div className="screen">

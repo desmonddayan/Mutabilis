@@ -13,6 +13,10 @@ public class UserService{
     @Autowired
     private UserRepository userRepository;
 
+    public UserLog findByUserId(String userId) {
+        return userRepository.findByUserId(userId);
+    }
+
     public UserLog createEntry(UserLog userLog, String userId){
         userLog.setUserId(userId);
         userLog.setCreatedAt(LocalDateTime.now());
