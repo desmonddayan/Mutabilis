@@ -10,7 +10,7 @@ function LandingPage() {
     <>
       <nav className="navbar">
         <ul className="topNavbarLink">
-          <li className="websiteName">Mutable</li>
+          <li className="websiteName">Mutabilis</li>
         </ul>
           <SignUpButton />
       </nav>
@@ -19,4 +19,4 @@ function LandingPage() {
   )
 }
 
-export default LandingPage
+export default LandingPage;

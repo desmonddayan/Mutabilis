@@ -6,10 +6,7 @@ function HomePage({session}){
 
 
     useEffect( () => {
-        function goToHome(){
-            console.log(session?.user?.user_metadata.avatar_url);
-        }
-        goToHome();
+
     }, []);
 
     // Get User Data On Their Routine and Notes

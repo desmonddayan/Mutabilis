@@ -1,0 +1,28 @@
+.contentScreenTrack{
+    margin-left: 17rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.calendarGrid{
+    margin-top: 0.5rem;
+    display: grid;
+    width: 95%;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-gap: 0.1rem;
+}
+.weekDatesContainer{
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    width: 95%;
+}
+.weekDates {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

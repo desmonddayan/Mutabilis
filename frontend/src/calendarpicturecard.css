@@ -1,0 +1,13 @@
+.faceCardPictureContainer{
+    aspect-ratio: 2 / 3;
+}
+.faceCardButton{
+    height: 100%;
+    width: 100%;
+    border: none;
+    background-color: rgba(20,20,23);
+}
+.faceCardPicture{
+    width: 100%;
+    height: 100%;
+}
