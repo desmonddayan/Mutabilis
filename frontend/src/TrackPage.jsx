@@ -1,24 +1,85 @@
 import VerticalNavbar from './VerticalNavbar.jsx'
 import CalendarPictureCard from './CalendarPictureCard.jsx'
 import './trackpage.css'
-import PopUp from './PopUp.jsx'
+import {PopUp} from './PopUp.jsx'
 import {useEffect, useState} from "react";
 
 function TrackPage({session}){
 
     const [popUpState, setPopUpState] = useState(false);
+    const [weekdayNumber, setWeekDayNumber] = useState(0);
+    const [lastDateOfMonth, setLastDateOfMonth] = useState(0);
+    const [selectedDay, setSelectedDay] = useState(null);
+    const [selectedMonth, setSelectedMonth] = useState(null);
+    const [selectedYear, setSelectedYear] = useState(null);
+    const [groundingSelectedMonth, setGroundingSelectedMonth] = useState(null);
+    const [groundingSelectedYear, setGroundingSelectedYear] = useState(null);
+    const [lastDateOfLastMonth, setLastDateOfLastMonth] = useState(null);
 
-    const numbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35]
+    useEffect(()=>{
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = date.getMonth();
+        setGroundingSelectedMonth(month);
+        setGroundingSelectedYear(year);
+    },[])
 
-    useEffect(() => {
+    useEffect( () => {
+        if(groundingSelectedMonth == null) return
+        const firstDay = new Date(groundingSelectedYear, groundingSelectedMonth, 1);
+        setWeekDayNumber(firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1);
+        setLastDateOfMonth(new Date(groundingSelectedYear,groundingSelectedMonth + 1, 0).getDate());
+        const previousMonthsDate = new Date(groundingSelectedYear, groundingSelectedMonth, 0).getDate();
+        setLastDateOfLastMonth(previousMonthsDate - (firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1) + 1);
+    },[groundingSelectedMonth, groundingSelectedYear]);
 
-    }, [])
+    function calculateDate(day, month, year){
+        setSelectedDay(day);
+        if(groundingSelectedMonth - 1 < 0){
+            setSelectedMonth(11);
+        }
+        else if(groundingSelectedMonth + 1 > 11){
+            setSelectedMonth(0);
+        }
+        else{
+            setSelectedMonth(groundingSelectedMonth + month);
+        }
+        setSelectedYear(year);
+        setPopUpState(true);
+    }
+
+    function back(){
+        if(groundingSelectedMonth - 1 < 0){
+            setGroundingSelectedYear(groundingSelectedYear - 1)
+            setGroundingSelectedMonth(11)
+        }
+        else{
+            setGroundingSelectedMonth(groundingSelectedMonth - 1)
+        }
+    }
+    function forward(){
+        if(groundingSelectedMonth + 1 > 11){
+            setGroundingSelectedYear(groundingSelectedYear + 1)
+            setGroundingSelectedMonth(0)
+        }
+        else{
+            setGroundingSelectedMonth(groundingSelectedMonth + 1)
+        }
+    }
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     return(
         <>
             <div className="screen">
                 <VerticalNavbar />
                 <div className="contentScreenTrack">
+                    <div className="trackPageHeaderContainer">
+                            <h2 className="monthAndYearTitle">{months[groundingSelectedMonth]} {groundingSelectedYear}</h2>
+                        <div className="trackPageMonthChangeButtonContainer">
+                            <button className="calendarBackButton" onClick={()=> back()}>&lt;</button>
+                            <button className="calendarForwardButton" onClick={()=> forward()}>&gt;</button>
+                        </div>
+                    </div>
                     <div className="weekDatesContainer">
                         <p className="weekDates">Monday</p>
                         <p className="weekDates">Tuesday</p>
@@ -28,14 +89,34 @@ function TrackPage({session}){
                         <p className="weekDates">Saturday</p>
                         <p className="weekDates">Sunday</p>
                     </div>
-
                     <div className='calendarGrid'>
-                        {numbers.map(number => (
+                    {Array.from({length: 42}, (_, i) => {
+                        if(i < weekdayNumber){
+                            return(<CalendarPictureCard
+                                key={`${i}-${groundingSelectedMonth}`}
+                                index={i + lastDateOfLastMonth}
+                                session={session}
+                                getSelectedDate={() => calculateDate(i + lastDateOfLastMonth, -1, groundingSelectedMonth - 1 < 0 ? groundingSelectedYear - 1: groundingSelectedYear)}
+                                />)
+                        }else if((i - weekdayNumber) >= lastDateOfMonth){
 
-                            <CalendarPictureCard key={number} session={session} setPopUpStateTrue={() => setPopUpState(true)} number={number}/>
-                        ))}
+                            return(<CalendarPictureCard
+                                key={`${i}-${groundingSelectedMonth}`}
+                                index={i % lastDateOfMonth - weekdayNumber + 1}
+                                session={session}
+                                getSelectedDate={() => calculateDate(i % lastDateOfMonth - weekdayNumber + 1, 1, groundingSelectedMonth + 1 > 12 ? groundingSelectedYear + 1: groundingSelectedYear)}
+                                />)
+                        }
+                        else{
+                            return(<CalendarPictureCard
+                                key={`${i}-${groundingSelectedMonth}`}
+                                index = {i + 1 - weekdayNumber}
+                                session={session}
+                                getSelectedDate={() => calculateDate(i - weekdayNumber + 1, 0, groundingSelectedYear)}
+                            />)}
+                    })}
                     </div>
-                    <PopUp popUpState={popUpState} setPopUpStateFalse={() => setPopUpState(false)}/>
+                    <PopUp popUpState={popUpState} day={selectedDay} month={selectedMonth} year={selectedYear} setPopUpStateFalse={() => setPopUpState(false)}/>
                 </div>
             </div>
         </>

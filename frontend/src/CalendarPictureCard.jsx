@@ -1,13 +1,13 @@
 import './calendarpicturecard.css'
 
-export default function CalendarPictureCard({number, setPopUpStateTrue}){
-
+export default function CalendarPictureCard({getSelectedDate, index}){
 
     return(
         <>
             <div className="faceCardPictureContainer">
-                <button onClick={() => setPopUpStateTrue()} className="faceCardButton"><img className="faceCardPicture" alt={number}></img></button>
-
+                <button onClick={() => getSelectedDate()} className="faceCardButton"><img className="faceCardPicture"  alt={index}></img>
+                    <p className="indexOfCard">{index}</p>
+                </button>
             </div>
         </>
     )

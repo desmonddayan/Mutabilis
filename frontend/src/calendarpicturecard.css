@@ -1,13 +1,29 @@
 .faceCardPictureContainer{
     aspect-ratio: 2 / 3;
+    border: none;
+    position: relative;
 }
 .faceCardButton{
     height: 100%;
     width: 100%;
     border: none;
     background-color: rgba(20,20,23);
+    display: block;
 }
 .faceCardPicture{
     width: 100%;
     height: 100%;
+    top: 0;
+    left: 0;
+    display: none;
+    position: absolute;
+    border:none;
+    object-fit: cover;
+}
+.indexOfCard{
+    color: #787878;
+    top: 0.4rem;
+    left: 0.4rem;
+    position: absolute;
+    font-size: 0.9rem;
 }

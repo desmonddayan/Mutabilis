@@ -17,7 +17,7 @@ function SignUpButton(){
 
 
     return(
-        <button className="signUpButton" onClick={signUpWithGoogle}>Sign Up</button>
+        <button className="signUpButton" onClick={() => signUpWithGoogle()}>Sign Up</button>
     )
 }
 export default SignUpButton;

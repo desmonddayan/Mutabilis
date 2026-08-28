@@ -11,7 +11,7 @@
     display: grid;
     width: 95%;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
     grid-gap: 0.1rem;
 }
 .weekDatesContainer{
@@ -23,6 +23,39 @@
 .weekDates {
     color: white;
     display: flex;
+    font-size: 0.9rem;
     align-items: center;
     justify-content: center;
+}
+.monthAndYearTitle{
+    color:white;
+}
+.trackPageHeaderContainer{
+    margin-top: 1rem;
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.calendarBackButton{
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid rgba(45,45,45);
+    background-color: black;
+    color: white;
+    border-radius: 0.3rem;
+}
+.calendarForwardButton{
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid rgba(45,45,45);
+    background-color: black;
+    color: white;
+    border-radius: 0.3rem;
+}
+.trackPageMonthChangeButtonContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }

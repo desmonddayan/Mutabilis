@@ -1,0 +1,32 @@
+.diaryTextBoxContainer{
+    width: 100%;
+    position: relative;
+    margin-top: 0.8rem;
+}
+.diaryEntryTextBox{
+    border: 1px solid rgb(69, 69, 69);
+    border-radius: 0.5rem;
+    height: 7rem;
+    padding: 0.5rem 3rem 0.5rem 0.5rem;
+    box-sizing: border-box;
+    background-color: #29292e;
+    resize: none;
+    width: 100%;
+    font-size: 1rem;
+    position: relative;
+    color: white;
+    outline: none;
+    display: block;
+}
+.microPhoneButton{
+    border: none;
+    position: absolute;
+    color: white;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0.5rem;
+    border-radius: 0.25rem;
+    width: 3rem;
+    background-color: #1577FF;
+    height: 6rem;
+}
