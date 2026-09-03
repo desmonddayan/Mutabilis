@@ -1,16 +1,12 @@
 import './diaryentry.css'
-import {useRef, useState} from 'react'
 
-export default function DiaryEntry(){
+export default function DiaryEntry({diaryEntry, setDiaryEntry, isRecording, setIsRecording, existingTextRef, recognitionRef}){
 
-    const recognitionRef = useRef(null);
-    const existingTextRef = useRef('');
-    const [diaryEntry, setDiaryEntry] = useState("");
-    const [isRecording, setIsRecording] = useState(false);
 
     function setIsRecordingTrue(){
+
         existingTextRef.current = diaryEntry;
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const SpeechRecognition = window.SpeechRecognition;
 
         if(!SpeechRecognition){
             alert("Speech recognition is not supported in this browser");
@@ -24,7 +20,8 @@ export default function DiaryEntry(){
 
         recognition.onresult = (event) => {
             const transcript = Array.from(event.results).map(result => result[0].transcript).join('');
-            setDiaryEntry(existingTextRef + transcript);
+
+            setDiaryEntry(existingTextRef.current + transcript);
         }
 
         recognitionRef.current = recognition;
@@ -33,9 +30,14 @@ export default function DiaryEntry(){
     }
     function setIsRecordingFalse(){
         if(recognitionRef.current){
+            recognitionRef.current.onend = () => {
+                setDiaryEntry(prev => prev + ". ");
+                existingTextRef.current = existingTextRef.current + ". ";
+            }
             recognitionRef.current.stop();
             setIsRecording(false);
         }
+
     }
 
     return(
@@ -45,7 +47,7 @@ export default function DiaryEntry(){
                           placeholder="Please describe the events of your day..."
                           value = {diaryEntry}
                           onChange={(e) => setDiaryEntry(e.target.value)}/>
-                {isRecording ? <button className="microPhoneButton" onClick={setIsRecordingTrue}>Start</button> : <button className="microPhoneButton" onClick={setIsRecordingFalse}>Stop</button>}
+                {isRecording ? <button className="microPhoneButton" onClick={() => setIsRecordingFalse()}>Stop</button> : <button className="microPhoneButton" onClick={() => setIsRecordingTrue()}>Start</button>}
             </div>
         </>
     )

@@ -1,6 +1,6 @@
 import './popup.css'
 import DiaryEntry from './DiaryEntry'
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 export function PopUp({popUpState, setPopUpStateFalse, day, month, year}) {
 
@@ -10,7 +10,10 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year}) {
     const [waterCount, setWaterCount] = useState(2);
     const [stressCount, setStressCount] = useState(0);
     const [waterUnitState, setWaterUnitState] = useState("Litres");
-
+    const recognitionRef = useRef(null);
+    const existingTextRef = useRef("");
+    const [diaryEntry, setDiaryEntry] = useState("");
+    const [isRecording, setIsRecording] = useState(false);
 
 
     useEffect(() => {
@@ -59,10 +62,16 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year}) {
         }
     }
 
+    function setIsRecordingFalse(){
+        if(recognitionRef.current){
+            recognitionRef.current.stop();
+            setIsRecording(false);
+        }
+    }
 
     return (
         <>
-            <div className="popUpBackgroundBlur" onClick={() => setPopUpStateFalse()}></div>
+            <div className="popUpBackgroundBlur" onClick={() => {setPopUpStateFalse(); setIsRecordingFalse()}}></div>
             <div className="popUpContainer">
                 <div className="popUpHeaderContainer">
                     <div className="popUpDateAndButtonContainer">
@@ -70,7 +79,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year}) {
                             <p className="subText">Daily Check-In</p>
                             <h2 className="popUpDate">{day} {months[month]} {year}</h2>
                         </div>
-                        <button className="getOutOfPopUpButton" onClick={() => setPopUpStateFalse()}>X</button>
+                        <button className="getOutOfPopUpButton" onClick={() => {setPopUpStateFalse(); setIsRecordingFalse()}}>X</button>
                     </div>
                 </div>
                 <hr className="popUpDividerLine"></hr>
@@ -104,7 +113,14 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year}) {
                         <div className="photosTitleContainer">
                             <p className="popUpSectionHeaders">Diary</p>
                             <p className="subText">Note flare-ups, diet, events, mood, pillow changes, supplements, hair and cooking products -- the AI reads this for patterns</p></div>
-                        <DiaryEntry />
+                        <DiaryEntry
+                            recognitionRef = {recognitionRef}
+                            existingTextRef = {existingTextRef}
+                            diaryEntry = {diaryEntry}
+                            setDiaryEntry = {setDiaryEntry}
+                            isRecording = {isRecording}
+                            setIsRecording = {setIsRecording}
+                        />
                     </div>
                     <div className="popUpRoutineAndLifeStyleFactorContainer">
                         <div className="routineContainer">
@@ -155,7 +171,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year}) {
                 </div>
                 <hr className="popUpDividerLine"></hr>
                 <div className="submitButtonContainer">
-                    <button className="saveEntryButton"><b>Save Entry</b></button>
+                    <button className="saveEntryButton" onClick={()=>{setPopUpStateFalse(); setIsRecordingFalse()}}><b>Save Entry</b></button>
                 </div>
             </div>
         </>
