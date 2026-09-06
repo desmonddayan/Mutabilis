@@ -64,6 +64,10 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year}) {
 
     function setIsRecordingFalse(){
         if(recognitionRef.current){
+            recognitionRef.current.onend = () => {
+                setDiaryEntry(prev => prev + ". ");
+                existingTextRef.current = existingTextRef.current + ". ";
+            }
             recognitionRef.current.stop();
             setIsRecording(false);
         }
@@ -76,7 +80,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year}) {
                 <div className="popUpHeaderContainer">
                     <div className="popUpDateAndButtonContainer">
                         <div>
-                            <p className="subText">Daily Check-In</p>
+                            <p className="subText">Selfies and Diary</p>
                             <h2 className="popUpDate">{day} {months[month]} {year}</h2>
                         </div>
                         <button className="getOutOfPopUpButton" onClick={() => {setPopUpStateFalse(); setIsRecordingFalse()}}>X</button>
@@ -85,10 +89,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year}) {
                 <hr className="popUpDividerLine"></hr>
                 <div className="popUpBodyContainer">
                     <div className="popUpPhotoContainer">
-                        <div className="photosTitleContainer">
-                            <p className="popUpSectionHeaders">Daily Photos</p>
-                            <p className="subText">Same lighting & framing each day</p>
-                        </div>
+                        <p className="headlineText">Selfies (Same Lighting and Framing)</p>
                         <div className="triplePhotosContainer">
                             <div className="photoContainer">
                                 <input style={{display: "none"}} type="file" id="photoUpload" accept="image/*"/>
@@ -111,11 +112,12 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year}) {
                     </div>
                     <div className="popUpDiaryContainer">
                         <div className="photosTitleContainer">
-                            <p className="popUpSectionHeaders">Diary</p>
-                            <p className="subText">Note flare-ups, diet, events, mood, pillow changes, supplements, hair and cooking products -- the AI reads this for patterns</p></div>
+                            <p className="headlineText">Diary (Journal Every Event)</p>
+                         </div>
                         <DiaryEntry
                             recognitionRef = {recognitionRef}
                             existingTextRef = {existingTextRef}
+                            setIsRecordingFalse = {setIsRecordingFalse}
                             diaryEntry = {diaryEntry}
                             setDiaryEntry = {setDiaryEntry}
                             isRecording = {isRecording}
@@ -124,23 +126,21 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year}) {
                     </div>
                     <div className="popUpRoutineAndLifeStyleFactorContainer">
                         <div className="routineContainer">
-                            <p className="routineTitleText">Routine</p>
-                            <hr className="popUpDividerLine"></hr>
+                            <p className="headlineText">Routine</p>
                             <div className="subRoutineContainer">
                                 <div className="dayRoutineContainer">h</div>
                                 <div className="nightRoutineContainer">h</div>
                             </div>
                         </div>
                         <div className="lifeStyleFactorContainer">
-                            <p className="lifeStyleFactorTitleText">Lifestyle Factors</p>
-                            <hr className="popUpDividerLine"></hr>
+                            <p className="headlineText">Lifestyle</p>
                             <div className="lifeStyleFactorCountContainer">
                                 <div className="singleLifeStyleFactorContainer">
                                     <p className="factor">Sleep</p>
                                     <div className="counterContainer">
-                                        <button className="counterButton" onClick={() => {if(sleepCount > 0){setSleepCount(sleepCount - 1)}}}>-</button>
+                                        <button className="counterButton" onClick={() => {if(sleepCount > 0){setSleepCount(sleepCount - 1)}}}><b>-</b></button>
                                         <p className="countedCounter">{sleepCount} {sleepCount === 1 ? 'Hour': 'Hours'}</p>
-                                        <button className="counterButton" onClick={() => {if(sleepCount < 24){setSleepCount(sleepCount + 1)}}}>+</button>
+                                        <button className="counterButton" onClick={() => {if(sleepCount < 24){setSleepCount(sleepCount + 1)}}}><b>+</b></button>
                                     </div>
                                 </div>
                                 <div className="singleLifeStyleFactorContainer">
@@ -152,17 +152,17 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year}) {
                                         </div>
                                     </div>
                                     <div className="counterContainer">
-                                        <button className="counterButton" onClick={() => {if(waterCount > 0){setWaterCount(waterCount - 0.25)}}}>-</button>
+                                        <button className="counterButton" onClick={() => {if(waterCount > 0){setWaterCount(waterCount - 0.25)}}}><b>-</b></button>
                                         <p className="countedCounter">{waterCount} {waterUnit()}</p>
-                                        <button className="counterButton" onClick={() => setWaterCount(waterCount + 0.25)}>+</button>
+                                        <button className="counterButton" onClick={() => setWaterCount(waterCount + 0.25)}><b>+</b></button>
                                     </div>
                                 </div>
                                 <div className="singleLifeStyleFactorContainer">
                                     <p className="factor">Stress</p>
                                     <div className="counterContainer">
-                                        <button className="counterButton" onClick={() => {if(stressCount > 0){setStressCount(stressCount - 1)}}}>&lt;</button>
+                                        <button className="counterButton" onClick={() => {if(stressCount > 0){setStressCount(stressCount - 1)}}}><b>&lt;</b></button>
                                         <p className="countedCounter">{stressUnit()}</p>
-                                        <button className="counterButton" onClick={() => {if(stressCount < 4){setStressCount(stressCount + 1)}}}>&gt;</button>
+                                        <button className="counterButton" onClick={() => {if(stressCount < 4){setStressCount(stressCount + 1)}}}><b>&gt;</b></button>
                                     </div>
                                 </div>
                             </div>

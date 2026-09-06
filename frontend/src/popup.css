@@ -19,7 +19,6 @@
     justify-content: center;
     align-items: center;
     border: 1px solid rgba(45,45,45);
-    border-radius: 1.5rem;
     box-sizing: border-box;
 }
 .popUpBackgroundBlur{
@@ -64,53 +63,51 @@
 }
 .popUpPhotoContainer{
     width: 95%;
+    margin-top: 1rem;
 }
 .popUpDiaryContainer{
     width: 95%;
     margin-top: 1rem;
 }
 .popUpSectionHeaders{
-    color: white;
+    color: #3e3e3e;
     margin-top: 1rem;
     font-size: 1rem;
 }
 .popUpFaceCardImageUpload{
-    background-color: #070707;
+    background-color: #0a0a0b;
     display: flex;
     width: 100%;
     height: 100%;
-    border: 1px dashed rgba(45,45,45);
-    border-radius: 0.5rem;
     align-items: center;
     justify-content: center;
 }
 .textOne{
     color: #ffffff;
+    font-size: 1rem;
 }
 .textTwo{
     color: #1577FF;
+    font-size: 0.8rem;
 }
 .popUpFaceCardImageUploadMiddle{
-    background-color: #070707;
+    background-color: #0a0a0b;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
-    border: 1px dashed rgba(45,45,45);
-    border-radius: 0.5rem;
 }
 .photoContainer{
-    width: 32%;
+    flex: 1;
     aspect-ratio: 9 / 16;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid rgba(45,45,45);
-    border-radius: 1rem;
     padding: 0.5rem;
 }
 .triplePhotosContainer{
+    border: 1px solid rgb(34, 34, 34);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -123,13 +120,18 @@
     padding: 1rem 0;
 }
 .subText{
-    color: #595959;
+    color: #ffffff;
     font-size: 0.9rem;
+
 }
 .photosTitleContainer{
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
+}
+.headlineText{
+    color: #4a4a4a;
+    font-size: 0.9rem;
 }
 .saveEntryButton{
     background-color: #1577FF;
@@ -169,9 +171,8 @@
 }
 .lifeStyleFactorCountContainer{
     display: flex;
+    margin-top: 0.8rem;
     flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
 }
 .routineCountContainer{
     margin-top: 0.5rem;
@@ -179,24 +180,22 @@
 .singleLifeStyleFactorContainer{
     display: flex;
     justify-content: space-between;
-}
-.counterButton{
-    height: 1.5rem;
-    width: 1.5rem;
-    border: none;
-    border-radius: 0.3rem;
-    background-color: #1577FF;
-    color: white;
+    align-items: center;
+    border-bottom: 1px solid rgba(34,34,34);
+    height: 2.5rem;
 }
 .counterContainer{
     font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .factor{
     font-size: 0.9rem;
-
 }
 .countedCounter{
     width: 5rem;
+    font-size: 1rem;
     text-align: center;
 }
 .popUpRoutineAndLifeStyleFactorContainer{
@@ -209,10 +208,12 @@
     margin-bottom: 0.3rem;
 }
 .subRoutineContainer{
-    margin-top: 0.5rem;
+    margin-top: 1rem;
 }
 .waterIntakeContainer{
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 0.5rem;
 }
 .waterUnitButton{
@@ -222,6 +223,15 @@
     border-radius: 0.5rem;
     background-color: rgba(20,20,23);
     color: white;
+}
+.counterButton{
+    height: 1.5rem;
+
+    width: 1.5rem;
+    border: 1px solid rgba(45,45,45);
+    border-radius: 0.3rem;
+    background-color: rgba(20,20,23);
+    color: #1577FF;
 }
 .waterUnitButtonContainer{
     display: flex;

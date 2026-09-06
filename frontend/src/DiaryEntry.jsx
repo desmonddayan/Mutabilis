@@ -1,6 +1,6 @@
 import './diaryentry.css'
 
-export default function DiaryEntry({diaryEntry, setDiaryEntry, isRecording, setIsRecording, existingTextRef, recognitionRef}){
+export default function DiaryEntry({diaryEntry, setDiaryEntry, isRecording, setIsRecording, setIsRecordingFalse, existingTextRef, recognitionRef}){
 
 
     function setIsRecordingTrue(){
@@ -28,26 +28,16 @@ export default function DiaryEntry({diaryEntry, setDiaryEntry, isRecording, setI
         recognition.start();
         setIsRecording(true);
     }
-    function setIsRecordingFalse(){
-        if(recognitionRef.current){
-            recognitionRef.current.onend = () => {
-                setDiaryEntry(prev => prev + ". ");
-                existingTextRef.current = existingTextRef.current + ". ";
-            }
-            recognitionRef.current.stop();
-            setIsRecording(false);
-        }
-
-    }
 
     return(
         <>
             <div className="diaryTextBoxContainer">
                 <textarea className="diaryEntryTextBox"
-                          placeholder="Please describe the events of your day..."
+                          placeholder="Diary flare-ups, diet, events, mood, pillow changes, supplements, hair products, cooking products, and etc..."
                           value = {diaryEntry}
                           onChange={(e) => setDiaryEntry(e.target.value)}/>
-                {isRecording ? <button className="microPhoneButton" onClick={() => setIsRecordingFalse()}>Stop</button> : <button className="microPhoneButton" onClick={() => setIsRecordingTrue()}>Start</button>}
+                <div className="microphoneButtonContainer">{isRecording ? <button className="microPhoneButton" onClick={() => setIsRecordingFalse()}>Stop</button> : <button className="microPhoneButton" onClick={() => setIsRecordingTrue()}>Start</button>}</div>
+
             </div>
         </>
     )

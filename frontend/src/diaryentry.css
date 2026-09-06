@@ -2,32 +2,39 @@
     width: 100%;
     position: relative;
     margin-top: 0.8rem;
+    border: 1px solid rgba(45,45,45);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .diaryEntryTextBox{
-    border: 1px solid rgb(45, 45, 45);
-    border-radius: 0.5rem;
-    height: 7rem;
-    padding: 0.5rem 3rem 0.5rem 0.5rem;
-    box-sizing: border-box;
-    background-color: #070707;
-    resize: none;
     width: 100%;
+    border:none;
+    border-right: 1px solid rgba(45,45,45);
+    height: 7rem;
+    padding: 0.5rem 4rem 0.5rem 0.5rem;
+    box-sizing: border-box;
+    background-color: #0a0a0b;
+    resize: none;
     font-size: 1rem;
-    position: relative;
     color: white;
     outline: none;
     display: block;
     overflow-y: scroll;
 }
+.diaryEntryTextBox::placeholder{
+    color: #3e3e3e;
+}
+.microphoneButtonContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .microPhoneButton{
-    border: none;
-    position: absolute;
-    color: white;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 0.5rem;
-    border-radius: 0.25rem;
     width: 3rem;
+    border: none;
+    color: white;
     background-color: #1577FF;
-    height: 6rem;
+    height: 7rem;
 }
