@@ -33,7 +33,7 @@ export default function DiaryEntry({diaryEntry, setDiaryEntry, isRecording, setI
         <>
             <div className="diaryTextBoxContainer">
                 <textarea className="diaryEntryTextBox"
-                          placeholder="Diary flare-ups, diet, events, mood, pillow changes, supplements, hair products, cooking products, and etc..."
+                          placeholder="Note flare-ups, diet, events, mood, pillow changes, supplements, hair products, cooking products, and etc..."
                           value = {diaryEntry}
                           onChange={(e) => setDiaryEntry(e.target.value)}/>
                 <div className="microphoneButtonContainer">{isRecording ? <button className="microPhoneButton" onClick={() => setIsRecordingFalse()}>Stop</button> : <button className="microPhoneButton" onClick={() => setIsRecordingTrue()}>Start</button>}</div>

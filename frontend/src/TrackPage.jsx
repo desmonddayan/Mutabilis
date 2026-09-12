@@ -80,6 +80,8 @@ function TrackPage({session}){
                             <button className="calendarForwardButton" onClick={()=> forward()}>&gt;</button>
                         </div>
                     </div>
+                    <hr className="popUpDividerLineOne"></hr>
+
                     <div className="weekDatesContainer">
                         <p className="weekDates">Monday</p>
                         <p className="weekDates">Tuesday</p>

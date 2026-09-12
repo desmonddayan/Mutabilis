@@ -98,7 +98,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year}) {
                                     <p className="textTwo">Tap & Drag to Upload</p>
                                 </div></label>
                             </div>
-                            <div className="photoContainer">
+                            <div className="middlePhotoContainer">
                                 <input style={{display: "none"}} type="file" id="photoUpload" accept="image/*"/>
                                 <label className="popUpFaceCardImageUploadMiddle" htmlFor="photoUpload"><div className="text"><p className="textOne">Middle</p>
                                     <p className="textTwo">Tap & Drag to Upload</p></div></label>
@@ -125,7 +125,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year}) {
                         />
                     </div>
                     <div className="popUpRoutineAndLifeStyleFactorContainer">
-                        <div className="routineContainer">
+                        <div className="routinePopUpContainer">
                             <p className="headlineText">Routine</p>
                             <div className="subRoutineContainer">
                                 <div className="dayRoutineContainer">h</div>

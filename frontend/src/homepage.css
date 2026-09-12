@@ -9,8 +9,6 @@
 .contentScreen{
     overflow-y: auto;
     display: flex;
-    align-items: center;
-    justify-content: center;
     margin-left: 17rem;
     height: 100vh;
     flex: 1;
@@ -22,7 +20,8 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    margin-top: 5rem;
 }
 .messageContainer{
     margin-left: 1.5rem;
@@ -42,16 +41,49 @@
     background-color: rgba(20,20,23);
     box-sizing: border-box;
     padding: 2rem 3rem;
-    border-radius: 1rem;
     border: 1px solid rgba(45,45,45);
     align-items: center;
     justify-content: space-between;
+    border-radius: 0.5rem;
 }
 .welcomeMessage{
     color: white;
     font-size: 1.1rem;
 }
 .userInformation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.routineAndNoteContainer{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+.routineContainer{
+    flex: 1;
+    background-color: rgb(189, 189, 189);
+}
+.noteContainer{
+    flex: 1;
+    width: 50%;
+    background-color: rgb(189, 189, 189);
+}
+.homePageRoutineText{
+    color: #4a4a4a;
+    font-size: 0.9rem;
+}
+.routineTextAndButtonContainer{
+    box-sizing: border-box;
+    display: flex;
+    height: 65vh;
+    justify-content: space-between;
+}
+.addRoutineButton{
+    height: 1.5rem;
+    width: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;

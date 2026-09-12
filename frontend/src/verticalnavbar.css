@@ -25,14 +25,14 @@
 .sideNavbarButton{
     display: flex;
     align-items: center;
-    background-color: rgb(31, 31, 34);
+    background-color: rgba(20,20,23);
+    border:none;
     color: white;
-    border: none;
     text-align: left;
+    border-radius: 0.5rem;
     padding: 0.2rem 0 0.2rem 0.75rem;
     font-size: 0.875rem;
     width: 100%;
-    border-radius: 0.5rem;
 }
 .sideNavbarButton::before{
     content: '\2022';
