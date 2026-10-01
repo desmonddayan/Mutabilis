@@ -17,9 +17,13 @@ public class UserService{
         return userRepository.findByUserId(userId);
     }
 
-    public UserLog createEntry(UserLog userLog, String userId){
+    public void createEntry(String userId, String email, String avatarURL, String name) {
+        UserLog userLog = new UserLog();
         userLog.setUserId(userId);
+        userLog.setName(name);
+        userLog.setEmail(email);
+        userLog.setAvatarURL(avatarURL);
         userLog.setCreatedAt(LocalDateTime.now());
-        return userRepository.save(userLog);
+        userRepository.save(userLog);
     }
 }

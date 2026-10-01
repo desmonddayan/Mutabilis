@@ -29,19 +29,18 @@
 .trackPageRedirect{
     background-color: #1577FF;
     border: none;
-    border-radius: 0.5rem;
     box-sizing: border-box;
-    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
     font-size: 1rem;
     color: white;
 }
 .userInformationContainer{
     display: flex;
     width: 80%;
-    background-color: rgba(20,20,23);
     box-sizing: border-box;
-    padding: 2rem 3rem;
-    border: 1px solid rgba(45,45,45);
+    padding: 1rem 0;
+    border: none;
     align-items: center;
     justify-content: space-between;
     border-radius: 0.5rem;
@@ -64,7 +63,6 @@
 }
 .routineContainer{
     flex: 1;
-    background-color: rgb(189, 189, 189);
 }
 .noteContainer{
     flex: 1;
@@ -78,8 +76,8 @@
 .routineTextAndButtonContainer{
     box-sizing: border-box;
     display: flex;
-    height: 65vh;
     justify-content: space-between;
+    margin-bottom: 1.5rem;
 }
 .addRoutineButton{
     height: 1.5rem;
@@ -87,4 +85,90 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid rgba(45,45,45);
+    border-radius: 0.2rem;
+    background-color: black;
+    color: white;
+}
+.routineFormIndividualContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+}
+.routineTextBox{
+    width: 70%;
+    border:none;
+    background-color: #000000;
+    outline: none;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+.routineTextBox::placeholder{
+    color: #707070;
+    font-size: 0.9rem;
+    text-decoration:none;
+    outline: none;
+}
+.radioText{
+    color: white;
+}
+
+.popUpDividerLineTwo{
+    border: none;
+    margin-top: 1.5rem;
+    width: 80%;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.routineInnerContainer{
+
+}
+.routineDivider{
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    margin-top: 0.3rem;
+}
+.routineProductSubmitContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.productEntryTextBox{
+    width: 70%;
+    border:none;
+    background-color: #000000;
+    outline: none;
+    color: white;
+}
+.productEntryTextBox::placeholder{
+    font-size: 0.9rem;
+}
+.routineNameContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.timeButtonStyleGray{
+    border: none;
+    color: white;
+    background-color: black;
+}
+.timeButtonStyleBlue{
+    border: none;
+    color: #1577FF;
+    background-color: black;
+    text-decoration: underline;
+    text-decoration-thickness: 0.1rem;
+    text-underline-offset: 0.2rem;
+}
+.timeSetButtonContainer{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.productSearchButton{
+    border: none;
+    background-color: black;
+    color: white;
 }
