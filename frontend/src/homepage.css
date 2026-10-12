@@ -63,21 +63,25 @@
 }
 .routineContainer{
     flex: 1;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
 }
 .noteContainer{
     flex: 1;
     width: 50%;
     background-color: rgb(189, 189, 189);
+    height: 60vh;
 }
 .homePageRoutineText{
     color: #4a4a4a;
     font-size: 0.9rem;
 }
-.routineTextAndButtonContainer{
+.routineTextDividerButtonContainer{
     box-sizing: border-box;
     display: flex;
-    justify-content: space-between;
     margin-bottom: 1.5rem;
+    flex-direction: column;
 }
 .addRoutineButton{
     height: 1.5rem;
@@ -105,7 +109,7 @@
     margin-bottom: 0.5rem;
 }
 .routineTextBox::placeholder{
-    color: #707070;
+    color: #acacac;
     font-size: 0.9rem;
     text-decoration:none;
     outline: none;
@@ -121,7 +125,10 @@
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 .routineInnerContainer{
-
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 .routineDivider{
     border: none;
@@ -143,6 +150,7 @@
 }
 .productEntryTextBox::placeholder{
     font-size: 0.9rem;
+    color: #acacac;
 }
 .routineNameContainer{
     display: flex;
@@ -171,4 +179,131 @@
     border: none;
     background-color: black;
     color: white;
+}
+.productContainer{
+    width: 100%;
+    padding: 1rem 0;
+    color: white;
+    background-color: black;
+    border: 1px solid rgb(255, 255, 255)
+}
+.subDivider{
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    margin-top: 1rem;
+}
+.routineButtonAndTextContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.routineSubmitButton{
+    border: none;
+    background-color: #1577FF;
+    border-radius: 0.2rem;
+    color: white;
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+}
+.routineSubmitButtonContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.addedProductName{
+    color: white;
+}
+.individualProductContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+.listMoveButtonContainer{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+.listMoveAndRemoveButtonContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.moveListUpBotton{
+    border: none;
+    width: 1rem;
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+.deleteProductButton{
+    border: none;
+    width: 1rem;
+    height: 1rem;
+    background-color: black;
+    color: white;
+}
+.listMoveAndIndexContainer{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.routinePopUpContainer{
+    width: 100%;
+
+}
+.routineFormEntryContainer{
+    width: 100%;
+}
+.enteredProductArray{
+    overflow-y: scroll;
+    flex: 1;
+}
+.routineInnerContainerForFlex{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+.routineInnerContainerWithoutButton{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.savedRoutineContainer{
+    flex: 1;
+    overflow-y: scroll;
+}
+.savedRoutineText{
+    color: white;
+}
+.singleRoutineEntry{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+.routineProductDropDownButton{
+    border: none;
+    text-align: center;
+}
+.routineTruePopUpStateHeaderText{
+    color: white;
+}
+.selectedRoutineAndCloseDropDownContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+.savedRoutineInnerContainer{
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    gap: 2rem;
 }

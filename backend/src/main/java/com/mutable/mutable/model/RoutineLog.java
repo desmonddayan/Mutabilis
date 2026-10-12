@@ -20,7 +20,11 @@ public class RoutineLog{
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    private UUID routineId;
+    private String productName;
     private String userId;
-    private String nightOrDay;
-
+    private String routineName;
+    private String routineTime;
+    private String productId;
+    private Integer stepOrder;
 }

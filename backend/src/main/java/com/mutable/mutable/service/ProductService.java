@@ -14,7 +14,7 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public List<ProductLog> findSimilarProducts(String productName) {
-        return productRepository.findSimilarProducts(5, productName);
+        return productRepository.findSimilarProducts(productName);
     }
     public ProductLog addProduct(ProductLog productLog) {
         return productRepository.save(productLog);

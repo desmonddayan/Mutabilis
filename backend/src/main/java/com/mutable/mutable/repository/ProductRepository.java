@@ -12,11 +12,14 @@ import java.util.UUID;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductLog, UUID> {
 
+    ProductLog findByProductName(String productName);
+
+
     @Query(value = """
         SELECT * FROM product_log
-        WHERE similarity(name, :productSearchTerm) > 0.3
-        ORDER BY similarity(name, :productSearchTerm) DESC
-        LIMIT:limit
+        WHERE similarity(product_name, :productSearchTerm) > 0.3
+        ORDER BY similarity(product_name, :productSearchTerm) DESC
+        LIMIT 3
         """, nativeQuery = true)
-    List<ProductLog> findSimilarProducts(@Param("limit") int limit, @Param("productSearchTerm") String productName);
+    List<ProductLog> findSimilarProducts(@Param("productSearchTerm") String productName);
 }
