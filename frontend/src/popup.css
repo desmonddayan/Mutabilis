@@ -157,6 +157,7 @@
     width: 95%;
     display: flex;
     margin-top: 1rem;
+    justify-content: space-between;
 }
 .text{
     display: flex;
@@ -165,7 +166,6 @@
     justify-content: center;
 }
 .routinePopUpContainer{
-    width: 50%;
     color: white;
 }
 .counterContainer{
@@ -178,7 +178,6 @@
     color: white;
     display: flex;
     flex-direction: column;
-    width: 50%;
 }
 .lifeStyleFactorCountContainer{
     display: flex;
@@ -211,6 +210,9 @@
 }
 .popUpRoutineAndLifeStyleFactorContainer{
     margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
 }
 .routineTitleText{
     margin-bottom: 0.3rem;
@@ -246,4 +248,7 @@
 .waterUnitButtonContainer{
     display: flex;
     gap: 0.2rem;
+}
+.lifeStyleFactorHeadlineTextContainer{
+    height: 1.5rem;
 }

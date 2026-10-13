@@ -1,8 +1,9 @@
 import './popup.css'
+import Routine from './Routine'
 import DiaryEntry from './DiaryEntry'
 import {useEffect, useRef, useState} from "react";
 
-export function PopUp({popUpState, setPopUpStateFalse, day, month, year}) {
+export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session}) {
 
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -126,14 +127,13 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year}) {
                     </div>
                     <div className="popUpRoutineAndLifeStyleFactorContainer">
                         <div className="routinePopUpContainer">
-                            <p className="headlineText">Routine</p>
-                            <div className="subRoutineContainer">
-                                <div className="dayRoutineContainer">h</div>
-                                <div className="nightRoutineContainer">h</div>
-                            </div>
+                                <Routine session={session} parentIndex={"popUp"}/>
                         </div>
                         <div className="lifeStyleFactorContainer">
-                            <p className="headlineText">Lifestyle</p>
+                            <div className="lifeStyleFactorHeadlineTextContainer">
+                                <p className="headlineText">Lifestyle</p>
+                            </div>
+                            <hr className="subDivider"></hr>
                             <div className="lifeStyleFactorCountContainer">
                                 <div className="singleLifeStyleFactorContainer">
                                     <p className="factor">Sleep</p>

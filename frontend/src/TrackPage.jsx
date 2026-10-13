@@ -118,7 +118,7 @@ function TrackPage({session}){
                             />)}
                     })}
                     </div>
-                    <PopUp popUpState={popUpState} day={selectedDay} month={selectedMonth} year={selectedYear} setPopUpStateFalse={() => setPopUpState(false)}/>
+                    <PopUp popUpState={popUpState} day={selectedDay} month={selectedMonth} year={selectedYear} session={session} setPopUpStateFalse={() => setPopUpState(false)}/>
                 </div>
             </div>
         </>

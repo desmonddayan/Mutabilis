@@ -1,0 +1,389 @@
+.routineContainer{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.homePageRoutineText{
+    color: #4a4a4a;
+    font-size: 0.9rem;
+}
+.routineTextDividerButtonContainer{
+    box-sizing: border-box;
+    display: flex;
+    margin-bottom: 1.5rem;
+    flex-direction: column;
+}
+.addRoutineButtonhomePage{
+    height: 1.5rem;
+    width: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(45,45,45);
+    border-radius: 0.2rem;
+    background-color: black;
+    color: white;
+}
+.addRoutineButtonpopUp{
+    height: 1.5rem;
+    width: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(45,45,45);
+    border-radius: 0.2rem;
+    background-color: rgba(20,20,23);
+    color: white;
+}
+.routineFormIndividualContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+}
+.routineTextBoxhomePage{
+    width: 70%;
+    border:none;
+    background-color: #000000;
+    outline: none;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+.routineTextBoxpopUp{
+    width: 70%;
+    border:none;
+    background-color: rgba(20,20,23);
+    outline: none;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+.routineTextBoxpopUp::placeholder{
+    color: #acacac;
+    font-size: 0.9rem;
+    text-decoration:none;
+    outline: none;
+}
+.routineTextBoxhomePage::placeholder{
+    color: #acacac;
+    font-size: 0.9rem;
+    text-decoration:none;
+    outline: none;
+}
+.radioText{
+    color: white;
+}
+
+
+.routineInnerContainer{
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.routineDivider{
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    margin-top: 0.3rem;
+}
+.routineProductSubmitContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+.productEntryTextBoxhomePage{
+    width: 70%;
+    border:none;
+    background-color: #000000;
+    outline: none;
+    color: white;
+}
+.productEntryTextBoxpopUp{
+    width: 70%;
+    border:none;
+    background-color: rgba(20,20,23);
+    outline: none;
+    color: white;
+}
+.productEntryTextBoxpopUp::placeholder{
+    font-size: 0.9rem;
+    color: #acacac;
+}
+.productEntryTextBoxhomePage::placeholder{
+    font-size: 0.9rem;
+    color: #acacac;
+}
+.routineNameContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.timeButtonStyleGrayhomePage{
+    border: none;
+    color: white;
+    background-color: black;
+}
+.timeButtonStyleBluehomePage{
+    border: none;
+    color: #1577FF;
+    background-color: black;
+    text-decoration: underline;
+    text-decoration-thickness: 0.1rem;
+    text-underline-offset: 0.2rem;
+}
+.timeButtonStyleGraypopUp{
+    border: none;
+    color: white;
+    background-color: rgba(20,20,23);
+}
+.timeButtonStyleBluepopUp{
+    border: none;
+    color: #1577FF;
+    background-color: rgba(20,20,23);
+    text-decoration: underline;
+    text-decoration-thickness: 0.1rem;
+    text-underline-offset: 0.2rem;
+}
+.timeSetButtonContainer{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.productSearchButtonhomePage{
+    border: none;
+    background-color: black;
+    color: white;
+}
+.productSearchButtonpopUp{
+    border: none;
+    background-color: rgba(20,20,23);
+    color: white;
+}
+.productContainer{
+    width: 100%;
+    padding: 1rem 0;
+    color: white;
+    background-color: black;
+    border: 1px solid rgb(255, 255, 255)
+}
+.subDivider{
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    margin-top: 1rem;
+}
+.subDividerThree{
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    margin-top: 1.5rem;
+}
+.routineButtonAndTextContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.routineSubmitButton{
+    border: none;
+    background-color: #1577FF;
+    border-radius: 0.2rem;
+    color: white;
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+}
+.routineSubmitButtonContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+}
+.addedProductName{
+    color: white;
+}
+.individualProductContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+.listMoveButtonContainer{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+.listMoveAndRemoveButtonContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.moveListUpBottonhomePage{
+    border: none;
+    width: 1rem;
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+.moveListUpBottonpopUp{
+    border: none;
+    width: 1rem;
+    text-align: center;
+    background-color: rgba(20,20,23);
+    color: white;
+}
+.deleteProductButtonhomePage{
+    border: 1px solid rgba(45,45,45);
+    border-radius: 0.2rem;
+    width: 1.3rem;
+    height: 1.3rem;
+    background-color: black;
+    color: white;
+}
+.deleteProductButtonpopUp{
+    border: 1px solid rgba(45,45,45);
+    border-radius: 0.2rem;
+    width: 1.3rem;
+    height: 1.3rem;
+    background-color: rgba(20,20,23);
+    color: white;
+}
+.listMoveAndIndexContainer{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.routinePopUpContainer{
+    width: 100%;
+
+}
+.routineFormEntryContainer{
+    width: 100%;
+}
+.enteredProductArray{
+    flex: 1;
+}
+.routineInnerContainerForFlex{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+.routineInnerContainerWithoutButton{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.savedRoutineText{
+    color: white;
+}
+.singleRoutineEntry{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+.routineProductDropDownButtonhomePage{
+    border: 1px solid rgba(45,45,45);
+    text-align: center;
+    color: white;
+    background-color: black;
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 0.2rem;
+}
+.routineProductDropDownButtonpopUp{
+    border: 1px solid rgba(45,45,45);
+    text-align: center;
+    color: white;
+    background-color: rgba(20,20,23);
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 0.2rem;
+}
+.routineTruePopUpStateHeaderText{
+    color: white;
+}
+.selectedRoutineAndCloseDropDownContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+.savedRoutineInnerContainerhomePage{
+    display: flex;
+    flex-direction: column;
+    max-height: 50vh;
+    overflow-y: scroll;
+    gap: 2rem;
+}
+.savedRoutineInnerContainerpopUp{
+    display: flex;
+    flex-direction: column;
+    max-height: 20vh;
+    overflow-y: scroll;
+    gap: 1.5rem;
+}
+.overFlowEditedProductContainerhomePage{
+    max-height: 38vh;
+    overflow-y: scroll;
+}
+.overFlowEditedProductContainerpopUp{
+    max-height: 20vh;
+    overflow-y: scroll;
+}
+.submitChangesRoutineButtonContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+}
+.routineSubmitChangesButton{
+    border: none;
+    background-color: #1577FF;
+    border-radius: 0.2rem;
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+}
+.closeRoutinePopUpStatepopUp{
+    border: 1px solid rgba(45,45,45);
+    border-radius: 0.2rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: rgba(20,20,23);
+    color: white;
+}
+.closeRoutinePopUpStatehomePage{
+    border: 1px solid rgba(45,45,45);
+    border-radius: 0.2rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: black;
+    color: white;
+}
+.deleteAndRoutineDropDownButtonContainer{
+    display: flex;
+    gap: 1rem;
+}
+.routineDeleteButtonhomePage{
+    border: 1px solid rgba(45,45,45);
+    border-radius: 0.2rem;
+    background-color: black;
+    box-sizing: border-box;
+    color: white;
+    padding: 0 0.7rem;
+}
+.routineDeleteButtonpopUp{
+    border: 1px solid rgba(45,45,45);
+    border-radius: 0.2rem;
+    background-color: rgba(20,20,23);
+    box-sizing: border-box;
+    color: white;
+    padding: 0 0.7rem;
+}

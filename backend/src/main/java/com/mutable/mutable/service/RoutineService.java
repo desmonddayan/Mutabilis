@@ -49,6 +49,11 @@ public class RoutineService {
     }
 
     @Transactional
+    public void deleteRoutine(UUID routineId, String userId) {
+        routineRepository.deleteByRoutineIdAndUserId(routineId, userId);
+    }
+
+    @Transactional
     public boolean updateRoutineEntry(UUID routineId, List<String> editedProductArray, String routineName, String routineTime, String userId){
         if(routineRepository.findByRoutineIdAndUserId(routineId, userId).isEmpty()){
             return false;
@@ -66,7 +71,6 @@ public class RoutineService {
             row.setRoutineName(routineName);
             row.setRoutineTime(routineTime);
             row.setProductId(editedProductArray.get(i));
-            row.setRoutine
             row.setProductName(product.getProductName());
             row.setStepOrder(i + 1);
             routineRepository.save(row);

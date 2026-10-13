@@ -44,4 +44,10 @@ public class RoutineLogController {
         boolean updated = routineService.updateRoutineEntry(routineId, editedProductArray, routineName, routineTime, jwt.getSubject());
         return updated ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
+
+    @DeleteMapping("/deleteRoutine")
+    public ResponseEntity<String> deleteRoutine(@RequestParam UUID routineId, @AuthenticationPrincipal Jwt jwt) {
+        routineService.deleteRoutine(routineId, jwt.getSubject());
+        return ResponseEntity.ok().build();
+    }
 }
