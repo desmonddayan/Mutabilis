@@ -2,6 +2,7 @@ import './popup.css'
 import Routine from './Routine'
 import DiaryEntry from './DiaryEntry'
 import {useEffect, useRef, useState} from "react";
+import {supabase} from "./supabaseClient.js";
 
 export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session}) {
 
@@ -12,10 +13,14 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
     const [stressCount, setStressCount] = useState(0);
     const [waterUnitState, setWaterUnitState] = useState("Litres");
     const recognitionRef = useRef(null);
-    const existingTextRef = useRef("");
+    const existingTextRef = useRef("")
+    const [selectedRoutineArray, setSelectedRoutineArray] = useState([])
     const [diaryEntry, setDiaryEntry] = useState("");
     const [isRecording, setIsRecording] = useState(false);
-
+    const [leftFacePhoto, setLeftFacePhoto] = useState("");
+    const [middleFacePhoto, setMiddleFacePhoto] = useState("");
+    const [rightFacePhoto, setRightFacePhoto] = useState("");
+    const [photoFiles, setPhotoFiles] = useState({left: null, middle: null, right: null});
 
     useEffect(() => {
         if (popUpState) {
@@ -74,6 +79,84 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
         }
     }
 
+    function handlePhotoSubmission(slot, event){
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const photoUrl = URL.createObjectURL(file);
+
+        setPhotoFiles(prev => ({...prev, [slot]: file}))
+
+        if(slot === "left"){
+            setLeftFacePhoto(photoUrl);
+        }
+        else if (slot === "middle"){
+            setMiddleFacePhoto(photoUrl);
+        }
+        else if (slot === "right"){
+            setRightFacePhoto(photoUrl);
+        }
+
+        event.target.value = "";
+    }
+
+    const resizeImage = async(file, maxSize = 1200) => {
+        const bitmap = await createImageBitmap(file)
+        const scale = Math.min(1, maxSize / Math.max(bitmap.width, bitmap.height));
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.round(bitmap.width * scale);
+        canvas.height = Math.round(bitmap.height * scale);
+        canvas.getContext("2d").drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+        return new Promise((resolve => canvas.toBlob(resolve, "image/jpeg", 0.8)));
+    }
+
+    const uploadFacePhoto = async(file, date, slot) => {
+        const blob = await resizeImage(file);
+        if(!blob) return null;
+        const path = `${session.user.id}/${date}/${slot}.jpg`;
+
+        const {error} = await supabase.storage.from("skin-photos").upload(path, blob, {upsert: true, contentType: "image/jpeg"});
+
+        if(error){
+            console.log(error)
+            return null
+        }
+        return path
+    }
+
+    const handleDailyEntry = async(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit, selectedRoutineArray) => {
+        const date = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        const paths = {}
+
+        for(const slot of ["left","middle","right"]){
+            const file = photoFiles[slot]
+            if (!file) continue;
+
+            const path = await uploadFacePhoto(file, date, slot);
+            if(!path) return;
+            paths[slot] = path;
+        }
+
+        const response = await fetch(`http://localhost:8080/api/v1/dailyEntry/add`, {
+            method: 'POST',
+            headers: {'Authorization': `Bearer ${session.access_token}`, "Content-Type": "application/json"},
+            body: JSON.stringify({
+                entryDate: date,
+                diaryEntry,
+                waterCount,
+                waterUnitState,
+                stressUnit,
+                sleepCount,
+                leftFacePhotoPath: paths.left ?? null,
+                middleFacePhotoPath: paths.middle ?? null,
+                rightFacePhotoPath: paths.right ?? null,
+                routineIds: selectedRoutineArray
+            })
+        })
+
+
+    }
+
     return (
         <>
             <div className="popUpBackgroundBlur" onClick={() => {setPopUpStateFalse(); setIsRecordingFalse()}}></div>
@@ -93,21 +176,44 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                         <p className="headlineText">Selfies (Same Lighting and Framing)</p>
                         <div className="triplePhotosContainer">
                             <div className="photoContainer">
-                                <input style={{display: "none"}} type="file" id="photoUpload" accept="image/*"/>
-                                <label className="popUpFaceCardImageUpload" htmlFor="photoUpload"><div className="text">
-                                    <p className="textOne">Left</p>
-                                    <p className="textTwo">Tap & Drag to Upload</p>
-                                </div></label>
+                                <input style={{display: "none"}} type="file" id="photoUploadLeft" accept="image/*" onChange={(e) => handlePhotoSubmission("left", e)}/>
+                                <label className="popUpFaceCardImageUpload" htmlFor="photoUploadLeft">
+                                    {leftFacePhoto ? (
+                                        <img className="uploadedPhotoContainer" src={leftFacePhoto} alt=""/>
+                                    ) : (
+                                        <div className="text">
+                                            <p className="textOne">Left</p>
+                                            <p className="textTwo">Tap & Drag to Upload</p>
+                                        </div>
+                                    )}
+                                </label>
                             </div>
                             <div className="middlePhotoContainer">
-                                <input style={{display: "none"}} type="file" id="photoUpload" accept="image/*"/>
-                                <label className="popUpFaceCardImageUploadMiddle" htmlFor="photoUpload"><div className="text"><p className="textOne">Middle</p>
-                                    <p className="textTwo">Tap & Drag to Upload</p></div></label>
+                                <input style={{display: "none"}} type="file" id="photoUploadMiddle" accept="image/*" onChange={(e) => handlePhotoSubmission("middle", e)}/>
+                                <label className="popUpFaceCardImageUploadMiddle" htmlFor="photoUploadMiddle">
+                                    {middleFacePhoto ? (
+                                        <img className="uploadedPhotoContainer" src={middleFacePhoto} alt=""/>
+                                    ) : (
+                                        <div className="text">
+                                            <p className="textOne">Middle</p>
+                                            <p className="textTwo">Tap & Drag to Upload</p>
+                                        </div>
+                                    )}
+                                </label>
                             </div>
                             <div className="photoContainer">
-                                <input style={{display: "none"}} type="file" id="photoUpload" accept="image/*"/>
-                                <label className="popUpFaceCardImageUpload" htmlFor="photoUpload"><div className="text"><p className="textOne">Right</p>
-                                    <p className="textTwo">Tap & Drag to Upload</p></div></label>
+                                <input style={{display: "none"}} type="file" id="photoUploadRight" accept="image/*" onChange={(e) => handlePhotoSubmission("right", e)} />
+                                <label className="popUpFaceCardImageUpload" htmlFor="photoUploadRight">
+                                    {rightFacePhoto ? (
+                                        <img className="uploadedPhotoContainer" src={rightFacePhoto} alt=""/>
+                                    ) : (
+                                        <div className="text">
+                                            <p className="textOne">Right</p>
+                                            <p className="textTwo">Tap & Drag to Upload</p>
+                                        </div>
+                                    )}
+
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -127,7 +233,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                     </div>
                     <div className="popUpRoutineAndLifeStyleFactorContainer">
                         <div className="routinePopUpContainer">
-                                <Routine session={session} parentIndex={"popUp"}/>
+                                <Routine session={session} parentIndex={"popUp"}  selectedRoutineArray={selectedRoutineArray} setSelectedRoutineArray={setSelectedRoutineArray} />
                         </div>
                         <div className="lifeStyleFactorContainer">
                             <div className="lifeStyleFactorHeadlineTextContainer">
@@ -171,7 +277,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                 </div>
                 <hr className="popUpDividerLine"></hr>
                 <div className="submitButtonContainer">
-                    <button className="saveEntryButton" onClick={()=>{setPopUpStateFalse(); setIsRecordingFalse()}}><b>Save Entry</b></button>
+                    <button className="saveEntryButton" onClick={()=>{setPopUpStateFalse(); setIsRecordingFalse(); handleDailyEntry(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit(), selectedRoutineArray)}}><b>Save Entry</b></button>
                 </div>
             </div>
         </>

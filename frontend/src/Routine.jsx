@@ -1,16 +1,17 @@
 import {useEffect, useState} from "react";
 import './routine.css'
 
-export default function Routine({session, parentIndex}){
+export default function Routine({session, parentIndex, selectedRoutineArray, setSelectedRoutineArray}) {
 
 
     const [routinePopUpState, setRoutinePopUpState] = useState(false);
     const [savedRoutinePopUpState, setSavedRoutinePopUpState] = useState(false)
     const [routineName, setRoutineName] = useState('')
-
+    const [selectedRoutineButton, setSelectedRoutineButton] = useState(false)
     const [productArray, setProductArray] = useState([])
     const [productSearchArray, setProductSearchArray] = useState([])
     const [productName, setProductName] = useState('')
+
     const [routineTime, setRoutineTime] = useState('')
     const [routineIndex, setRoutineIndex] = useState(0);
     const [timeButtonStyleOne, setTimeButtonStyleOne] = useState("timeButtonStyleGray")
@@ -216,6 +217,18 @@ export default function Routine({session, parentIndex}){
         }
     }
 
+    const handleSelectedRoutineButton = (routineId) => {
+        if(selectedRoutineArray.includes(routineId)){
+            setSelectedRoutineArray(selectedRoutineArray.filter(id => id !== routineId));
+        }
+        else if (selectedRoutineArray.length >= 2){
+            return;
+        }
+        else{
+            setSelectedRoutineArray([...selectedRoutineArray, routineId]);
+        }
+    }
+
     return(
         <div className="routineContainer">
             <div className="routineTextDividerButtonContainer">
@@ -347,7 +360,7 @@ export default function Routine({session, parentIndex}){
                                                 </div>
                                             </div>
                                         ))}
-                                    </div><hr className="subDividerThree"></hr>
+                                    </div>{editedProductArray.length > 0 ? (<hr className="subDividerThree"></hr>) : null}
                                     <div className="submitChangesRoutineButtonContainer">
                                         <button className="routineSubmitChangesButton" onClick={() => handleEditedRoutineSubmit(editedProductArray, editedRoutineName, routineTime, routineIndex)}>Submit Changes</button>
                                     </div>
@@ -359,14 +372,16 @@ export default function Routine({session, parentIndex}){
                                                 <p className="savedRoutineText">
                                                     {index + 1}. {routine.name} {routine.time}
                                                 </p>
-
-
+                                                <div className="selectRoutineAndDropDownMenuButtonContainer">
+                                                {parentIndex === "popUp" ? (
+                                                    <button disabled={!selectedRoutineArray.includes(routine.id) && selectedRoutineArray.length >= 2} className={selectedRoutineArray.includes(routine.id) ? "selectedRoutineButtonBlue" : "selectedRoutineButtonGray"} onClick={() => handleSelectedRoutineButton(routine.id)}>Select</button>
+                                                ) : null}
                                                     <button className={`routineProductDropDownButton${parentIndex}`} onClick={() => {setRoutineIndex(index); setRoutineId(routine.id); setRoutineTime(routine.time); setEditedRoutineName(routine.name); setEditedProductArray(routine.products); setSavedRoutinePopUpState(true); handleTimeButtonClick(timeTranslator(routine.time))}}>&#8964;</button>
-
+                                                </div>
                                             </div>
                                         ))}
                                     </div>
-                                    <hr className="subDividerThree"></hr>
+                                    {savedRoutineArray.length > 0 ? (<hr className="subDividerThree"></hr>) : null}
                                 </div>
                             )}
                         </div>)
@@ -375,3 +390,5 @@ export default function Routine({session, parentIndex}){
         </div>
     )
 }
+
+//Select Routine Feature

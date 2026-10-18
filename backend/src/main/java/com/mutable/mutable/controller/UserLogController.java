@@ -35,11 +35,9 @@ public class UserLogController {
                 avatarURL = (String) userMetaData.get("avatar_url");
             }
             userService.createEntry(userId, email, name, avatarURL);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.status(201).build();
         }
-        else {
-            return ResponseEntity.status(400).body(null);
-        }
+        return ResponseEntity.ok().build();
     }
 }
 

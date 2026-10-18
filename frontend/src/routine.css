@@ -387,3 +387,23 @@
     color: white;
     padding: 0 0.7rem;
 }
+.selectRoutineAndDropDownMenuButtonContainer{
+    display: flex;
+    gap: 1rem;
+}
+.selectedRoutineButtonGray{
+    box-sizing: border-box;
+    padding: 0 0.5rem;
+    border: 1px solid rgba(45,45,45);
+    border-radius: 0.2rem;
+    background-color: rgba(20,20,23);
+    color: white;
+}
+.selectedRoutineButtonBlue{
+    box-sizing: border-box;
+    padding: 0 0.5rem;
+    border: 1px solid #1577FF;;
+    border-radius: 0.2rem;
+    background-color: rgba(20,20,23);
+    color: #1577FF;
+}
