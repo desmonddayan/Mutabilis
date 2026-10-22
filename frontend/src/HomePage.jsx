@@ -25,13 +25,6 @@ function HomePage({session}){
                         <hr className="popUpDividerLineTwo"></hr>
                         <div className="routineAndNoteContainer">
                             <Routine session={session} parentIndex={"homePage"}/>
-                            <div className="noteContainer">
-                            <p className="homePageRoutineText">Notes</p>
-                                <div>
-
-                                </div>
-
-                            </div>
                         </div>
                     </div>
                 </div>

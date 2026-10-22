@@ -32,20 +32,10 @@ public class DailyEntryLog {
 
     private Integer waterCount;
     private String waterUnitState;
-    private String stressCount;
+    private String stressUnit;
     private Integer sleepCount;
 
     private String leftFacePhotoPath;
-    private String middlePhotoPath;
+    private String middleFacePhotoPath;
     private String rightFacePhotoPath;
-
-    private Integer acneSeverity;
-    private Integer redness;
-    private Integer texture;
-    private Integer oiliness;
-    private Integer dryness;
-    private Integer scars;
-    private Integer lesionEstimate;
-    @Column(columnDefinition = "TEXT")
-    private String geminiAnalysisNotes;
 }

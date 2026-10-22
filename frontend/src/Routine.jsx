@@ -390,5 +390,3 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
         </div>
     )
 }
-
-//Select Routine Feature

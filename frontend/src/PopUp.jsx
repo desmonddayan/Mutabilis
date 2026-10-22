@@ -4,13 +4,15 @@ import DiaryEntry from './DiaryEntry'
 import {useEffect, useRef, useState} from "react";
 import {supabase} from "./supabaseClient.js";
 
+
 export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session}) {
 
+    const [savedDailyEntry, setSavedDailyEntry] = useState(null);
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
     const [sleepCount, setSleepCount] = useState(8);
     const [waterCount, setWaterCount] = useState(2);
     const [stressCount, setStressCount] = useState(0);
+    const [stressUnit, setStressUnit] = useState("None");
     const [waterUnitState, setWaterUnitState] = useState("Litres");
     const recognitionRef = useRef(null);
     const existingTextRef = useRef("")
@@ -31,39 +33,128 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
         }
     }, [popUpState])
 
+    const resetForm = () => {
+        setSavedDailyEntry(null)
+        setDiaryEntry("")
+        setWaterCount(2)
+        setWaterUnitState("Litres")
+        setStressUnit("None")
+        setStressCount(0)
+        setSleepCount(8)
+        setSelectedRoutineArray([])
+        setLeftFacePhoto("")
+        setMiddleFacePhoto("")
+        setRightFacePhoto("")
+        setPhotoFiles({ left: null, middle: null, right: null })
+    }
+
+    const getSavedDailyEntry = async () => {
+        if (!session) return;
+        resetForm();
+
+        const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        try{
+            const response = await fetch(`http://localhost:8080/api/v1/dailyEntry/get?date=${date}`,
+                {
+                    method: 'GET',
+                    headers: {'Authorization': `Bearer ${session.access_token}`}
+                })
+            if(!response.ok){
+                console.log("Error fetching routine")
+                return
+            }
+            if (response.status === 204 || response.status === 404) {
+                setSavedDailyEntry(null)
+                return
+            }
+
+            const text = await response.text()
+            if (!text) {
+                setSavedDailyEntry(null)
+                return
+            }
+            const data = JSON.parse(text)
+            setSavedDailyEntry(data)
+            setDiaryEntry(data.diaryEntry ?? "")
+            setWaterCount(data.waterCount ?? 2)
+            setWaterUnitState(data.waterUnitState ?? "Litres")
+            const stressLevels = ["None", "Mild", "Moderate", "High", "Severe"]
+            setStressUnit(data.stressUnit ?? "None")
+            setStressCount(Math.max(0, stressLevels.indexOf(data.stressUnit ?? "None")))
+            setSleepCount(data.sleepCount ?? 8)
+            setSelectedRoutineArray(data.routineIds ?? [])
+
+            const paths = [data.leftFacePhotoPath, data.middleFacePhotoPath, data.rightFacePhotoPath].filter(Boolean)
+
+            if (paths.length > 0) {
+                const { data: signed, error } = await supabase.storage
+                    .from("skin-photos")
+                    .createSignedUrls(paths, 3600)
+
+                if (error) {
+                    console.log(error)
+                } else {
+                    const urlByPath = Object.fromEntries(signed.map(d => [d.path, d.signedUrl]))
+                    setLeftFacePhoto(urlByPath[data.leftFacePhotoPath] ?? null)
+                    setMiddleFacePhoto(urlByPath[data.middleFacePhotoPath] ?? null)
+                    setRightFacePhoto(urlByPath[data.rightFacePhotoPath] ?? null)
+                }
+            }
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        if (!popUpState || !session || day == null || month == null || year == null) return
+        getSavedDailyEntry()
+    }, [session?.user?.id, year, month, day, popUpState])
+
     if (popUpState === false) {
         return null
     }
 
-    function waterUnit(){
+    function waterUnitFunction(){
         if(waterUnitState === "Litres"){
             if(waterCount === 1){
-                return "Litre";}
-            else{return "Litres";}
+                setWaterUnitState("Litre");
+                return "Litre";
+            }
+            else{setWaterUnitState("Litres");
+                return "Litres";}
         }
         else{
             if(waterCount === 1){
+                setWaterUnitState("Cup");
                 return "Cup";
             }
             else{
+                setWaterUnitState("Cups");
                 return "Cups";
             }
         }
     }
-    function stressUnit(){
+    function stressUnitFunction(){
         if(stressCount === 0){
+            setStressUnit("None");
             return "None";
+
         }
         else if (stressCount === 1){
+            setStressUnit("Mild");
             return "Mild";
         }
         else if(stressCount === 2){
+            setStressUnit("Moderate");
             return "Moderate";
         }
         else if(stressCount === 3){
+            setStressUnit("High");
             return "High";
         }
         else{
+            setStressUnit("Severe")
             return "Severe";
         }
     }
@@ -125,7 +216,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
     }
 
     const handleDailyEntry = async(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit, selectedRoutineArray) => {
-        const date = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
         const paths = {}
 
         for(const slot of ["left","middle","right"]){
@@ -153,8 +244,45 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                 routineIds: selectedRoutineArray
             })
         })
+    }
 
+    const handleDailyEntryDelete = async() => {
+        await fetch(`http://localhost:8080/api/v1/dailyEntry/delete`, {
+            method: 'DELETE',
+            headers: {'Authorization': `Bearer ${session.access_token}`},
+        })
+    }
 
+    const handleDailyEntryUpdate = async() => {
+
+        const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        const paths = {}
+
+        for(const slot of ["left","middle","right"]){
+            const file = photoFiles[slot]
+            if (!file) continue;
+
+            const path = await uploadFacePhoto(file, date, slot);
+            if(!path) return;
+            paths[slot] = path;
+        }
+
+        const response = await fetch(`http://localhost:8080/api/v1/dailyEntry/update`, {
+            method: 'PUT',
+            headers: {'Authorization': `Bearer ${session.access_token}`, "Content-Type": "application/json"},
+            body: JSON.stringify({
+                entryDate: date,
+                diaryEntry,
+                waterCount,
+                waterUnitState,
+                stressUnit,
+                sleepCount,
+                leftFacePhotoPath: paths.left ?? null,
+                middleFacePhotoPath: paths.middle ?? null,
+                rightFacePhotoPath: paths.right ?? null,
+                routineIds: selectedRoutineArray
+            })
+        })
     }
 
     return (
@@ -258,17 +386,17 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                                         </div>
                                     </div>
                                     <div className="counterContainer">
-                                        <button className="counterButton" onClick={() => {if(waterCount > 0){setWaterCount(waterCount - 0.25)}}}><b>-</b></button>
-                                        <p className="countedCounter">{waterCount} {waterUnit()}</p>
-                                        <button className="counterButton" onClick={() => setWaterCount(waterCount + 0.25)}><b>+</b></button>
+                                        <button className="counterButton" onClick={() => {if(waterCount > 0){setWaterCount(waterCount - 0.25); waterUnitFunction()}}}><b>-</b></button>
+                                        <p className="countedCounter">{waterCount} {waterUnitState}</p>
+                                        <button className="counterButton" onClick={() => {setWaterCount(waterCount + 0.25); waterUnitFunction()}}><b>+</b></button>
                                     </div>
                                 </div>
                                 <div className="singleLifeStyleFactorContainer">
                                     <p className="factor">Stress</p>
                                     <div className="counterContainer">
-                                        <button className="counterButton" onClick={() => {if(stressCount > 0){setStressCount(stressCount - 1)}}}><b>&lt;</b></button>
-                                        <p className="countedCounter">{stressUnit()}</p>
-                                        <button className="counterButton" onClick={() => {if(stressCount < 4){setStressCount(stressCount + 1)}}}><b>&gt;</b></button>
+                                        <button className="counterButton" onClick={() => {if(stressCount > 0){setStressCount(stressCount - 1); stressUnitFunction(stressCount)}}}><b>&lt;</b></button>
+                                        <p className="countedCounter">{stressUnit}</p>
+                                        <button className="counterButton" onClick={() => {if(stressCount < 4){setStressCount(stressCount + 1); stressUnitFunction(stressCount)}}}><b>&gt;</b></button>
                                     </div>
                                 </div>
                             </div>
@@ -277,7 +405,14 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                 </div>
                 <hr className="popUpDividerLine"></hr>
                 <div className="submitButtonContainer">
-                    <button className="saveEntryButton" onClick={()=>{setPopUpStateFalse(); setIsRecordingFalse(); handleDailyEntry(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit(), selectedRoutineArray)}}><b>Save Entry</b></button>
+                    {savedDailyEntry ? (
+                            <div>
+                                <button className="saveEntryButton" onClick={()=>{setPopUpStateFalse(); setIsRecordingFalse(); handleDailyEntryUpdate(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit, selectedRoutineArray)}}><b>Save Changes</b></button>
+                                <button onClick={() => handleDailyEntryDelete()}>Delete Entry</button>
+                            </div>
+                    ) : (
+                        <button className="saveEntryButton" onClick={()=>{setPopUpStateFalse(); setIsRecordingFalse(); handleDailyEntry(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit, selectedRoutineArray)}}><b>Save Entry</b></button>
+                    )}
                 </div>
             </div>
         </>
