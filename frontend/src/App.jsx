@@ -11,8 +11,6 @@ import {supabase} from "./supabaseClient.js";
      const [session, setSession] = useState(null);
      const[loading, setLoading] = useState(true);
 
-
-
      useEffect(() => {
          const fetchSession = async () => {
              const {data: {session}} = await supabase.auth.getSession();

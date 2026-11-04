@@ -14,7 +14,6 @@ public interface ProductRepository extends JpaRepository<ProductLog, UUID> {
 
     ProductLog findByProductName(String productName);
 
-
     @Query(value = """
         SELECT * FROM product_log
         WHERE similarity(product_name, :productSearchTerm) > 0.3

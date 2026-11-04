@@ -7,20 +7,16 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
     const [routinePopUpState, setRoutinePopUpState] = useState(false);
     const [savedRoutinePopUpState, setSavedRoutinePopUpState] = useState(false)
     const [routineName, setRoutineName] = useState('')
-    const [selectedRoutineButton, setSelectedRoutineButton] = useState(false)
     const [productArray, setProductArray] = useState([])
     const [productSearchArray, setProductSearchArray] = useState([])
     const [productName, setProductName] = useState('')
-
     const [routineTime, setRoutineTime] = useState('')
     const [routineIndex, setRoutineIndex] = useState(0);
     const [timeButtonStyleOne, setTimeButtonStyleOne] = useState("timeButtonStyleGray")
     const [timeButtonStyleTwo, setTimeButtonStyleTwo] = useState("timeButtonStyleGray")
     const [timeButtonStyleThree, setTimeButtonStyleThree] = useState("timeButtonStyleGray")
-    const [productNamePlaceholder, setProductNamePlaceholder] = useState('')
     const [savedRoutineArray, setSavedRoutineArray] = useState([])
     const [editedProductArray, setEditedProductArray] = useState([])
-
     const [editedRoutineName, setEditedRoutineName] = useState('')
     const [routineId, setRoutineId] = useState('')
 
@@ -73,18 +69,23 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
 
         if (text) {
             const productionList = JSON.parse(text)
-            setProductSearchArray([])
             setProductSearchArray(productionList)
         } else {
             setProductSearchArray([])
         }
     }
-    const handleProductEntry = async(productName) => {
-        await fetch(`http://localhost:8080/api/v1/products/add?productName=${productName}`, {
+    const handleProductEntry = async(productLog) => {
+        const response = await fetch(`http://localhost:8080/api/v1/products/add`, {
             method: 'POST',
-            headers: {'Authorization': `Bearer ${session.access_token}`}
+            headers: {'Authorization': `Bearer ${session.access_token}`,
+            'Content-Type': 'application/json',},
+            body: JSON.stringify(
+                productLog
+            )
         })
+
         setProductArray([...productArray, productName]);
+        return response.json();
     }
 
     const timeTranslator = (time) => {
@@ -122,14 +123,6 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
         return response.ok
     }
 
-    const handleIdentifyProduct = async(productName) => {
-        const response = await fetch(`http://localhost:8080/api/v1/products/addProduct?productName=${productName}`, {
-            method: 'POST',
-            headers: {'Authorization': `Bearer ${session.access_token}`}
-        })
-        return await response.json()
-    }
-
     function handleTimeButtonClick(buttonNumber){
         if(buttonNumber === 1){
             setTimeButtonStyleOne("timeButtonStyleBlue");
@@ -141,15 +134,17 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
             setTimeButtonStyleTwo("timeButtonStyleBlue");
             setTimeButtonStyleThree("timeButtonStyleGray");
         }
-        else if(buttonNumber === 4){
+        else if(buttonNumber === 3){
             setTimeButtonStyleOne("timeButtonStyleGray");
             setTimeButtonStyleTwo("timeButtonStyleGray");
-            setTimeButtonStyleThree("timeButtonStyleGray");
+            setTimeButtonStyleThree("timeButtonStyleBlue");
+
+
         }
         else{
             setTimeButtonStyleOne("timeButtonStyleGray");
             setTimeButtonStyleTwo("timeButtonStyleGray");
-            setTimeButtonStyleThree("timeButtonStyleBlue");
+            setTimeButtonStyleThree("timeButtonStyleGray");
         }
     }
     function moveUp(index, array, setArray){
@@ -217,6 +212,16 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
         }
     }
 
+    const handleEditedProductEntry = async(product) => {
+        const response = await handleProductEntry(product);
+        if(response.length === 0){
+            setEditedProductArray(prev => [...prev, {productId: product.id, productName: product.productName}])
+        }
+        else{
+            setEditedProductArray(prev => [...prev, {productId: response[0].id, productName: response[0].productName}])
+        }
+    }
+
     const handleSelectedRoutineButton = (routineId) => {
         if(selectedRoutineArray.includes(routineId)){
             setSelectedRoutineArray(selectedRoutineArray.filter(id => id !== routineId));
@@ -236,7 +241,7 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
                     <p className="homePageRoutineText">Routine</p>
                     {routinePopUpState ? <button className={`addRoutineButton${parentIndex}`} onClick={() => setRoutinePopUpState(false) }>x</button> : <button className={`addRoutineButton${parentIndex}`} onClick={() => setRoutinePopUpState(true)}>+</button>}
                 </div>
-                <hr className="subDivider"></hr>
+                <hr className="subDividerSix"></hr>
             </div>
             <div className="routineInnerContainer">
                 {routinePopUpState ? (
@@ -248,8 +253,8 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
                                             <input type="text" value={routineName} placeholder="Routine Name..." className={`routineTextBox${parentIndex}`} onChange={(event) => {setRoutineName(event.target.value)}}/>
                                             <div className="timeSetButtonContainer">
                                                 <button className={`${timeButtonStyleOne}${parentIndex}`} onClick={() => {setRoutineTime("AM"); handleTimeButtonClick(1)}}>AM</button>
-                                                <button className={`${timeButtonStyleOne}${parentIndex}`} onClick={() => {setRoutineTime("PM"); handleTimeButtonClick(2)}}>PM</button>
-                                                <button className={`${timeButtonStyleOne}${parentIndex}`} onClick={() => {setRoutineTime("AMPM"); handleTimeButtonClick(3)}}>AM&#183;PM</button>
+                                                <button className={`${timeButtonStyleTwo}${parentIndex}`} onClick={() => {setRoutineTime("PM"); handleTimeButtonClick(2)}}>PM</button>
+                                                <button className={`${timeButtonStyleThree}${parentIndex}`} onClick={() => {setRoutineTime("AMPM"); handleTimeButtonClick(3)}}>AM&#183;PM</button>
                                             </div>
                                         </div>
                                         <hr className="routineDivider"></hr>
@@ -260,13 +265,14 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
                                     </div>
                                     {productSearchArray.length > 0 ? (
                                         <div className="productSearchContaienr">
-                                            <p>Is It?</p>
-                                            {productSearchArray.map(product => <button className="productContainer" onClick={() => {setProductArray([...productArray, product.productName]); setProductSearchArray([])}}>{product.productName} &#183; {product.brand} &#183; {product.productCategory}</button>)}
-                                            <button className="productContainer" onClick={() => {handleProductEntry(productNamePlaceholder); if(!(productArray.includes(productNamePlaceholder))){setProductArray([...productArray, productNamePlaceholder]); setProductSearchArray([])}}}>None of the Above</button>
+                                            <hr className="subDividerEight"></hr>
+                                            <p>Search Suggestions:</p>
+                                            {productSearchArray.map(product => <button className="productContainer" onClick={() => {handleProductEntry(product); setProductArray([...productArray, product.productName]); setProductSearchArray([])}}>{product.productName} &#183; {product.brand} &#183; {product.productCategory}</button>)}
+                                            <button className="productContainer" onClick={() => {alert("Please type in the exact name with the brand."); setProductNamePlaceholder(""); setProductSearchArray([])}}>None of the Above</button>
                                         </div>
                                     ) : null
                                     }
-                                    <hr className="subDivider"></hr>
+
                                 </div>
                                 <div className="enteredProductArray">
                                     {productArray.map((product, index) => (
@@ -308,40 +314,28 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
                                             <input type="text" value={editedRoutineName} placeholder="Routine Name..." className={`routineTextBox${parentIndex}`} onChange={(event) => {setEditedRoutineName(event.target.value)}}/>
                                             <div className="timeSetButtonContainer">
                                                 <button className={`${timeButtonStyleOne}${parentIndex}`} onClick={() => {setRoutineTime("AM"); handleTimeButtonClick(1)}}>AM</button>
-                                                <button className={`${timeButtonStyleOne}${parentIndex}`} onClick={() => {setRoutineTime("PM"); handleTimeButtonClick(2)}}>PM</button>
-                                                <button className={`${timeButtonStyleOne}${parentIndex}`} onClick={() => {setRoutineTime("AMPM"); handleTimeButtonClick(3)}}>AM&#183;PM</button>
+                                                <button className={`${timeButtonStyleTwo}${parentIndex}`} onClick={() => {setRoutineTime("PM"); handleTimeButtonClick(2)}}>PM</button>
+                                                <button className={`${timeButtonStyleThree}${parentIndex}`} onClick={() => {setRoutineTime("AMPM"); handleTimeButtonClick(3)}}>AM&#183;PM</button>
                                             </div>
                                         </div>
-
-
-
                                         <div className="deleteAndRoutineDropDownButtonContainer">
-                                            <button className={`routineDeleteButton${parentIndex}`} onClick={() => handleRoutineDelete(routineId)}>Delete</button>
-                                            <button className={`closeRoutinePopUpState${parentIndex}`} onClick={() => setSavedRoutinePopUpState(false)}>&#8963;</button>
+                                            <button className={`routineDeleteButton${parentIndex}`} onClick={() => {handleRoutineDelete(routineId); setProductSearchArray([])}}>Delete</button>
+                                            <button className={`closeRoutinePopUpState${parentIndex}`} onClick={() => {setSavedRoutinePopUpState(false); setProductSearchArray([])}}>&#8963;</button>
                                         </div>
-
                                     </div>
 
 
                                     <div className="routineProductSubmitContainer">
                                         <input id="productNameEntry" type ="text" className={`productEntryTextBox${parentIndex}`} value={productName} onChange={(event) => setProductName(event.target.value)}  placeholder="Product Name..."/>
-                                        <button className={`productSearchButton${parentIndex}`} onClick={() => {handleProductSearch(productName); setProductNamePlaceholder(productName); setProductName("")}}>Search</button>
+                                        <button className={`productSearchButton${parentIndex}`} onClick={() => {handleProductSearch(productName); setProductName("")}}>Search</button>
                                     </div>
 
                                     {productSearchArray.length > 0 ? (
                                         <div className="productSearchContaienr">
-                                            <p>Is It?</p>
-                                            {productSearchArray.map(product => <button className="productContainer" onClick={() => {setEditedProductArray(prev => [...prev, {productId: product.id, productName: product.productName}]); setProductSearchArray([])}}>{product.productName} &#183; {product.brand} &#183; {product.productCategory}</button>)}
-                                            <button className="productContainer" onClick={async() => {
-                                                const product = await handleIdentifyProduct(productNamePlaceholder)
-                                                if(!product) return;
-                                                setEditedProductArray(prev =>
-                                                    prev.some(p => p.productId === product.id)
-                                                        ? prev
-                                                        : [...prev, { productId: product.id, productName: product.productName}]
-                                                )
-                                                setProductSearchArray([])
-                                            }}>None of the Above</button>
+                                            <hr className="subDividerEight"></hr>
+                                            <p>Search Suggestions:</p>
+                                            {productSearchArray.map(product => <button className="productContainer" onClick={() => {handleEditedProductEntry(product); setProductSearchArray([])}}>{product.productName} &#183; {product.brand} &#183; {product.productCategory}</button>)}
+                                            <button className="productContainer" onClick={() => {alert("Please type in the exact name with the brand."); setProductSearchArray([])}}>None of the Above</button>
                                         </div>
                                     ) : null
                                     }
@@ -362,7 +356,7 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
                                         ))}
                                     </div>{editedProductArray.length > 0 ? (<hr className="subDividerThree"></hr>) : null}
                                     <div className="submitChangesRoutineButtonContainer">
-                                        <button className="routineSubmitChangesButton" onClick={() => handleEditedRoutineSubmit(editedProductArray, editedRoutineName, routineTime, routineIndex)}>Submit Changes</button>
+                                        <button className="routineSubmitChangesButton" onClick={() => {handleEditedRoutineSubmit(editedProductArray, editedRoutineName, routineTime, routineIndex); setProductSearchArray([])}}>Submit Changes</button>
                                     </div>
                                 </div>) : (
                                 <div>

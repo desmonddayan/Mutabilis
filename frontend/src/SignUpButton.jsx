@@ -1,6 +1,5 @@
 import { supabase } from "./supabaseClient.js"
 import './landingpage.css'
-import Session from "./Session.jsx";
 
 function SignUpButton(){
 

@@ -1,5 +1,6 @@
 package com.mutable.mutable.controller;
 
+import com.mutable.mutable.RateLimiter;
 import com.mutable.mutable.dto.EntryRequest;
 import com.mutable.mutable.dto.TrackPhoto;
 import com.mutable.mutable.model.DailyEntryLog;
@@ -10,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,10 +21,15 @@ public class DailyEntryController {
 
     @Autowired
     private DailyEntryService dailyEntryService;
+    @Autowired
+    private RateLimiter rateLimiter;
 
     @PostMapping("/add")
     public ResponseEntity<String> addDailyEntry(@RequestBody EntryRequest entryRequest, @AuthenticationPrincipal Jwt jwt) {
         String userId = jwt.getSubject();
+        if (!rateLimiter.tryConsume("chat:" + userId, 10, Duration.ofHours(1))) {
+            return ResponseEntity.status(429).body("Too many requests. Please try again later.");
+        }
         dailyEntryService.handleGeminiAnalysis(entryRequest, userId);
         return ResponseEntity.ok().build();
     }
@@ -33,9 +40,13 @@ public class DailyEntryController {
         return ResponseEntity.ok(entry);
     }
     @PutMapping("/update")
-    public void updateDailyEntry(@RequestBody EntryRequest entryRequest, @AuthenticationPrincipal Jwt jwt) {
+    public ResponseEntity<String> updateDailyEntry(@RequestBody EntryRequest entryRequest, @AuthenticationPrincipal Jwt jwt) {
         String userId = jwt.getSubject();
+        if (!rateLimiter.tryConsume("chat:" + userId, 10, Duration.ofHours(1))) {
+            return ResponseEntity.status(429).body("Too many requests. Please try again later.");
+        };
         dailyEntryService.updateDailyEntry(entryRequest, userId);
+        return ResponseEntity.ok().build();
     }
     @DeleteMapping("/delete")
     public void deleteDailyEntry(@RequestParam LocalDate date, @AuthenticationPrincipal Jwt jwt) {

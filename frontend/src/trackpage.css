@@ -1,10 +1,9 @@
 .contentScreenTrack{
-    margin-left: 17rem;
+    margin-top: 6vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 }
 .calendarGrid{
     margin-top: 0.5rem;
@@ -12,7 +11,7 @@
     width: 95%;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(6, 1fr);
-    grid-gap: 0.1rem;
+    grid-gap: 1px;
 }
 .weekDatesContainer{
     margin-top: 2rem;
@@ -24,14 +23,12 @@
     border: none;
     margin-top: 1.5rem;
     width: 95%;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(45,45,45);
 }
-.popUpDividerLineTwo{
+.popUpDividerLineFive{
     border: none;
-    margin-top: 1.5rem;
     width: 100%;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 2rem;
+    border-top: 1px solid rgba(45,45,45);
 }
 .weekDates {
     color: white;
@@ -82,13 +79,12 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 1rem;
 }
 .chatSectionContainer{
     width: 95%;
     margin-top: 3rem;
     margin-bottom: 3rem;
-
+    border: 1px solid rgba(45,45,45);
 }
 .chatInputAndSelectContainer{
     width: 100%;
@@ -101,7 +97,8 @@
 .chatInputTextArea{
     flex:1;
     background-color: rgba(20,20,23);
-    border: 1px solid rgba(45,45,45);
+    border: none;
+    border-top: 1px solid rgba(45,45,45);
     box-sizing: border-box;
     padding: 0.5rem;
     height: 4rem;
@@ -120,83 +117,123 @@
     color: white;
 }
 .chatMessageContainer{
-    height: 20rem;
+    height: 75vh;
     width: 100%;
     overflow-y: scroll;
     gap: 1rem;
+    box-sizing: border-box;
+    padding: 2rem 0 5rem 0;
 }
 .selectedDateText{
     color: white;
-    background-color: rgba(20,20,23);
-    border: 1px solid rgba(45,45,45);
+    background-color: black;
     font-size: 0.8rem;
-    box-sizing: border-box;
-    padding: 0.4rem 1rem;
     border-radius: 0.3rem;
 }
 .selectedDatesContainer{
     display: flex;
     width: 100%;
     gap: 1rem;
-    margin-bottom: 0.5rem;
 }
 .selectedDatesText{
+    display: flex;
     color: white;
-    width: 10rem;
-    background-color: rgba(20,20,23);
-    border: 1px solid rgba(45,45,45);
+    background-color: black;
     font-size: 0.8rem;
     box-sizing: border-box;
-    padding: 0.4rem 1rem;
+    align-items: center;
+    gap: 0.5rem;
     border-radius: 0.3rem;
+}
+.selectedDatesTextInnerContainer{
+    display: flex;
+    gap: 0.5rem;
 }
 .selectStateButton{
     color: white;
     width: 10rem;
-    background-color: rgba(20,20,23);
-    border: 1px solid rgba(45,45,45);
+    background-color: black;
     font-size: 0.8rem;
     box-sizing: border-box;
     padding: 0.4rem 1rem;
-    border-radius: 0.3rem;
+    border:none;
+    border-right: 1px solid rgba(45,45,45);
+}
+.selectStateButtonactive{
+    color: white;
+    width: 10rem;
+    background-color: black;
+    font-size: 0.8rem;
+    box-sizing: border-box;
+    padding: 0.4rem 1rem;
+    border: 1px solid #1577FF;
 }
 .chatHistoryMessageContaineruser{
     max-width: 90%;
     color: white;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    background-color: rgba(20,20,23);
+    border-radius: 0.3rem;
+    box-sizing: border-box;
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .chatHistoryMessageContainerassistant{
     max-width: 100%;
     color: white;
     box-sizing: border-box;
     padding: 0.2rem;
-    font-size: 0.9rem;
-}
-.chatHistoryMessageContainermodel{
-    max-width: 90%;
-    color: white;
+    font-size: 1rem;
 }
 .individualMessageContaineruser{
-    width: 100%;
     display: flex;
+    margin-right: 2rem;
+    margin-left: 2rem;
     justify-content: flex-end;
-    background-color: rgba(20,20,23);
-    border: 1px solid rgba(45,45,45);
-    font-size: 0.8rem;
-    box-sizing: border-box;
-    padding: 0.4rem 1rem;
     margin-top: 2rem;
 }
-
 .individualMessageContainerassistant{
     width: 100%;
     display: flex;
-    background-color: rgba(20,20,23);
-    border: 1px solid rgba(45,45,45);
-    font-size: 0.8rem;
+    background-color: transparent;
+    margin-top: 1rem;
+    font-size: 1rem;
+    line-height: 1.8;
+    padding: 0.5rem 6rem;
     box-sizing: border-box;
-    padding: 0.4rem 1rem;
 }
 .headerTextTrackPage{
     color: #3e3e3e;
+}
+.chatBotHeaderContainer{
+    display: flex;
+    gap: 1rem;
+}
+.chatBotHeader{
+    color: white;
+}
+.selectStateButtonAndSelectedContainer{
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+}
+.chatHeaderContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.chatClearButtonContainer{
+    color: white;
+    width: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    font-size: 0.8rem;
+    box-sizing: border-box;
+    padding: 0.4rem 1rem;
+    border:none;
+    border-left: 1px solid rgba(45,45,45);
 }

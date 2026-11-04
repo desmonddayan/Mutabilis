@@ -1,4 +1,4 @@
-import VerticalNavbar from './VerticalNavbar.jsx'
+import HorizontalNavbar from './HorizontalNavbar.jsx'
 import CalendarPictureCard from './CalendarPictureCard.jsx'
 import './trackpage.css'
 import {supabase} from './supabaseClient.js'
@@ -8,14 +8,11 @@ import {useEffect, useRef, useState} from "react";
 function TrackPage({session}){
 
     const [popUpState, setPopUpState] = useState(false);
-    const [weekdayNumber, setWeekDayNumber] = useState(0);
-    const [lastDateOfMonth, setLastDateOfMonth] = useState(0);
     const [selectedDay, setSelectedDay] = useState(null);
     const [selectedMonth, setSelectedMonth] = useState(null);
     const [selectedYear, setSelectedYear] = useState(null);
     const [groundingSelectedMonth, setGroundingSelectedMonth] = useState(new Date().getMonth());
     const [groundingSelectedYear, setGroundingSelectedYear] = useState(new Date().getFullYear());
-    const [lastDateOfLastMonth, setLastDateOfLastMonth] = useState(null);
     const [savedPhotoEntries, setSavedPhotoEntries] = useState({});
     const [textAreaInput, setTextAreaInput] = useState('');
     const [messages, setMessages] = useState([]);
@@ -26,7 +23,6 @@ function TrackPage({session}){
 
 
     const textAreaRef = useRef(null);
-    const bottomRef = useRef(null);
 
     const toDateKey = (d) =>
         `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -49,6 +45,8 @@ function TrackPage({session}){
     useEffect(() => {
         getSavedChatHistory();
     }, [])
+
+
     const getSavedPhotoEntries = async() => {
         const response = await fetch(`http://localhost:8080/api/v1/dailyEntry/getPhotoEntry?startDate=${gridStart}&endDate=${gridEnd}`,{
             method: 'GET',
@@ -77,31 +75,13 @@ function TrackPage({session}){
         });
         setSavedPhotoEntries(byDate);
     }
-    useEffect(()=>{
-        const date = new Date();
-        const year = date.getFullYear();
-        const month = date.getMonth();
-        setGroundingSelectedMonth(month);
-        setGroundingSelectedYear(year);
-    },[])
 
-    useEffect(()=>{
-        bottomRef.current?.scrollIntoView({behavior: 'smooth'});
-    }, [messages])
+
 
     useEffect(() => {
         if (!session) return;
         getSavedPhotoEntries();
     }, [session?.user?.id, gridStart, gridEnd]);
-
-    useEffect( () => {
-        if(groundingSelectedMonth == null) return
-        const firstDay = new Date(groundingSelectedYear, groundingSelectedMonth, 1);
-        setWeekDayNumber(firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1);
-        setLastDateOfMonth(new Date(groundingSelectedYear,groundingSelectedMonth + 1, 0).getDate());
-        const previousMonthsDate = new Date(groundingSelectedYear, groundingSelectedMonth, 0).getDate();
-        setLastDateOfLastMonth(previousMonthsDate - (firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1) + 1);
-    },[groundingSelectedMonth, groundingSelectedYear]);
 
     const sendMessage = async() => {
         const next = [...messages, {role: "user", text : textAreaInput}];
@@ -119,6 +99,7 @@ function TrackPage({session}){
             const data = await response.text();
             setAiReply(data);
             setTextAreaInput('');
+            setSelectedDates([]);
             getSavedChatHistory();
         } catch(error){
             console.log(error);
@@ -129,24 +110,18 @@ function TrackPage({session}){
         if(selectedDates.includes(dateKey)){
             setSelectedDates(selectedDates.filter(d => d !== dateKey));
         }
+        else if(selectedDates.length > 2){
+            return;
+        }
         else{
             setSelectedDates([...selectedDates, dateKey]);
         }
 
     }
 
-
     function calculateDate(day, month, year){
         setSelectedDay(day);
-        if(groundingSelectedMonth - 1 < 0){
-            setSelectedMonth(11);
-        }
-        else if(groundingSelectedMonth + 1 > 11){
-            setSelectedMonth(0);
-        }
-        else{
-            setSelectedMonth(groundingSelectedMonth + month);
-        }
+        setSelectedMonth(month);
         setSelectedYear(year);
         setPopUpState(true)
     }
@@ -174,7 +149,7 @@ function TrackPage({session}){
     return(
         <>
             <div className="screen">
-                <VerticalNavbar />
+                <HorizontalNavbar />
                 <div className="contentScreenTrack">
                     <div className="trackPageHeaderContainer">
                             <h2 className="monthAndYearTitle">{months[groundingSelectedMonth]} {groundingSelectedYear}</h2>
@@ -194,52 +169,52 @@ function TrackPage({session}){
                         <p className="weekDates">Sunday</p>
                     </div>
                     <div className='calendarGrid'>
-                    {Array.from({length: 42}, (_, i) => {
-                        const d = new Date(groundingSelectedYear, groundingSelectedMonth, i - weekdayOffset + 1)
-                        const dateKey = toDateKey(d);
+                        {Array.from({ length: 42 }, (_, i) => {
+                            const d = new Date(groundingSelectedYear, groundingSelectedMonth, i - weekdayOffset + 1);
+                            const dateKey = toDateKey(d);
 
-                        if(i < weekdayNumber){
-                            return(<CalendarPictureCard
-                                key={dateKey}
-                                photoUrl={savedPhotoEntries[dateKey]}
-                                index={i + lastDateOfLastMonth}
-                                session={session}
-                                handleClick={() => selectState ? handleSelectedDatesEntry(dateKey) : calculateDate(i + lastDateOfLastMonth, -1, groundingSelectedMonth - 1 < 0 ? groundingSelectedYear - 1: groundingSelectedYear)}
-                                />)
-                        }else if((i - weekdayNumber) >= lastDateOfMonth){
-
-                            return(<CalendarPictureCard
-                                key={dateKey}
-                                photoUrl={savedPhotoEntries[dateKey]}
-                                index={i % lastDateOfMonth - weekdayNumber + 1}
-                                session={session}
-                                handleClick={() => selectState ? handleSelectedDatesEntry(dateKey) :  calculateDate(i % lastDateOfMonth - weekdayNumber + 1, 1, groundingSelectedMonth + 1 > 12 ? groundingSelectedYear + 1: groundingSelectedYear)}
-                                />)
-                        }
-                        else{
-                            return(<CalendarPictureCard
-                                key={dateKey}
-                                photoUrl={savedPhotoEntries[dateKey]}
-                                index = {i + 1 - weekdayNumber}
-                                session={session}
-                                handleClick={() => selectState ? handleSelectedDatesEntry(dateKey) : calculateDate(i - weekdayNumber + 1, 0, groundingSelectedYear)}
-                            />)}
-                    })}
+                            return (
+                                <CalendarPictureCard
+                                    key={dateKey}
+                                    photoUrl={savedPhotoEntries[dateKey]}
+                                    index={d.getDate()}
+                                    isSelected={selectedDates.includes(dateKey)}
+                                    session={session}
+                                    handleClick={() =>
+                                        selectState
+                                            ? handleSelectedDatesEntry(dateKey)
+                                            : calculateDate(d.getDate(), d.getMonth(), d.getFullYear())
+                                    }
+                                />
+                            );
+                        })}
                     </div>
                     <PopUp key={`${selectedDay}-${selectedMonth}-${selectedYear}`} popUpState={popUpState} day={selectedDay} month={selectedMonth} year={selectedYear} session={session} setPopUpStateFalse={() => setPopUpState(false)}/>
                     <div className="chatSectionContainer">
-                        <div className="selectRow">
-                            <button className="selectStateButton" onClick={() => setSelectState(prev => !prev)}>Select Mode: {selectState ? "ON" : "OFF"}</button>
+
+                        <div className="chatHeaderContainer">
+                        <div className="selectStateButtonAndSelectedContainer">
+                            <div className="chatBotHeaderContainer">
+                                <button className={`selectStateButton${selectState ? "active" : ""}`} onClick={() => setSelectState(prev => !prev)}>Date Select Mode</button>
+                            </div>
                             <div className="selectedDatesContainer">
-                                <div className="selectedDatesText">Selected Dates: </div>
-                                {selectedDates.map((d, i) => (
-                                        <div key={i} className="selectedDateText">{d}</div>
-                                    )
-                                )}
+                                <div className="selectedDatesText"><p>Selected Dates: </p>
+                                    <div className="selectedDatesTextInnerContainer">
+                                        {selectedDates.length === 0 ? "Nothing Selected" : selectedDates.map((d, i) => (
+                                                <div key={i} className="selectedDateText">{d}</div>
+                                            )
+                                        )
+                                            }</div>
+                                </div>
                             </div>
                         </div>
-                        <hr className="popUpDividerLineTwo" />
+                            <button className="chatClearButtonContainer" onClick={() => setSelectedDates([])}>
+                                Clear Selections
+                            </button>
+                        </div>
 
+
+                        <hr className="popUpDividerLineFive" />
                         <div className="claudeChatContainer">
                             <div className="chatMessageContainer">
                                 {chatHistory.map((m,i) => (
@@ -247,7 +222,6 @@ function TrackPage({session}){
                                         <div className={`chatHistoryMessageContainer${m.role}`}>{m.message}</div>
                                     </div>
                                 ))}
-                                <div ref={bottomRef}></div>
                             </div>
                             <div className="chatInputAndSelectContainer">
 

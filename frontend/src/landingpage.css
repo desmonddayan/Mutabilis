@@ -7,11 +7,28 @@
 }
 .websiteName{
     font-size: 1.2rem;
-    margin-left: 2rem;
 }
 .topNavbarLink{
     list-style: none;
     color: white;
+}
+.landingPageHeaderContainer1{
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 1.2rem;
+    flex: 1;
+    margin-left: 2rem;
+}
+.landingPageHeaderContainer2{
+    display: flex;
+    flex: 1;
+}
+.landingPageHeaderContainer3{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1;
 }
 .signUpButton{
     color: white;
@@ -19,10 +36,32 @@
     padding: 0.3rem 1.5rem;
     border: none;
     border-radius: 0.2rem;
-    margin-right: 2rem;
     font-size: 0.9rem;
+    margin-right: 2rem;
 }
 .navbarLine{
     border: none;
-    border-top: 1px solid rgba(255,255,255,0.6);
+    border-top: 1px solid rgba(45,45,45);
+}
+.landingPageScreen{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.landingPageContainer{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+.mutabilisLandingPageText{
+    font-size: 20rem;
+    color: white;
+}
+.animationContainer{
+    display: flex;
+    width: 98%;
+    align-items: center;
+    justify-content: center;
 }

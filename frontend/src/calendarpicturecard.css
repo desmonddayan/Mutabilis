@@ -3,6 +3,12 @@
     border: none;
     position: relative;
 }
+.faceCardPictureContainerSelected{
+    aspect-ratio: 2 / 3;
+    position: relative;
+    border: 2px solid #1577FF;
+    box-sizing: border-box;
+}
 .faceCardButton{
     height: 100%;
     width: 100%;

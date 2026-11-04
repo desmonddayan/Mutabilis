@@ -9,7 +9,7 @@
 .contentScreen{
     overflow-y: auto;
     display: flex;
-    margin-left: 17rem;
+    margin-top: 6vh;
     height: 100vh;
     flex: 1;
 }

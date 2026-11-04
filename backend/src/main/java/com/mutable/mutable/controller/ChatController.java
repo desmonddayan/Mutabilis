@@ -1,5 +1,6 @@
 package com.mutable.mutable.controller;
 
+import com.mutable.mutable.RateLimiter;
 import com.mutable.mutable.dto.ChatHistory;
 import com.mutable.mutable.dto.ChatRecord;
 import com.mutable.mutable.service.ChatService;
@@ -9,6 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.util.List;
 
 @RestController
@@ -17,10 +19,15 @@ public class ChatController {
 
     @Autowired
     private ChatService chatService;
+    @Autowired
+    private RateLimiter rateLimiter;
 
     @PostMapping("/sendMessage")
     public ResponseEntity<String> sendMessage(@RequestBody ChatRecord chatRecord, @AuthenticationPrincipal Jwt jwt) {
         String userId = jwt.getSubject();
+        if (!rateLimiter.tryConsume("chat:" + userId, 10, Duration.ofHours(1))) {
+            return ResponseEntity.status(429).body("Too many requests. Please try again later.");
+        }
         String response = chatService.handleUserRequest(chatRecord, userId);
         return ResponseEntity.ok(response);
     }

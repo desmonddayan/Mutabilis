@@ -1,4 +1,4 @@
-import VerticalNavbar from './VerticalNavbar.jsx'
+import HorizontalNavbar from './HorizontalNavbar.jsx'
 import Routine from './Routine.jsx'
 import './homepage.css'
 import {Link} from 'react-router-dom'
@@ -9,7 +9,7 @@ function HomePage({session}){
     return(
         <>
             <div className="screen">
-                <VerticalNavbar />
+                <HorizontalNavbar />
                 <div className="contentScreen">
                     <div className="contentContainer">
                         <div className="userInformationContainer">

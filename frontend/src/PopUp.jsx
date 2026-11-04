@@ -367,7 +367,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                             <div className="lifeStyleFactorHeadlineTextContainer">
                                 <p className="headlineText">Lifestyle</p>
                             </div>
-                            <hr className="subDivider"></hr>
+                            <hr className="subDividerSix"></hr>
                             <div className="lifeStyleFactorCountContainer">
                                 <div className="singleLifeStyleFactorContainer">
                                     <p className="factor">Sleep</p>
@@ -406,9 +406,16 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                 <hr className="popUpDividerLine"></hr>
                 <div className="submitButtonContainer">
                     {savedDailyEntry ? (
-                            <div>
-                                <button className="saveEntryButton" onClick={()=>{setPopUpStateFalse(); setIsRecordingFalse(); handleDailyEntryUpdate(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit, selectedRoutineArray)}}><b>Save Changes</b></button>
-                                <button onClick={() => handleDailyEntryDelete()}>Delete Entry</button>
+                            <div className="submitAndDeleteEntryContainer">
+                                <div className="submitAndDeleteEntryInnerContainer1"></div>
+                                <div className="submitAndDeleteEntryInnerContainer2">
+                                    <button className="saveEntryButton" onClick={()=>{setPopUpStateFalse(); setIsRecordingFalse(); handleDailyEntryUpdate(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit, selectedRoutineArray)}}><b>Save Changes</b></button>
+                                </div>
+                                <div className="submitAndDeleteEntryInnerContainer3">
+                                    <button className="deleteEntryButton" onClick={() => handleDailyEntryDelete()}>Delete Entry</button>
+                                </div>
+
+
                             </div>
                     ) : (
                         <button className="saveEntryButton" onClick={()=>{setPopUpStateFalse(); setIsRecordingFalse(); handleDailyEntry(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit, selectedRoutineArray)}}><b>Save Entry</b></button>

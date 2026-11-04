@@ -112,7 +112,6 @@ public class DailyEntryService {
                 .body(byte[].class);
     }
 
-
     public void handleGeminiAnalysis(EntryRequest entryRequest, String userId) {
         Map<String, String> photoPaths = new LinkedHashMap<>();
         photoPaths.put("left", entryRequest.leftFacePhotoPath());
@@ -138,8 +137,8 @@ public class DailyEntryService {
         UUID dailyEntryId = dailySavedEntryLog.getId();
 
         for (Map.Entry<String, String> entry : photoPaths.entrySet()){
-            String slot =  entry.getKey();
-            String path =   entry.getValue();
+            String slot = entry.getKey();
+            String path = entry.getValue();
 
             if(path == null) continue;
             if(path.contains("..") || !path.startsWith(userId + "/")) continue;
@@ -167,8 +166,6 @@ public class DailyEntryService {
                 e.printStackTrace();
             }
         }
-
-
 
     }
 }

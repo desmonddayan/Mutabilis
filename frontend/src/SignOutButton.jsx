@@ -1,5 +1,5 @@
 import {supabase} from "./supabaseClient.js"
-import './verticalnavbar.css'
+import './horizontalnavbar.css'
 
 export default function SignOutButton() {
 
@@ -8,7 +8,7 @@ export default function SignOutButton() {
         if (error) console.error(error);
     }
 
-    return (<>
-        <button className="signOutButton" onClick={signOut}>Sign Out</button>
-    </>)
+    return (
+        <button className="signOutButton" onClick={() => signOut()}>Sign Out</button>
+    )
 }
