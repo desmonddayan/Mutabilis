@@ -88,8 +88,7 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
                 productLog
             )
         })
-
-        setProductArray([...productArray, productName]);
+        
         return response.json();
     }
 
