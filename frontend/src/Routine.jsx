@@ -60,18 +60,22 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
         getSavedRoutines()
     }, []);
 
-    const handleProductSearch = async(productName) => {
+    const handleProductSearch = async (productName) => {
         if (!productName || !productName.trim()) return
-        const response = await fetch(`${API_URL}/api/v1/products/search?productName=${productName}`, {
-            method: 'GET',
-            headers: {'Authorization': `Bearer ${session.access_token}`}
-        })
-        const text = await response.text()
-
-        if (text) {
-            const productionList = JSON.parse(text)
-            setProductSearchArray(productionList)
-        } else {
+        try {
+            const response = await fetch(
+                `${API_URL}/api/v1/products/search?productName=${encodeURIComponent(productName)}`,
+                { method: 'GET', headers: {'Authorization': `Bearer ${session.access_token}`} }
+            )
+            if (!response.ok) {
+                console.log("Product search failed", response.status)
+                setProductSearchArray([])
+                return
+            }
+            const text = await response.text()
+            setProductSearchArray(text ? JSON.parse(text) : [])
+        } catch (error) {
+            console.log(error)
             setProductSearchArray([])
         }
     }
@@ -262,14 +266,14 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
                                     </div>
                                     <div className="routineProductSubmitContainer">
                                         <input id="productNameEntry" type ="text" className={`productEntryTextBox${parentIndex}`} value={productName} onChange={(event) => setProductName(event.target.value)}  placeholder="Product Name..."/>
-                                        <button className={`productSearchButton${parentIndex}`} onClick={() => {handleProductSearch(productName); setProductNamePlaceholder(productName); setProductName("")}}>Search</button>
+                                        <button className={`productSearchButton${parentIndex}`} onClick={() => {handleProductSearch(productName); setProductName("")}}>Search</button>
                                     </div>
                                     {productSearchArray.length > 0 ? (
                                         <div className="productSearchContaienr">
                                             <hr className="subDividerEight"></hr>
                                             <p>Search Suggestions:</p>
                                             {productSearchArray.map(product => <button className="productContainer" onClick={() => {handleProductEntry(product); setProductArray([...productArray, product.productName]); setProductSearchArray([])}}>{product.productName} &#183; {product.brand} &#183; {product.productCategory}</button>)}
-                                            <button className="productContainer" onClick={() => {alert("Please type in the exact name with the brand."); setProductNamePlaceholder(""); setProductSearchArray([])}}>None of the Above</button>
+                                            <button className="productContainer" onClick={() => {alert("Please type in the exact name with the brand."); setProductSearchArray([])}}>None of the Above</button>
                                         </div>
                                     ) : null
                                     }
