@@ -126,6 +126,21 @@ public class GeminiFaceAnalysis {
                 )
         );
     }
+    private Optional<String> extractText(Interaction interaction) {
+        for (var step : interaction.steps().orElse(List.of())) {
+            if (step instanceof ModelOutputStep out) {
+                for (var content : out.content().orElse(List.of())) {
+                    if (content instanceof TextContent textContent) {
+                        Optional<String> text = textContent.text().filter(t -> !t.isBlank());
+                        if (text.isPresent()) {
+                            return text;
+                        }
+                    }
+                }
+            }
+        }
+        return Optional.empty();
+    }
     public PhotoRecord analyzePhoto(byte[] imageBytes) {
         String base64Image = Base64.getEncoder().encodeToString(imageBytes);
 
@@ -146,12 +161,11 @@ public class GeminiFaceAnalysis {
                 .interaction()
                 .orElseThrow(() -> new IllegalStateException("No Response from Gemini"));
 
+
         String json = interaction.outputText()
                 .filter(s -> !s.isBlank())
-                .orElseThrow(() -> {
-                    System.err.println("Gemini raw response: " + interaction);
-                    return new IllegalStateException("Gemini returned no text");
-                });
+                .or(() -> extractText(interaction))
+                .orElseThrow(() -> new IllegalStateException("Gemini returned no text"));
 
         return mapper.readValue(json, PhotoRecord.class);
     }
