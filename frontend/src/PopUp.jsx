@@ -247,10 +247,10 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
         })
     }
 
-    const handleDailyEntryDelete = async() => {
-        await fetch(`${API_URL}/api/v1/dailyEntry/delete`, {
+    const handleDailyEntryDelete = async(date) => {
+        await fetch(`${API_URL}/api/v1/dailyEntry/delete?date=${date}`, {
             method: 'DELETE',
-            headers: {'Authorization': `Bearer ${session.access_token}`},
+            headers: {'Authorization': `Bearer ${session.access_token}`}
         })
     }
 
@@ -413,7 +413,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                                     <button className="saveEntryButton" onClick={()=>{setPopUpStateFalse(); setIsRecordingFalse(); handleDailyEntryUpdate(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit, selectedRoutineArray)}}><b>Save Changes</b></button>
                                 </div>
                                 <div className="submitAndDeleteEntryInnerContainer3">
-                                    <button className="deleteEntryButton" onClick={() => handleDailyEntryDelete()}>Delete Entry</button>
+                                    <button className="deleteEntryButton" onClick={() => handleDailyEntryDelete(date)}>Delete Entry</button>
                                 </div>
 
 
