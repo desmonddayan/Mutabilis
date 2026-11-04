@@ -25,6 +25,8 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
     const [rightFacePhoto, setRightFacePhoto] = useState("");
     const [photoFiles, setPhotoFiles] = useState({left: null, middle: null, right: null});
 
+    const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
     useEffect(() => {
         if (popUpState) {
             document.body.style.overflow = 'hidden';
@@ -247,11 +249,20 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
         })
     }
 
-    const handleDailyEntryDelete = async(date) => {
-        await fetch(`${API_URL}/api/v1/dailyEntry/delete?date=${date}`, {
-            method: 'DELETE',
-            headers: {'Authorization': `Bearer ${session.access_token}`}
-        })
+    const handleDailyEntryDelete = async () => {
+        try {
+            const response = await fetch(`${API_URL}/api/v1/dailyEntry/delete?date=${date}`, {
+                method: 'DELETE',
+                headers: {'Authorization': `Bearer ${session.access_token}`}
+            })
+            if (!response.ok) {
+                console.log("Delete failed", response.status)
+                return
+            }
+            setPopUpStateFalse()
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const handleDailyEntryUpdate = async() => {
