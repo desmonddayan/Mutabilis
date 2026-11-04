@@ -83,12 +83,13 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
         const response = await fetch(`${API_URL}/api/v1/products/add`, {
             method: 'POST',
             headers: {'Authorization': `Bearer ${session.access_token}`,
-            'Content-Type': 'application/json',},
-            body: JSON.stringify(
-                productLog
-            )
+                'Content-Type': 'application/json',},
+            body: JSON.stringify(productLog)
         })
-        
+        if (!response.ok) {
+            console.log("Product add failed", response.status)
+            return []
+        }
         return response.json();
     }
 
