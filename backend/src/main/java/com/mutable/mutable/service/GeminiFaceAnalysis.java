@@ -148,7 +148,10 @@ public class GeminiFaceAnalysis {
 
         String json = interaction.outputText()
                 .filter(s -> !s.isBlank())
-                .orElseThrow(() -> new IllegalStateException("Gemini returned no text"));
+                .orElseThrow(() -> {
+                    System.err.println("Gemini raw response: " + interaction);
+                    return new IllegalStateException("Gemini returned no text");
+                });
 
         return mapper.readValue(json, PhotoRecord.class);
     }
