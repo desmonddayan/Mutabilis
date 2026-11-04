@@ -190,7 +190,7 @@ function TrackPage({session}){
                             );
                         })}
                     </div>
-                    <PopUp key={`${selectedDay}-${selectedMonth}-${selectedYear}`} popUpState={popUpState} day={selectedDay} month={selectedMonth} year={selectedYear} session={session} setPopUpStateFalse={() => setPopUpState(false)}/>
+                    <PopUp key={`${selectedDay}-${selectedMonth}-${selectedYear}`} popUpState={popUpState} day={selectedDay} month={selectedMonth} year={selectedYear} session={session} refreshState={getSavedPhotoEntries} setPopUpStateFalse={() => setPopUpState(false)}/>
                     <div className="chatSectionContainer">
 
                         <div className="chatHeaderContainer">

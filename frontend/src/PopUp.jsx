@@ -6,7 +6,7 @@ import {useEffect, useRef, useState} from "react";
 import {supabase} from "./supabaseClient.js";
 
 
-export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session}) {
+export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session, refreshState}) {
 
     const [savedDailyEntry, setSavedDailyEntry] = useState(null);
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -247,6 +247,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                 routineIds: selectedRoutineArray
             })
         })
+        await refreshState?.();
     }
 
     const handleDailyEntryDelete = async () => {
@@ -259,6 +260,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                 console.log("Delete failed", response.status)
                 return
             }
+            await refreshState?.()
             setPopUpStateFalse()
         } catch (error) {
             console.log(error)
@@ -295,6 +297,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                 routineIds: selectedRoutineArray
             })
         })
+        await refreshState?.();
     }
 
     return (
@@ -421,7 +424,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                             <div className="submitAndDeleteEntryContainer">
                                 <div className="submitAndDeleteEntryInnerContainer1"></div>
                                 <div className="submitAndDeleteEntryInnerContainer2">
-                                    <button className="saveEntryButton" onClick={()=>{setPopUpStateFalse(); setIsRecordingFalse(); handleDailyEntryUpdate(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit, selectedRoutineArray)}}><b>Save Changes</b></button>
+                                    <button className="saveEntryButton" onClick={async ()=>{setIsRecordingFalse(); await handleDailyEntryUpdate(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit, selectedRoutineArray); setPopUpStateFalse();}}><b>Save Changes</b></button>
                                 </div>
                                 <div className="submitAndDeleteEntryInnerContainer3">
                                     <button className="deleteEntryButton" onClick={() => handleDailyEntryDelete(date)}>Delete Entry</button>
@@ -430,7 +433,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
 
                             </div>
                     ) : (
-                        <button className="saveEntryButton" onClick={()=>{setPopUpStateFalse(); setIsRecordingFalse(); handleDailyEntry(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit, selectedRoutineArray)}}><b>Save Entry</b></button>
+                        <button className="saveEntryButton" onClick={async ()=>{setPopUpStateFalse(); setIsRecordingFalse(); await handleDailyEntry(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit, selectedRoutineArray)}}><b>Save Entry</b></button>
                     )}
                 </div>
             </div>
