@@ -1,3 +1,4 @@
+import { API_URL } from "./config";
 import './popup.css'
 import Routine from './Routine'
 import DiaryEntry from './DiaryEntry'
@@ -54,7 +55,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
 
         const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
         try{
-            const response = await fetch(`http://localhost:8080/api/v1/dailyEntry/get?date=${date}`,
+            const response = await fetch(`${API_URL}/api/v1/dailyEntry/get?date=${date}`,
                 {
                     method: 'GET',
                     headers: {'Authorization': `Bearer ${session.access_token}`}
@@ -228,7 +229,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
             paths[slot] = path;
         }
 
-        const response = await fetch(`http://localhost:8080/api/v1/dailyEntry/add`, {
+        const response = await fetch(`${API_URL}/api/v1/dailyEntry/add`, {
             method: 'POST',
             headers: {'Authorization': `Bearer ${session.access_token}`, "Content-Type": "application/json"},
             body: JSON.stringify({
@@ -247,7 +248,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
     }
 
     const handleDailyEntryDelete = async() => {
-        await fetch(`http://localhost:8080/api/v1/dailyEntry/delete`, {
+        await fetch(`${API_URL}/api/v1/dailyEntry/delete`, {
             method: 'DELETE',
             headers: {'Authorization': `Bearer ${session.access_token}`},
         })
@@ -267,7 +268,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
             paths[slot] = path;
         }
 
-        const response = await fetch(`http://localhost:8080/api/v1/dailyEntry/update`, {
+        const response = await fetch(`${API_URL}/api/v1/dailyEntry/update`, {
             method: 'PUT',
             headers: {'Authorization': `Bearer ${session.access_token}`, "Content-Type": "application/json"},
             body: JSON.stringify({

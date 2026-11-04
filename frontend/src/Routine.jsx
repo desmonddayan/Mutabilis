@@ -1,3 +1,4 @@
+import { API_URL } from "./config";
 import {useEffect, useState} from "react";
 import './routine.css'
 
@@ -38,7 +39,7 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
     const getSavedRoutines = async () => {
         if (!session) return;
         try{
-            const response = await fetch(`http://localhost:8080/api/v1/routine/get`,
+            const response = await fetch(`${API_URL}/api/v1/routine/get`,
                 {
                     method: 'GET',
                     headers: {'Authorization': `Bearer ${session.access_token}`},
@@ -61,7 +62,7 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
 
     const handleProductSearch = async(productName) => {
         if (!productName || !productName.trim()) return
-        const response = await fetch(`http://localhost:8080/api/v1/products/search?productName=${productName}`, {
+        const response = await fetch(`${API_URL}/api/v1/products/search?productName=${productName}`, {
             method: 'GET',
             headers: {'Authorization': `Bearer ${session.access_token}`}
         })
@@ -75,7 +76,7 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
         }
     }
     const handleProductEntry = async(productLog) => {
-        const response = await fetch(`http://localhost:8080/api/v1/products/add`, {
+        const response = await fetch(`${API_URL}/api/v1/products/add`, {
             method: 'POST',
             headers: {'Authorization': `Bearer ${session.access_token}`,
             'Content-Type': 'application/json',},
@@ -102,7 +103,7 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
         params.append('routineName', routineName)
         params.append('routineTime', routineTime)
         productArray.forEach((product) => {params.append('productArray', product)})
-        const response = await fetch(`http://localhost:8080/api/v1/routine/add?${params.toString()}`, {
+        const response = await fetch(`${API_URL}/api/v1/routine/add?${params.toString()}`, {
             method: 'POST',
             headers: {'Authorization': `Bearer ${session.access_token}`}
         })
@@ -116,7 +117,7 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
         params.append('routineTime', routineTime)
         params.append('routineId', routineId)
         editedProductArray.forEach((product) => {params.append('editedProductArray', product.productId)})
-        const response = await fetch(`http://localhost:8080/api/v1/routine/update?${params.toString()}`, {
+        const response = await fetch(`${API_URL}/api/v1/routine/update?${params.toString()}`, {
             method: 'PUT',
             headers: {'Authorization': `Bearer ${session.access_token}`}
         })
@@ -201,7 +202,7 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
 
     const handleRoutineDelete = async(routineId) => {
         try {
-            await fetch(`http://localhost:8080/api/v1/routine/deleteRoutine?routineId=${routineId}`, {
+            await fetch(`${API_URL}/api/v1/routine/deleteRoutine?routineId=${routineId}`, {
                 method: 'DELETE',
                 headers: {'Authorization': `Bearer ${session.access_token}`}
             })

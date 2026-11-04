@@ -1,3 +1,4 @@
+import { API_URL } from "./config";
 import HorizontalNavbar from './HorizontalNavbar.jsx'
 import CalendarPictureCard from './CalendarPictureCard.jsx'
 import './trackpage.css'
@@ -35,7 +36,7 @@ function TrackPage({session}){
 
 
     const getSavedChatHistory = async() => {
-        const response = await fetch(`http://localhost:8080/api/v1/chat/getChatHistory`, {
+        const response = await fetch(`${API_URL}/api/v1/chat/getChatHistory`, {
             method: 'GET',
             headers: {'Authorization': `Bearer ${session.access_token}`}
         })
@@ -48,7 +49,7 @@ function TrackPage({session}){
 
 
     const getSavedPhotoEntries = async() => {
-        const response = await fetch(`http://localhost:8080/api/v1/dailyEntry/getPhotoEntry?startDate=${gridStart}&endDate=${gridEnd}`,{
+        const response = await fetch(`${API_URL}/api/v1/dailyEntry/getPhotoEntry?startDate=${gridStart}&endDate=${gridEnd}`,{
             method: 'GET',
             headers: {'Authorization': `Bearer ${session.access_token}`}
         })
@@ -87,7 +88,7 @@ function TrackPage({session}){
         const next = [...messages, {role: "user", text : textAreaInput}];
         setMessages(next);
         try{
-            const response = await fetch(`http://localhost:8080/api/v1/chat/sendMessage`, {
+            const response = await fetch(`${API_URL}/api/v1/chat/sendMessage`, {
                 method: 'POST',
                 headers: {'Authorization': `Bearer ${session.access_token}`,
                 "Content-Type": 'application/json',},

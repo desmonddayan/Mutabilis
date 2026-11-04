@@ -1,3 +1,4 @@
+import { API_URL } from "./config";
 import {Navigate, Route, Routes} from "react-router-dom";
 import AuthenticatedRoute from "./AuthenticatedRoute.jsx";
 import HomePage from "./HomePage.jsx";
@@ -26,7 +27,7 @@ import {supabase} from "./supabaseClient.js";
 
              const saveUser = async () => {
 
-                 await fetch('http://localhost:8080/api/v1/users/me', {
+                 await fetch(`${API_URL}/api/v1/users/me`, {
                          method: 'POST',
                          headers: {'Authorization': `Bearer ${session.access_token}`
                      }
