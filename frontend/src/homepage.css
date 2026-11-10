@@ -1,9 +1,10 @@
 .screen{
     width: 100%;
+    background-color: #090909;
 }
 .profilePictureHomePage{
-    width: 60px;
-    height: 60px;
+    width: clamp(40px, 5vw, 100px);
+    height: clamp(40px, 5vw, 100px);
     border-radius: 50%;
 }
 .contentScreen{
@@ -15,13 +16,15 @@
 }
 .userName{
     color: white;
+    font-size: clamp(0.8rem, 2vw, 1.1rem);
 }
 .contentContainer{
     width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-top: 5rem;
+    margin-top: clamp(1rem, 4vw, 5rem);
+    background-color: #090909;
 }
 .messageContainer{
     margin-left: 1.5rem;
@@ -30,9 +33,9 @@
     background-color: #1577FF;
     border: none;
     box-sizing: border-box;
-    border-radius: 0.5rem;
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
+    border-radius: 0.2rem;
+    padding: clamp(0.6rem, 2vw, 0.7rem) clamp(0.7rem, 2vw, 1.1rem);
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
     color: white;
 }
 .userInformationContainer{
@@ -47,7 +50,7 @@
 }
 .welcomeMessage{
     color: white;
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
 }
 .userInformation{
     display: flex;
@@ -73,7 +76,7 @@
 }
 .popUpDividerLineTwo{
     border: none;
-    margin-top: 1.5rem;
+    margin-top: clamp(0.3rem, 3vw, 1.5rem);
     width: 80%;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }

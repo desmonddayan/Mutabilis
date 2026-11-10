@@ -4,17 +4,33 @@
     flex-direction: column;
 }
 
-.homePageRoutineText{
+.homePageRoutineTexthomePage{
     color: #4a4a4a;
-    font-size: 0.9rem;
+    font-size: clamp(0.6rem, 1vw, 0.7rem);
+}
+.homePageRoutineTextpopUp{
+    color: #2b2b2b;
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
 }
 .routineTextDividerButtonContainer{
     box-sizing: border-box;
     display: flex;
-    margin-bottom: 1rem;
+    margin-bottom: clamp(0.5rem, 2vw, 1rem);
     flex-direction: column;
 }
 .addRoutineButtonhomePage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(45,45,45);
+    box-sizing: border-box;
+    padding: clamp(0.2rem, 2vw, 0.3rem) clamp(0.7rem, 2vw, 0.9rem);
+    font-size: clamp(0.6rem, 2vw, 0.8rem);
+    border-radius: 0.2rem;
+    background-color: black;
+    color: white;
+}
+.cancelRoutineButtonhomePage{
     height: 1.5rem;
     width: 1.5rem;
     display: flex;
@@ -25,60 +41,76 @@
     background-color: black;
     color: white;
 }
-.addRoutineButtonpopUp{
-    height: 1.5rem;
-    width: 1.5rem;
+.cancelRoutineButtonpopUp{
+    height: clamp(1rem, 2vw, 1.5rem);
+    width: clamp(1rem, 2vw, 1.5rem);
+    font-size: clamp(0.4rem, 1vw, 0.6rem);
     display: flex;
     justify-content: center;
+    text-align: center;
     align-items: center;
     border: 1px solid rgba(45,45,45);
     border-radius: 0.2rem;
-    background-color: rgba(20,20,23);
+    background-color: rgba(9,9,9);
     color: white;
+}
+.addRoutineButtonpopUp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: clamp(0.3rem, 2vw, 1rem) clamp(0.7rem, 2vw, 0.9rem);
+    font-size: clamp(0.6rem, 2vw, 0.8rem);
+    border-radius: 0.2rem;
+    background-color: rgba(20,20,23);
+    border: 1px dashed rgba(45,45,45);
+    color: #1577FF;
 }
 .routineFormIndividualContainer{
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin-bottom: 0.5rem;
 }
 .routineTextBoxhomePage{
-    width: 70%;
-    border:none;
-    background-color: #000000;
-    outline: none;
-    color: white;
-    margin-bottom: 0.5rem;
-}
-.routineTextBoxpopUp{
     width: 70%;
     border:none;
     background-color: rgba(20,20,23);
     outline: none;
     color: white;
+    margin-bottom: 0.5rem;
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
+}
+.routineTextBoxpopUp{
+    width: clamp(10rem, 20vw, 15rem);
+    border: none;
+    background-color: rgba(20,20,23);
+    box-sizing: border-box;
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
+    outline: none;
+    color: white;
 }
 .routineTextBoxpopUp::placeholder{
-    color: #acacac;
-    font-size: 0.9rem;
+    color: #3e3e3e;
     text-decoration:none;
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
     outline: none;
 }
 .routineTextBoxhomePage::placeholder{
     color: #acacac;
-    font-size: 0.9rem;
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
     text-decoration:none;
     outline: none;
 }
 .radioText{
     color: white;
 }
-
-
 .routineInnerContainer{
     width: 100%;
     flex: 1;
     display: flex;
     flex-direction: column;
+
 }
 .routineDivider{
     border: none;
@@ -90,7 +122,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 0.5rem;
+    box-sizing: border-box;
+    padding: clamp(0.7rem, 1vw, 1rem) clamp(0.7rem, 2vw, 1.5rem);
 }
 .productEntryTextBoxhomePage{
     width: 70%;
@@ -100,24 +133,29 @@
     color: white;
 }
 .productEntryTextBoxpopUp{
-    width: 70%;
-    border:none;
+    width: 15rem;
+    border: none;
     background-color: rgba(20,20,23);
+    box-sizing: border-box;
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
     outline: none;
     color: white;
 }
+
 .productEntryTextBoxpopUp::placeholder{
-    font-size: 0.9rem;
-    color: #acacac;
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
+    color: #3e3e3e;
 }
 .productEntryTextBoxhomePage::placeholder{
-    font-size: 0.9rem;
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
     color: #acacac;
 }
 .routineNameContainer{
     display: flex;
     align-items: center;
-    gap: 1rem;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: clamp(0.7rem, 1vw, 1rem) clamp(0.7rem, 2vw, 1.5rem);
 }
 .timeButtonStyleGrayhomePage{
     border: none;
@@ -135,12 +173,14 @@
 .timeButtonStyleGraypopUp{
     border: none;
     color: white;
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
     background-color: rgba(20,20,23);
 }
 .timeButtonStyleBluepopUp{
     border: none;
     color: #1577FF;
     background-color: rgba(20,20,23);
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
     text-decoration: underline;
     text-decoration-thickness: 0.1rem;
     text-underline-offset: 0.2rem;
@@ -153,20 +193,23 @@
 .productSearchButtonhomePage{
     border: none;
     background-color: black;
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
     color: white;
 }
 .productSearchButtonpopUp{
     border: none;
     background-color: rgba(20,20,23);
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
     color: white;
 }
 .productContainer{
     width: 100%;
-    padding: 1rem 0;
+    font-size: clamp(0.5rem, 2vw, 0.8rem);
     color: white;
     background-color: transparent;
-
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-sizing: border-box;
+    border: none;
+    text-align: left;
 }
 .subDivider{
     border: none;
@@ -197,32 +240,42 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
 }
-.routineSubmitButton{
+.routineSubmitButtonhomePage{
     border: none;
     background-color: #1577FF;
     border-radius: 0.2rem;
     color: white;
     box-sizing: border-box;
-    padding: 0.5rem 1rem;
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    padding: clamp(0.2rem, 2vw, 0.5rem) clamp(0.9rem, 3vw, 1rem);
+}
+.routineSubmitButtonpopUp{
+    border: none;
+    background-color: #1577FF;
+    border-radius: 0.2rem;
+    color: white;
+    box-sizing: border-box;
+    font-size: clamp(0.6rem, 1vw, 0.9rem);
+    padding: clamp(0.3rem, 1vw, 0.5rem) clamp(0.4rem, 2vw, 1rem);
 }
 .routineSubmitButtonContainer{
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 1rem;
+    margin: clamp(0.5rem, 2vw, 0.7rem) 0;
 }
 .addedProductName{
     color: white;
-    font-size: 0.9rem;
+    font-size: clamp(0.5rem, 2vw, 0.8rem);
 }
 .individualProductContainer{
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1rem;
 }
 .listMoveButtonContainer{
     display: flex;
@@ -244,9 +297,9 @@
 }
 .moveListUpBottonpopUp{
     border: none;
-    width: 1rem;
     text-align: center;
     background-color: rgba(20,20,23);
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
     color: white;
 }
 .deleteProductButtonhomePage{
@@ -258,10 +311,13 @@
     color: white;
 }
 .deleteProductButtonpopUp{
-    border: 1px solid rgba(45,45,45);
+    font-size: clamp(0.5rem, 1vw, 0.8rem);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    border: none;
     border-radius: 0.2rem;
-    width: 1.3rem;
-    height: 1.3rem;
     background-color: rgba(20,20,23);
     color: white;
 }
@@ -270,22 +326,26 @@
     align-items: center;
     gap: 1rem;
 }
-.routinePopUpContainer{
-    width: 100%;
 
-}
 .routineFormEntryContainer{
     width: 100%;
 }
 .enteredProductArray{
+    box-sizing: border-box;
+    padding: clamp(0.7rem, 1vw, 1rem) clamp(0.7rem, 2vw, 1.5rem);
     flex: 1;
 }
+
 .routineInnerContainerForFlex{
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
+    background-color: rgba(20,20,23);
+    border-radius: clamp(0.3rem, 2vw, 0.5rem);
+    box-sizing: border-box;
+
 }
 .routineInnerContainerWithoutButton{
     display: flex;
@@ -425,4 +485,75 @@
     border-radius: 0.2rem;
     background-color: rgba(20,20,23);
     color: #1577FF;
+}
+.routineName{
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
+}
+.productName{
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
+}
+.routineNameTextContainer{
+    min-width: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+.routineContainerForGap{
+    display: flex;
+    flex-direction: column;
+}
+.searchSuggestionsText{
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
+    margin-bottom: clamp(1px, 0.5vw, 0.5rem);
+    color: gray;
+}
+.productListName{
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
+    margin-bottom: clamp(0.2rem, 1vw, 0.6rem);
+}
+.individualProduct{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.productAndBrandContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.productNameText{
+    color: #3e3e3e;
+    font-size: clamp(0.6rem, 2vw, 0.8rem);
+}
+.individualProductName{
+    font-size: clamp(0.5rem, 2vw, 0.8rem);
+
+}
+.subDividerEleven{
+    border:none;
+    border-top: 1px solid rgb(28, 28, 28);
+}
+.subDividerTwelve{
+    border:none;
+    border-top: 1px solid rgb(28, 28, 28);
+    align-items: center;
+    width: 20rem;
+}
+.productSearchContainer{
+    padding: clamp(0.7rem, 1vw, 1rem) clamp(0.7rem, 2vw, 1.5rem);
+}
+.chevronIcon{
+    display: block;
+    width: clamp(0.6rem, 1.5vw, 0.8rem);
+    height: clamp(0.6rem, 1.5vw, 0.8rem);
+}
+
+.chevronIconUp{
+    transform: rotate(180deg);
+}
+.searchedProductArray{
+    display: flex;
+    gap: clamp(0.2rem, 1vw, 0.5rem);
+    flex-direction: column;
 }

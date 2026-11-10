@@ -28,14 +28,13 @@
 }
 .indexOfCard{
     color: #ffffff;
-    font-size: 0.9rem;
+    font-size: clamp(0.5rem, 2vw, 0.9rem);
 }
 .pointerContainer{
     display: flex;
-    top: 0.4rem;
-    left: 0.4rem;
+    top: clamp(0.2rem, 1vw, 0.4rem);
+    left: clamp(0.2rem, 1vw, 0.4rem);
     position: absolute;
-    gap: 0.3rem;
 }
 .pointerButton{
     color: white;

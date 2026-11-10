@@ -1,11 +1,11 @@
 .applicationnavbar{
     width: 100%;
     display: flex;
-    background-color: black;
-    border-right: 1px solid rgba(45,45,45);
+    background-color: #090909;
+    border:none;
     align-items: center;
     justify-content: center;
-    height: 6vh;
+    height: 5vh;
     z-index: 999;
 }
 .positionFixedContainer{
@@ -17,8 +17,10 @@
 }
 .navbar-top{
     display: flex;
-    gap: 1.5rem;
     flex: 1;
+
+    justify-content: center;
+    align-items: center;
 }
 .sideNavbarListContainer{
     display: flex;
@@ -26,7 +28,6 @@
 }
 .sideNavbarButtonContainer{
     display: flex;
-    gap: 2rem;
 }
 .setHorizontalPadding{
     width: 95%;
@@ -40,23 +41,25 @@
     color: white;
     box-sizing: border-box;
     border-radius: 0.5rem;
-    font-size: 1rem;
+    font-size: clamp(0.8rem, 2vw, 1rem);
 }
 .main{
     overflow-y: auto;
 }
 .titleNextToLogo{
     color: white;
-    font-size: 1.2rem;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+
 }
 .logoTitleContainer{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     flex: 1;
 }
 .navbarLink{
     text-decoration: none;
+    cursor: pointer;
 }
 
 .bulletPointRemoval{
@@ -71,12 +74,16 @@
 .signOutButton{
     color: white;
     background-color: black;
+    gap: clamp(0.6rem, 2vw, 2rem);
     border: none;
     border-radius: 0.5rem;
-
+    font-size: clamp(0.7rem, 2vw, 1rem);
 }
 .divider{
     border: none;
     width: 100%;
     border-top: 1px solid rgb(39, 39, 39);
+}
+.navbarLink.active{
+    display: none;
 }

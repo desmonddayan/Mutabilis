@@ -307,7 +307,6 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                 <div className="popUpHeaderContainer">
                     <div className="popUpDateAndButtonContainer">
                         <div>
-                            <p className="subText">Selfies and Diary</p>
                             <h2 className="popUpDate">{day} {months[month]} {year}</h2>
                         </div>
                         <button className="getOutOfPopUpButton" onClick={() => {setPopUpStateFalse(); setIsRecordingFalse()}}>X</button>
@@ -315,65 +314,69 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                 </div>
                 <hr className="popUpDividerLine"></hr>
                 <div className="popUpBodyContainer">
-                    <div className="popUpPhotoContainer">
-                        <p className="headlineText">Selfies (Same Lighting and Framing)</p>
-                        <div className="triplePhotosContainer">
-                            <div className="photoContainer">
-                                <input style={{display: "none"}} type="file" id="photoUploadLeft" accept="image/*" onChange={(e) => handlePhotoSubmission("left", e)}/>
-                                <label className="popUpFaceCardImageUpload" htmlFor="photoUploadLeft">
-                                    {leftFacePhoto ? (
-                                        <img className="uploadedPhotoContainer" src={leftFacePhoto} alt=""/>
-                                    ) : (
-                                        <div className="text">
-                                            <p className="textOne">Left</p>
-                                            <p className="textTwo">Tap & Drag to Upload</p>
-                                        </div>
-                                    )}
-                                </label>
-                            </div>
-                            <div className="middlePhotoContainer">
-                                <input style={{display: "none"}} type="file" id="photoUploadMiddle" accept="image/*" onChange={(e) => handlePhotoSubmission("middle", e)}/>
-                                <label className="popUpFaceCardImageUploadMiddle" htmlFor="photoUploadMiddle">
-                                    {middleFacePhoto ? (
-                                        <img className="uploadedPhotoContainer" src={middleFacePhoto} alt=""/>
-                                    ) : (
-                                        <div className="text">
-                                            <p className="textOne">Middle</p>
-                                            <p className="textTwo">Tap & Drag to Upload</p>
-                                        </div>
-                                    )}
-                                </label>
-                            </div>
-                            <div className="photoContainer">
-                                <input style={{display: "none"}} type="file" id="photoUploadRight" accept="image/*" onChange={(e) => handlePhotoSubmission("right", e)} />
-                                <label className="popUpFaceCardImageUpload" htmlFor="photoUploadRight">
-                                    {rightFacePhoto ? (
-                                        <img className="uploadedPhotoContainer" src={rightFacePhoto} alt=""/>
-                                    ) : (
-                                        <div className="text">
-                                            <p className="textOne">Right</p>
-                                            <p className="textTwo">Tap & Drag to Upload</p>
-                                        </div>
-                                    )}
+                    <div className="photoAndDiaryContainer">
+                        <div className="popUpPhotoContainer">
+                            <p className="headlineText">Photos</p>
+                            <div className="triplePhotosContainer">
+                                <div className="photoContainer">
+                                    <input style={{display: "none"}} type="file" id="photoUploadLeft" accept="image/*" onChange={(e) => handlePhotoSubmission("left", e)}/>
+                                    <label className="popUpFaceCardImageUpload" htmlFor="photoUploadLeft">
+                                        {leftFacePhoto ? (
+                                            <img className="uploadedPhotoContainer" src={leftFacePhoto} alt=""/>
+                                        ) : (
+                                            <div className="textMiddlePhotoContainer">
+                                                <p className="textOne">Left</p>
+                                                <p className="textTwo">Tap & Drag to Upload</p>
+                                            </div>
+                                        )}
+                                    </label>
+                                </div>
+                                <div className="photoContainer">
+                                    <input style={{display: "none"}} type="file" id="photoUploadMiddle" accept="image/*" onChange={(e) => handlePhotoSubmission("middle", e)}/>
+                                    <label className="popUpFaceCardImageUpload" htmlFor="photoUploadMiddle">
+                                        {middleFacePhoto ? (
+                                            <img className="uploadedPhotoContainer" src={middleFacePhoto} alt=""/>
+                                        ) : (
+                                            <div className="textMiddlePhotoContainer">
+                                                <p className="textOne">Middle</p>
+                                                <p className="textTwo">Tap & Drag to Upload</p>
+                                            </div>
+                                        )}
+                                    </label>
+                                </div>
+                                <div className="photoContainer">
+                                    <input style={{display: "none"}} type="file" id="photoUploadRight" accept="image/*" onChange={(e) => handlePhotoSubmission("right", e)} />
+                                    <label className="popUpFaceCardImageUpload" htmlFor="photoUploadRight">
+                                        {rightFacePhoto ? (
+                                            <img className="uploadedPhotoContainer" src={rightFacePhoto} alt=""/>
+                                        ) : (
+                                            <div className="textMiddlePhotoContainer">
+                                                <p className="textOne">Right</p>
+                                                <p className="textTwo">Tap & Drag to Upload</p>
+                                            </div>
+                                        )}
 
-                                </label>
+                                    </label>
+                                </div>
                             </div>
                         </div>
+
+                        <div className="popUpDiaryContainer">
+                            <div className="photosTitleContainer">
+                                <p className="headlineText">Diary (Journal Every Event)</p>
+                             </div>
+                            <DiaryEntry
+                                recognitionRef = {recognitionRef}
+                                existingTextRef = {existingTextRef}
+                                setIsRecordingFalse = {setIsRecordingFalse}
+                                diaryEntry = {diaryEntry}
+                                setDiaryEntry = {setDiaryEntry}
+                                isRecording = {isRecording}
+                                setIsRecording = {setIsRecording}
+                            />
+                        </div>
                     </div>
-                    <div className="popUpDiaryContainer">
-                        <div className="photosTitleContainer">
-                            <p className="headlineText">Diary (Journal Every Event)</p>
-                         </div>
-                        <DiaryEntry
-                            recognitionRef = {recognitionRef}
-                            existingTextRef = {existingTextRef}
-                            setIsRecordingFalse = {setIsRecordingFalse}
-                            diaryEntry = {diaryEntry}
-                            setDiaryEntry = {setDiaryEntry}
-                            isRecording = {isRecording}
-                            setIsRecording = {setIsRecording}
-                        />
-                    </div>
+
                     <div className="popUpRoutineAndLifeStyleFactorContainer">
                         <div className="routinePopUpContainer">
                                 <Routine session={session} parentIndex={"popUp"}  selectedRoutineArray={selectedRoutineArray} setSelectedRoutineArray={setSelectedRoutineArray} />
@@ -382,7 +385,6 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                             <div className="lifeStyleFactorHeadlineTextContainer">
                                 <p className="headlineText">Lifestyle</p>
                             </div>
-                            <hr className="subDividerSix"></hr>
                             <div className="lifeStyleFactorCountContainer">
                                 <div className="singleLifeStyleFactorContainer">
                                     <p className="factor">Sleep</p>
@@ -406,7 +408,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                                         <button className="counterButton" onClick={() => {setWaterCount(waterCount + 0.25); waterUnitFunction()}}><b>+</b></button>
                                     </div>
                                 </div>
-                                <div className="singleLifeStyleFactorContainer">
+                                <div className="singleLifeStyleFactorContainerOne">
                                     <p className="factor">Stress</p>
                                     <div className="counterContainer">
                                         <button className="counterButton" onClick={() => {if(stressCount > 0){setStressCount(stressCount - 1); stressUnitFunction(stressCount)}}}><b>&lt;</b></button>
@@ -433,7 +435,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
 
                             </div>
                     ) : (
-                        <button className="saveEntryButton" onClick={async ()=>{setPopUpStateFalse(); setIsRecordingFalse(); await handleDailyEntry(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit, selectedRoutineArray)}}><b>Save Entry</b></button>
+                        <button className="saveEntryButton" onClick={async ()=>{setIsRecordingFalse(); await handleDailyEntry(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit, selectedRoutineArray); setPopUpStateFalse()}}><b>Save Entry</b></button>
                     )}
                 </div>
             </div>

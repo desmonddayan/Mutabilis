@@ -45,8 +45,8 @@ import {supabase} from "./supabaseClient.js";
 
     return (<>
             <Routes>
-                <Route path="/" element={session ? <Navigate to="/home"/> : <LandingPage />}/>
-                <Route path="/home" element={<AuthenticatedRoute session={session}><HomePage session={session}/></AuthenticatedRoute>}/>
+                <Route path="/" element={session ? <Navigate to="/track"/> : <LandingPage />}/>
+                {/*<Route path="/home" element={<AuthenticatedRoute session={session}><HomePage session={session}/></AuthenticatedRoute>}/>*/}
                 <Route path="/track" element={<AuthenticatedRoute session={session}><TrackPage session={session}/></AuthenticatedRoute>}/>
             </Routes>
     </>

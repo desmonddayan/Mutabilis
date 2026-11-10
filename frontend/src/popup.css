@@ -1,9 +1,10 @@
 .getOutOfPopUpButton{
-    height: 2.5rem;
-    width: 2.5rem;
+    height: clamp(1.5rem, 2vw, 2.5rem);
+    width: clamp(1.5rem, 2vw, 2.5rem);
+    font-size: clamp(0.6rem, 2vw, 0.8rem);
     border: 1px solid rgba(45,45,45);
-    border-radius: 0.5rem;
-    background-color: rgba(20,20,23);
+    border-radius: clamp(0.3rem, 2vw, 0.4rem);
+    background-color: rgba(9,9,9);
     color: white;
 }
 .popUpContainer{
@@ -11,15 +12,17 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 90%;
+    width: 95%;
     z-index: 1001;
-    background-color: rgba(20,20,23);
+    background-color: rgba(9,9,9);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 1px solid rgba(45,45,45);
+    border-radius: 0.6rem;
     box-sizing: border-box;
+
 }
 .popUpBackgroundBlur{
     z-index: 1000;
@@ -36,17 +39,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     box-sizing: border-box;
-    padding: 1.5rem 0;
+    padding: clamp(0.8rem, 2vw, 1rem) clamp(1rem, 2vw, 2rem);
 }
 .popUpDateAndButtonContainer{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 95%;
+    width: 100%;
 }
 .popUpDate{
     color: white;
+    font-size: clamp(1rem, 2vw, 1.3rem);
 }
 .popUpDividerLine{
     border: none;
@@ -59,15 +64,27 @@
     flex-direction: column;
     align-items: center;
     overflow-y: scroll;
-    height: 75vh;
+    box-sizing: border-box;
+    padding: clamp(0.5rem, 2vw, 0.6rem) clamp(1rem, 2vw, 2rem);
+    height: clamp(75vh, 2vw, 80vh);
+}
+.photoAndDiaryContainer{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 .popUpPhotoContainer{
-    width: 95%;
-    margin-top: 1rem;
+    flex: 6 1 0;
+    min-width: min(25rem, 100%);
 }
 .popUpDiaryContainer{
-    width: 95%;
-    margin-top: 1rem;
+    flex: 4 1 0;
+    min-width: min(20rem, 100%);
+    display: flex;
+    flex-direction: column;
 }
 .popUpSectionHeaders{
     color: #3e3e3e;
@@ -75,55 +92,49 @@
     font-size: 1rem;
 }
 .popUpFaceCardImageUpload{
-    background-color: #050505;
+    background-color: rgba(20,20,23);
     display: flex;
     width: 100%;
     height: 100%;
+    border-radius: clamp(0.2rem, 0.5vw, 1rem);
+    cursor: pointer;
     align-items: center;
     justify-content: center;
+}
+.popUpFaceCardImageUpload:hover {
+    filter: brightness(1.15);
 }
 .textOne{
     color: #ffffff;
-    font-size: 1rem;
+    font-size: clamp(0.6rem, 2vw, 1rem);
 }
 .textTwo{
     color: #1577FF;
-    font-size: 0.8rem;
+    font-size: clamp(0.3rem, 2vw, 0.8rem);
+    text-align: center;
+    width: 85%;
 }
-.popUpFaceCardImageUploadMiddle{
-    background-color: #020202;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
+
 .photoContainer{
     flex: 1;
     aspect-ratio: 9 / 16;
+    min-width: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem;
+    border-radius: clamp(0.2rem, 0.5vw, 1rem);
+    border: none;
 }
-.middlePhotoContainer{
-    flex: 1;
-    aspect-ratio: 9 / 16;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5rem;
-    border:none;
-    border-right: 1px solid rgba(34,34,34);
-    border-left: 1px solid rgba(34,34,34);
-}
+
 .triplePhotosContainer{
-    border: 1px solid rgb(34, 34, 34);
     display: flex;
+    border-radius: 0.3rem;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin-top: 0.8rem;
+    box-sizing: border-box;
+    gap: clamp(0.3rem, 1vw, 0.5rem);
+    margin-top: clamp(0.5rem, 2vw, 0.8rem);
 }
 
 .submitButtonContainer{
@@ -131,12 +142,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem 0;
+    padding: clamp(0.5rem, 2vw, 1rem) 0;
     width: 100%;
 }
 .subText{
     color: #ffffff;
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
 }
 .photosTitleContainer{
     display: flex;
@@ -144,32 +155,36 @@
     gap: 0.3rem;
 }
 .headlineText{
-    color: #4a4a4a;
-    font-size: 0.9rem;
+    color: #2b2b2b;
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
 }
 .saveEntryButton{
     background-color: #1577FF;
     box-sizing: border-box;
-    padding: 0.8rem 1.5rem;
+    padding: clamp(0.4rem, 2vw, 0.8rem) clamp(0.8rem, 2vw, 1.5rem);
     color: white;
-    font-size: 0.9rem;
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
     border: none;
-    border-radius: 0.5rem;
+    border-radius: clamp(0.1rem, 1vw, 0.5rem);
 }
 .popUpRoutineAndLifeStyleFactorContainer{
-    width: 95%;
+    width: 100%;
     display: flex;
     margin-top: 1rem;
-    justify-content: space-between;
+    flex-wrap: wrap;
 }
-.text{
+.textMiddlePhotoContainer{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: clamp(0.1rem, 1vw, 0.2rem);
+    width: 100%;
 }
 .routinePopUpContainer{
     color: white;
+    flex: 6 1 0;
+    min-width: min(15rem, 100%);
 }
 .counterContainer{
     display: flex;
@@ -180,22 +195,32 @@
 .lifeStyleFactorContainer{
     color: white;
     display: flex;
+    flex: 4 1 0;
+    min-width: min(18rem, 100%);
     flex-direction: column;
+
 }
 .lifeStyleFactorCountContainer{
     display: flex;
-    margin-top: 0.3rem;
+    background-color: rgb(20,20,23);
     flex-direction: column;
+    border-radius: clamp(0.3rem, 2vw, 0.5rem);
 }
 .routineCountContainer{
     margin-top: 0.5rem;
 }
-.singleLifeStyleFactorContainer{
+.singleLifeStyleFactorContainerOne{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(34,34,34);
-    height: 2.5rem;
+    padding: 0.7rem 0.9rem;
+}
+.singleLifeStyleFactorContainer{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(28, 28, 28);
+    align-items: center;
+    padding: 0.7rem 0.9rem;
 }
 .counterContainer{
     font-size: 1rem;
@@ -204,17 +229,16 @@
     align-items: center;
 }
 .factor{
-    font-size: 0.9rem;
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
 }
 .countedCounter{
-    width: 5rem;
-    font-size: 1rem;
+    width: clamp(4rem, 2vw, 5rem);
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
     text-align: center;
 }
 .popUpRoutineAndLifeStyleFactorContainer{
     margin-bottom: 1rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     gap: 2rem;
 }
 .routineTitleText{
@@ -233,10 +257,10 @@
     gap: 0.5rem;
 }
 .waterUnitButton{
-    height: 1.5rem;
-    width: 2.5rem;
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
+    padding: clamp(0rem, 0.5vw, 0.1rem) clamp(0.2rem, 1vw, 0.4rem);
     border: 1px solid rgba(45,45,45);
-    border-radius: 0.5rem;
+    border-radius: clamp(0.1rem, 1vw, 0.3rem);
     background-color: rgba(20,20,23);
     color: white;
 }
@@ -253,7 +277,7 @@
     gap: 0.2rem;
 }
 .lifeStyleFactorHeadlineTextContainer{
-    height: 1.5rem;
+    margin-bottom: clamp(0.5rem, 2vw, 1rem);
 }
 .uploadedPhotoContainer{
     width: 100%;

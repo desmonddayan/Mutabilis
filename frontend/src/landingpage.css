@@ -16,7 +16,8 @@
     display: flex;
     align-items: center;
     color: white;
-    font-size: 1.2rem;
+    font-size: clamp(0.8rem, 1.5vw, 1.2rem);
+
     flex: 1;
     margin-left: 2rem;
 }
@@ -33,10 +34,10 @@
 .signUpButton{
     color: white;
     background-color: #1577FF;
-    padding: 0.3rem 1.5rem;
+    padding: clamp(0.2rem, 2vw, 0.3rem) clamp(1rem, 2vw, 1.5rem);
     border: none;
     border-radius: 0.2rem;
-    font-size: 0.9rem;
+    font-size: clamp(0.7rem, 1.5vw, 0.9rem);
     margin-right: 2rem;
 }
 .navbarLine{
@@ -56,12 +57,12 @@
     flex-direction: column;
 }
 .mutabilisLandingPageText{
-    font-size: 20rem;
+    font-size: clamp(3rem, 22vw, 25rem);
     color: white;
 }
 .animationContainer{
     display: flex;
-    width: 98%;
+    width: 100%;
     align-items: center;
     justify-content: center;
 }
