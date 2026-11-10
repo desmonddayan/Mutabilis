@@ -66,7 +66,7 @@
     overflow-y: scroll;
     box-sizing: border-box;
     padding: clamp(0.5rem, 2vw, 0.6rem) clamp(1rem, 2vw, 2rem);
-    height: clamp(75vh, 2vw, 80vh);
+    height: clamp(60vh, 45vw, 80vh);
 }
 .photoAndDiaryContainer{
     width: 100%;
