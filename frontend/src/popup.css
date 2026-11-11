@@ -66,7 +66,7 @@
     overflow-y: scroll;
     box-sizing: border-box;
     padding: clamp(0.5rem, 2vw, 0.6rem) clamp(1rem, 2vw, 2rem);
-    height: clamp(60vh, 45vw, 80vh);
+    height: clamp(70vh, 45vw, 80vh);
 }
 .photoAndDiaryContainer{
     width: 100%;
@@ -74,11 +74,12 @@
     flex-wrap: wrap;
     align-items: stretch;
     gap: 1rem;
-    margin-top: 1rem;
+    margin-top: clamp(0.4rem, 2vw, 1rem);
 }
 .popUpPhotoContainer{
     flex: 6 1 0;
     min-width: min(25rem, 100%);
+
 }
 .popUpDiaryContainer{
     flex: 4 1 0;
@@ -106,11 +107,11 @@
 }
 .textOne{
     color: #ffffff;
-    font-size: clamp(0.6rem, 2vw, 1rem);
+    font-size: clamp(0.7rem, 3vw, 1rem);
 }
 .textTwo{
     color: #1577FF;
-    font-size: clamp(0.3rem, 2vw, 0.8rem);
+    font-size: clamp(0.4rem, 2vw, 0.8rem);
     text-align: center;
     width: 85%;
 }
@@ -124,6 +125,7 @@
     justify-content: center;
     border-radius: clamp(0.2rem, 0.5vw, 1rem);
     border: none;
+    position: relative;
 }
 
 .triplePhotosContainer{
@@ -156,7 +158,7 @@
 }
 .headlineText{
     color: #2b2b2b;
-    font-size: clamp(0.7rem, 2vw, 0.9rem);
+    font-size: clamp(0.8rem, 3vw, 0.9rem);
 }
 .saveEntryButton{
     background-color: #1577FF;
@@ -167,11 +169,14 @@
     border: none;
     border-radius: clamp(0.1rem, 1vw, 0.5rem);
 }
+
 .popUpRoutineAndLifeStyleFactorContainer{
     width: 100%;
     display: flex;
-    margin-top: 1rem;
+    margin-top: clamp(0.5rem, 2vw, 1rem);
     flex-wrap: wrap;
+    margin-bottom: 1rem;
+    gap: clamp(1rem, 1vw, 2rem);
 }
 .textMiddlePhotoContainer{
     display: flex;
@@ -184,14 +189,9 @@
 .routinePopUpContainer{
     color: white;
     flex: 6 1 0;
-    min-width: min(15rem, 100%);
+    min-width: min(25rem, 100%);
 }
-.counterContainer{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.3rem;
-}
+
 .lifeStyleFactorContainer{
     color: white;
     display: flex;
@@ -213,14 +213,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.7rem 0.9rem;
+    padding: clamp(0.5rem, 2vw, 0.7rem) clamp(0.8rem, 2vw, 1rem);
 }
 .singleLifeStyleFactorContainer{
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid rgb(28, 28, 28);
     align-items: center;
-    padding: 0.7rem 0.9rem;
+    padding: clamp(0.5rem, 2vw, 0.7rem) clamp(0.8rem, 2vw, 1rem);
 }
 .counterContainer{
     font-size: 1rem;
@@ -228,19 +228,16 @@
     justify-content: space-between;
     align-items: center;
 }
+
 .factor{
-    font-size: clamp(0.6rem, 2vw, 0.9rem);
+    font-size: clamp(0.7rem, 3vw, 0.9rem);
 }
 .countedCounter{
     width: clamp(4rem, 2vw, 5rem);
-    font-size: clamp(0.6rem, 2vw, 0.9rem);
+    font-size: clamp(0.7rem, 3vw, 0.9rem);
     text-align: center;
 }
-.popUpRoutineAndLifeStyleFactorContainer{
-    margin-bottom: 1rem;
-    display: flex;
-    gap: 2rem;
-}
+
 .routineTitleText{
     margin-bottom: 0.3rem;
 }
@@ -266,6 +263,9 @@
 }
 .counterButton{
     height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 1.5rem;
     border: none;
     border-radius: 0.3rem;
@@ -284,6 +284,21 @@
     object-fit: cover;
     height: 100%;
     display: block;
+}
+
+.deletePhotoButton{
+    position: absolute;
+    bottom: 0.25rem;
+    right: 0.25rem;
+    background-color: rgb(20,20,23);
+    padding: clamp(0.1rem, 1vw, 0.5rem);
+    font-size: clamp(0.3rem, 1vw, 0.6rem);
+    border:none;
+    color: #3e3e3e;
+    z-index: 2;
+}
+.deletePhotoButton:hover{
+    color: #595959;
 }
 .subDividerSix{
     border: none;

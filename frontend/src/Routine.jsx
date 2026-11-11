@@ -36,8 +36,27 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
         )
     }
 
+    const USE_MOCK_DATA = true
+
+    const mockRoutineRows = [
+        {routineId: 1, routineName: "Morning", routineTime: "AM", productId: 101, productName: "Gentle Foaming Cleanser"},
+        {routineId: 1, routineName: "Morning", routineTime: "AM", productId: 102, productName: "Niacinamide 10% + Zinc 1% Serum"},
+        {routineId: 1, routineName: "Morning", routineTime: "AM", productId: 103, productName: "Daily Moisturising Lotion"},
+        {routineId: 1, routineName: "Morning", routineTime: "AM", productId: 104, productName: "Mineral SPF 50 Sunscreen"},
+        {routineId: 2, routineName: "Evening", routineTime: "PM", productId: 105, productName: "Oil Cleanser"},
+        {routineId: 2, routineName: "Evening", routineTime: "PM", productId: 101, productName: "Gentle Foaming Cleanser"},
+        {routineId: 2, routineName: "Evening", routineTime: "PM", productId: 106, productName: "Retinol 0.5% Night Serum"},
+        {routineId: 2, routineName: "Evening", routineTime: "PM", productId: 107, productName: "Ceramide Night Cream"},
+        {routineId: 3, routineName: "Weekend Deep Cleanse With A Long Name sdasdasdasdasdasdadadasddasdadasdsadsadadasdasdasdasdad", routineTime: "AMPM", productId: 108, productName: "Clay Mask"},
+        {routineId: 3, routineName: "Weekend Deep Cleanse With A Long Name dsadasdasdasddasdasdasdsadsadasdasdasdsadasdasdasda", routineTime: "AMPM", productId: 109, productName: "Exfoliating AHA/BHA Toner"}
+    ]
+
     const getSavedRoutines = async () => {
         if (!session) return;
+        if(USE_MOCK_DATA){
+            setSavedRoutineArray(groupRoutines(mockRoutineRows));
+            return;
+        }
         try{
             const response = await fetch(`${API_URL}/api/v1/routine/get`,
                 {
@@ -249,19 +268,20 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
     const routineNameField = (value, setValue) => (
         <div className="routineNameTextContainer">
             <p className="routineName">Routine Name</p>
-            <input type="text" value={value} placeholder="e.g. Morning, Weekend, Deep Cleanse..." className={`routineTextBox${parentIndex}`} onChange={(event) => setValue(event.target.value)}/>
+            <input type="text" value={value} placeholder="e.g. Morning, Deep Cleanse..." className={`routineTextBox${parentIndex}`} onChange={(event) => setValue(event.target.value)}/>
         </div>
     )
     const productSearchRow = (
-        <div className="routineProductSubmitContainer">
-            <div className="routineNameTextContainer">
-                <p className="productName">Product Name</p>
-                <input id="productNameEntry" type="text" className={`productEntryTextBox${parentIndex}`} value={productName} onChange={(event) => setProductName(event.target.value)} placeholder="e.g. Brand, Name on Label..."/>
+        <div className="routineProductSubmitContainerOuter">
+            <div className="routineProductSubmitContainer">
+                <div className="routineNameTextContainer">
+                    <p className="productName">Product Name</p>
+                    <input id="productNameEntry" type="text" className={`productEntryTextBox${parentIndex}`} value={productName} onChange={(event) => setProductName(event.target.value)} placeholder="e.g. Brand, Name on Label..."/>
+                </div>
+                <button className={`productSearchButton${parentIndex}`} onClick={() => {handleProductSearch(productName); setProductName("")}}>Search</button>
             </div>
-            <button className={`productSearchButton${parentIndex}`} onClick={() => {handleProductSearch(productName); setProductName("")}}>Search</button>
-            <hr className="subDividerEleven"/>
+            {productSearchArray.length > 0 ? (<hr className="subDividerThirteen" />) : null}
         </div>
-
     )
 
     const productSuggestions = (onPick) => productSearchArray.length > 0 ? (
@@ -280,6 +300,7 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
             ))}
 
             <button className="productContainer" onClick={() => {alert("Please type in the exact name with the brand."); setProductSearchArray([])}}>None of the Above</button>
+
         </div>
     ) : null
 
@@ -320,19 +341,22 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
                                 </div>
 
                                 {productSearchRow}
+                                <div className="searchedProductArray">
+                                    {productSuggestions((product) => {handleProductEntry(product); setProductArray(prev => [...prev, product.productName])})}
+                                </div>
 
-                                <div className="searchedProductArray">
-                                {productSuggestions((product) => {handleProductEntry(product); setProductArray(prev => [...prev, product.productName])})}
-                                </div>
-                                    <hr className="subDividerEleven" />
                             </div>
-                            <div className="enteredProductArray">
-                                {productArray.length > 0? (<p className="productListName">Product List</p>) : null}
-                                <div className="searchedProductArray">
-                                    {productList(productArray, setProductArray, (product) => product)}
+
+                            {productArray.length > 0 ? (
+                                <div className="enteredProductArray">
+                                    <p className="productListName">Product List</p>
+                                    <div className="searchedProductArray">
+                                        {productList(productArray, setProductArray, (product) => product)}
+                                    </div>
                                 </div>
-                            </div>
-                            <hr className="subDividerEleven" />
+                            ) : null}
+
+                            <hr className="subDividerEleven"/>
                         </div>
                         <div>
                             <div className="routineSubmitButtonContainer">
@@ -343,52 +367,55 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
                 ) : (
                     <div className="savedRoutineContainer">
                         {savedRoutinePopUpState ? (
-                            <div>
+                            <div className="selectedRoutineContainer">
                                 <div className="selectedRoutineAndCloseDropDownContainer">
                                     <div className="routineNameContainer">
                                         {routineNameField(editedRoutineName, setEditedRoutineName)}
-                                        {timeButtons}
-                                    </div>
-                                    <hr className="subDividerEleven" />
-                                    <div className="deleteAndRoutineDropDownButtonContainer">
-                                        <button className={`routineDeleteButton${parentIndex}`} onClick={() => {handleRoutineDelete(routineId); setProductSearchArray([])}}>Delete</button>
-                                        <button className={`closeRoutinePopUpState${parentIndex}`} onClick={() => {setSavedRoutinePopUpState(false); setProductSearchArray([])}}>&#8963;</button>
-                                    </div>
+                                        <div className="timeButtonsAndCloseRoutineButtonContainer">
+                                            {timeButtons}
+                                            <button className={`closeRoutinePopUpState${parentIndex}`} onClick={() => {setSavedRoutinePopUpState(false); setProductSearchArray([])}}><svg xmlns="http://www.w3.org/2000/svg" className={"chevronIcon chevronIconDown"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg></button>
+                                        </div>
+                                        </div>
                                 </div>
-                                {productSearchRow}
                                 <hr className="subDividerEleven" />
+                                {productSearchRow}
                                 <div className="searchedProductArray">
+
                                 {productSuggestions(handleEditedProductEntry)}
                                 </div>
                                 <hr className="subDividerEleven" />
-                                <div className={`overFlowEditedProductContainer${parentIndex}`}>
+                                    <div className="enteredProductArray">
+                                        <p className="productListName">Product List</p>
                                     <div className="searchedProductArray">
-                                    {productList(editedProductArray, setEditedProductArray, (product) => product.productName)}
+                                        {productList(editedProductArray, setEditedProductArray, (product) => product.productName)}
                                     </div>
-                                    </div>
-
+                                </div>
+                                <hr className="subDividerEleven" />
                                 <div className="submitChangesRoutineButtonContainer">
-                                    <button className="routineSubmitChangesButton" onClick={() => {handleEditedRoutineSubmit(editedProductArray, editedRoutineName, routineTime, routineIndex); setProductSearchArray([])}}>Submit Changes</button>
+                                    <div className="threeSplitDiv"></div>
+                                    <div className="threeSplitDivOne"><button className="routineSubmitChangesButton" onClick={() => {handleEditedRoutineSubmit(editedProductArray, editedRoutineName, routineTime, routineIndex); setProductSearchArray([])}}>Submit Changes</button></div>
+                                    <div className="threeSplitDiv"><button className={`routineDeleteButton${parentIndex}`} onClick={() => {handleRoutineDelete(routineId); setProductSearchArray([])}}>Delete Routine</button></div>
+
+
                                 </div>
                             </div>
                         ) : (
                             <div>
                                 <div className={`savedRoutineInnerContainer${parentIndex}`}>
                                     {savedRoutineArray.map((routine, index) => (
-                                        <div className="singleRoutineEntry" key={routine.id}>
-                                            <p className="savedRoutineText">
-                                                {index + 1}. {routine.name} {routine.time}
-                                            </p>
-                                            <div className="selectRoutineAndDropDownMenuButtonContainer">
-                                                {parentIndex === "popUp" ? (
-                                                    <button disabled={!selectedRoutineArray.includes(routine.id) && selectedRoutineArray.length >= 2} className={selectedRoutineArray.includes(routine.id) ? "selectedRoutineButtonBlue" : "selectedRoutineButtonGray"} onClick={() => handleSelectedRoutineButton(routine.id)}>Select</button>
-                                                ) : null}
-                                                <button className={`routineProductDropDownButton${parentIndex}`} onClick={() => {setRoutineIndex(index); setRoutineId(routine.id); setRoutineTime(routine.time); setEditedRoutineName(routine.name); setEditedProductArray(routine.products); setSavedRoutinePopUpState(true); handleTimeButtonClick(timeTranslator(routine.time))}}>&#8964;</button>
+                                        <div className="singleRoutineEntry"  key={routine.id}>
+                                            <button disabled={!selectedRoutineArray.includes(routine.id) && selectedRoutineArray.length >= 2} className={selectedRoutineArray.includes(routine.id) ? "selectedRoutineButtonBlue" : "selectedRoutineButtonGray"} onClick={() => handleSelectedRoutineButton(routine.id)}>{selectedRoutineArray.includes(routine.id) ? (        <svg xmlns="http://www.w3.org/2000/svg" className="checkIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L18 5" /></svg>) : null}</button>
+                                            <div className="selectRoutineAndRoutineNameContainer" onClick={() => {setRoutineIndex(index); setRoutineId(routine.id); setRoutineTime(routine.time); setEditedRoutineName(routine.name); setEditedProductArray(routine.products); setSavedRoutinePopUpState(true); handleTimeButtonClick(timeTranslator(routine.time))}}>
+                                                <p className="savedRoutineText">{index + 1}. {routine.name} {routine.time}</p>
+                                                <button className={`routineProductDropDownButton${parentIndex}`}><svg xmlns="http://www.w3.org/2000/svg" className={"chevronIcon chevronIconRight"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg></button>
                                             </div>
+
+
                                         </div>
                                     ))}
+                                    <button className={`addRoutineButton${parentIndex}`} onClick={() => setRoutinePopUpState(true)}>+ Add Routine</button>
                                 </div>
-                                <button className={`addRoutineButton${parentIndex}`} onClick={() => setRoutinePopUpState(true)}>+ Add Routine</button>
+
                             </div>
                         )}
                     </div>

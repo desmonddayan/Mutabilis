@@ -330,6 +330,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                                             </div>
                                         )}
                                     </label>
+                                    {leftFacePhoto ? <button className="deletePhotoButton" type="button" onClick={() => {setLeftFacePhoto(""); setPhotoFiles(prev => ({...prev, ["left"]: null})); document.getElementById("photoUploadedLeft").value = ""}}>Delete</button> : null}
                                 </div>
                                 <div className="photoContainer">
                                     <input style={{display: "none"}} type="file" id="photoUploadMiddle" accept="image/*" onChange={(e) => handlePhotoSubmission("middle", e)}/>
@@ -411,9 +412,9 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                                 <div className="singleLifeStyleFactorContainerOne">
                                     <p className="factor">Stress</p>
                                     <div className="counterContainer">
-                                        <button className="counterButton" onClick={() => {if(stressCount > 0){setStressCount(stressCount - 1); stressUnitFunction(stressCount)}}}><b>&lt;</b></button>
+                                        <button className="counterButton" onClick={() => {if(stressCount > 0){setStressCount(stressCount - 1); stressUnitFunction(stressCount)}}}><svg xmlns="http://www.w3.org/2000/svg" className={"chevronIcon chevronIconLeft"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg></button>
                                         <p className="countedCounter">{stressUnit}</p>
-                                        <button className="counterButton" onClick={() => {if(stressCount < 4){setStressCount(stressCount + 1); stressUnitFunction(stressCount)}}}><b>&gt;</b></button>
+                                        <button className="counterButton" onClick={() => {if(stressCount < 4){setStressCount(stressCount + 1); stressUnitFunction(stressCount)}}}><svg xmlns="http://www.w3.org/2000/svg" className={"chevronIcon chevronIconRight"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg></button>
                                     </div>
                                 </div>
                             </div>
