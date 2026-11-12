@@ -17,7 +17,6 @@
     align-items: center;
     color: white;
     font-size: clamp(0.8rem, 1.5vw, 1.2rem);
-
     flex: 1;
     margin-left: 2rem;
 }
@@ -40,6 +39,21 @@
     font-size: clamp(0.7rem, 1.5vw, 0.9rem);
     margin-right: 2rem;
 }
+.privacyPolicyContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5rem;
+}
+.centerPrivacyPolicyContainer{
+    width: 80%;
+}
+.privacyPolicyLink{
+    text-decoration: none;
+    color: #3e3e3e;
+    font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+}
 .navbarLine{
     border: none;
     border-top: 1px solid rgba(45,45,45);
@@ -49,15 +63,56 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+    margin-bottom: 5rem;
 }
+
 .landingPageContainer{
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
+    width: 80%;
+}
+.landingPageScreenInformation{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-bottom: 5rem;
+}
+.landingPageInformationContainer{
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+}
+.landingPageThreeTextContainer{
+    display: flex;
+    width: 100%;
+    gap: 3rem;
+    box-sizing: border-box;
+}
+.landingPageDivider{
+    width: 100%;
+    border: none;
+    border-top: 1px solid rgba(45,45,45);
+    margin-bottom: 1.5rem;
+}
+.individualLandingPageTextContainer{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.5rem;
+}
+.landingPageHeaderText{
+    font-size: clamp(0.8rem, 1.5vw, 1rem);
+    color: white;
+}
+.landingPageDescriptionText{
+    color: #979797;
+    font-size: clamp(0.7rem, 1vw, 0.9rem);
 }
 .mutabilisLandingPageText{
-    font-size: clamp(3rem, 22vw, 25rem);
+    font-size: clamp(3rem, 20vw, 20rem);
     color: white;
 }
 .animationContainer{

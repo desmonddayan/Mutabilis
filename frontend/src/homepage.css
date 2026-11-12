@@ -1,7 +1,4 @@
-.screen{
-    width: 100%;
-    background-color: #090909;
-}
+
 .profilePictureHomePage{
     width: clamp(40px, 5vw, 100px);
     height: clamp(40px, 5vw, 100px);

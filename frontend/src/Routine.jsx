@@ -36,27 +36,10 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
         )
     }
 
-    const USE_MOCK_DATA = true
 
-    const mockRoutineRows = [
-        {routineId: 1, routineName: "Morning", routineTime: "AM", productId: 101, productName: "Gentle Foaming Cleanser"},
-        {routineId: 1, routineName: "Morning", routineTime: "AM", productId: 102, productName: "Niacinamide 10% + Zinc 1% Serum"},
-        {routineId: 1, routineName: "Morning", routineTime: "AM", productId: 103, productName: "Daily Moisturising Lotion"},
-        {routineId: 1, routineName: "Morning", routineTime: "AM", productId: 104, productName: "Mineral SPF 50 Sunscreen"},
-        {routineId: 2, routineName: "Evening", routineTime: "PM", productId: 105, productName: "Oil Cleanser"},
-        {routineId: 2, routineName: "Evening", routineTime: "PM", productId: 101, productName: "Gentle Foaming Cleanser"},
-        {routineId: 2, routineName: "Evening", routineTime: "PM", productId: 106, productName: "Retinol 0.5% Night Serum"},
-        {routineId: 2, routineName: "Evening", routineTime: "PM", productId: 107, productName: "Ceramide Night Cream"},
-        {routineId: 3, routineName: "Weekend Deep Cleanse With A Long Name sdasdasdasdasdasdadadasddasdadasdsadsadadasdasdasdasdad", routineTime: "AMPM", productId: 108, productName: "Clay Mask"},
-        {routineId: 3, routineName: "Weekend Deep Cleanse With A Long Name dsadasdasdasddasdasdasdsadsadasdasdasdsadasdasdasda", routineTime: "AMPM", productId: 109, productName: "Exfoliating AHA/BHA Toner"}
-    ]
 
     const getSavedRoutines = async () => {
         if (!session) return;
-        if(USE_MOCK_DATA){
-            setSavedRoutineArray(groupRoutines(mockRoutineRows));
-            return;
-        }
         try{
             const response = await fetch(`${API_URL}/api/v1/routine/get`,
                 {
@@ -323,8 +306,7 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
         <div className="routineContainer">
             <div className="routineTextDividerButtonContainer">
                 <div className="routineButtonAndTextContainer">
-                    <p className={`homePageRoutineText${parentIndex}`}>{routinePopUpState ? "New Routine" : "Routine"}</p>
-                    {routinePopUpState ? <button className={`cancelRoutineButton${parentIndex}`} onClick={() => {setRoutinePopUpState(false); setProductSearchArray([])}}>X</button> : null}
+                    <p className={`homePageRoutineText${parentIndex}`}>{routinePopUpState ? "New Routine" : savedRoutinePopUpState ? "Edit Routine" : "Routine"}</p>
                 </div>
             </div>
             <div className="routineInnerContainer">
@@ -359,8 +341,10 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
                             <hr className="subDividerEleven"/>
                         </div>
                         <div>
-                            <div className="routineSubmitButtonContainer">
-                                <button className={`routineSubmitButton${parentIndex}`} onClick={() => {handleRoutineSubmit(); handleTimeButtonClick(4)}}>Save Routine</button>
+                            <div className="submitChangesRoutineButtonContainer">
+                                <div className="threeSplitDiv"></div>
+                                <div className="threeSplitDivOne"><button className={`routineSubmitButton${parentIndex}`} onClick={() => {handleRoutineSubmit(); handleTimeButtonClick(4)}}>Submit</button></div>
+                                <div className="threeSplitDiv">{routinePopUpState ? <button className={`cancelRoutineButton${parentIndex}`} onClick={() => {setRoutinePopUpState(false); setProductSearchArray([])}}>Cancel</button> : null}</div>
                             </div>
                         </div>
                     </div>
@@ -393,7 +377,7 @@ export default function Routine({session, parentIndex, selectedRoutineArray, set
                                 <hr className="subDividerEleven" />
                                 <div className="submitChangesRoutineButtonContainer">
                                     <div className="threeSplitDiv"></div>
-                                    <div className="threeSplitDivOne"><button className="routineSubmitChangesButton" onClick={() => {handleEditedRoutineSubmit(editedProductArray, editedRoutineName, routineTime, routineIndex); setProductSearchArray([])}}>Submit Changes</button></div>
+                                    <div className="threeSplitDivOne"><button className="routineSubmitChangesButton" onClick={() => {handleEditedRoutineSubmit(editedProductArray, editedRoutineName, routineTime, routineIndex); setProductSearchArray([])}}>Save</button></div>
                                     <div className="threeSplitDiv"><button className={`routineDeleteButton${parentIndex}`} onClick={() => {handleRoutineDelete(routineId); setProductSearchArray([])}}>Delete Routine</button></div>
 
 

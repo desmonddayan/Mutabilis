@@ -71,12 +71,12 @@
     justify-content: flex-end;
 }
 .signOutButton{
-    color: white;
-    background-color: black;
+    color: #2e2e2e;
+    background-color: transparent;
     gap: clamp(0.6rem, 2vw, 2rem);
     border: none;
     border-radius: 0.5rem;
-    font-size: clamp(0.7rem, 2vw, 1rem);
+    font-size: clamp(0.6rem, 1.5vw, 0.8rem);
 }
 .divider{
     border: none;

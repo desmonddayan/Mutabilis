@@ -6,6 +6,7 @@ import LandingPage from "./LandingPage.jsx";
 import TrackPage from "./TrackPage.jsx";
 import {useEffect, useState} from "react";
 import {supabase} from "./supabaseClient.js";
+import PrivacyPolicy from "./PrivacyPolicy.jsx";
 
 
  function App(){
@@ -48,6 +49,7 @@ import {supabase} from "./supabaseClient.js";
                 <Route path="/" element={session ? <Navigate to="/track"/> : <LandingPage />}/>
                 {/*<Route path="/home" element={<AuthenticatedRoute session={session}><HomePage session={session}/></AuthenticatedRoute>}/>*/}
                 <Route path="/track" element={<AuthenticatedRoute session={session}><TrackPage session={session}/></AuthenticatedRoute>}/>
+                <Route path="/privacy" element={<PrivacyPolicy />} />
             </Routes>
     </>
     );

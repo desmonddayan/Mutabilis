@@ -10,7 +10,7 @@
 }
 .homePageRoutineTextpopUp{
     color: #2b2b2b;
-    font-size: clamp(0.8rem, 3vw, 0.9rem);
+    font-size: clamp(0.8rem, 2.5vw, 0.9rem);
 }
 .routineTextDividerButtonContainer{
     box-sizing: border-box;
@@ -42,17 +42,10 @@
     color: white;
 }
 .cancelRoutineButtonpopUp{
-    height: clamp(1rem, 2vw, 1.5rem);
-    width: clamp(1rem, 2vw, 1.5rem);
-    font-size: clamp(0.4rem, 1vw, 0.6rem);
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    border: 1px solid rgba(45,45,45);
-    border-radius: 0.2rem;
-    background-color: rgba(9,9,9);
-    color: white;
+    border: none;
+    color: #3e3e3e;
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
+    background-color: rgba(20,20,23);
 }
 .addRoutineButtonpopUp{
     display: flex;
@@ -65,7 +58,7 @@
     width: 100%;
     height: clamp(2.5rem, 3vw, 5rem);
     padding: 0 clamp(1rem, 2vw, 1.5rem);
-    font-size: clamp(0.7rem, 3vw, 0.9rem);
+    font-size: clamp(0.7rem, 2.5vw, 0.9rem);
     border-radius: clamp(0.4rem, 1vw, 0.7rem);
 }
 .routineFormIndividualContainer{
@@ -111,7 +104,6 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-
 }
 .routineDivider{
     border: none;
@@ -123,7 +115,7 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    padding: clamp(0.7rem, 1vw, 1rem) clamp(0.7rem, 2vw, 1.5rem);
+    padding: clamp(0.6rem, 1.5vw, 0.9rem) clamp(0.7rem, 2vw, 1.5rem);
 }
 .routineProductSubmitContainer{
     display: flex;
@@ -163,7 +155,7 @@
     justify-content: space-between;
     box-sizing: border-box;
     flex: 1;
-    padding: clamp(0.7rem, 1vw, 1rem) clamp(0.7rem, 2vw, 1.5rem);
+    padding: clamp(0.6rem, 1.5vw, 0.9rem) clamp(0.7rem, 2vw, 1.5rem);
 }
 .timeButtonStyleGrayhomePage{
     border: none;
@@ -265,8 +257,8 @@
     border-radius: 0.2rem;
     color: white;
     box-sizing: border-box;
-    font-size: clamp(0.6rem, 1vw, 0.9rem);
-    padding: clamp(0.3rem, 1vw, 0.5rem) clamp(0.4rem, 2vw, 1rem);
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
+    padding: clamp(0.3rem, 1vw, 0.5rem) clamp(0.7rem, 2vw, 1rem);
 }
 .routineSubmitButtonContainer{
     width: 100%;
@@ -320,7 +312,7 @@
     color: white;
 }
 .deleteProductButtonpopUp{
-    font-size: clamp(0.5rem, 2vw, 0.8rem);
+    font-size: clamp(0.5rem, 1.5vw, 0.8rem);
     display: flex;
     justify-content: center;
     text-align: center;
@@ -333,7 +325,7 @@
 .listMoveAndIndexContainer{
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: clamp(0.5rem, 1vw, 1rem);
 }
 
 .routineFormEntryContainer{
@@ -341,7 +333,7 @@
 }
 .enteredProductArray{
     box-sizing: border-box;
-    padding: clamp(0.7rem, 1vw, 1rem) clamp(0.7rem, 2vw, 1.5rem);
+    padding: clamp(0.6rem, 1.5vw, 0.9rem) clamp(0.7rem, 2vw, 1.5rem);
     flex: 1;
 }
 
@@ -364,7 +356,7 @@
 
 .savedRoutineText{
     color: white;
-    font-size: clamp(0.7rem, 3vw, 0.9rem);
+    font-size: clamp(0.7rem, 2.5vw, 0.9rem);
     overflow-x: scroll;
     white-space: nowrap;
     min-width: 0;
@@ -443,7 +435,7 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    padding: clamp(0.7rem, 1vw, 1rem) clamp(0.7rem, 2vw, 1.5rem);
+    padding: clamp(0.6rem, 1.5vw, 0.9rem) clamp(0.7rem, 2vw, 1.5rem);
 }
 .threeSplitDiv{
     display: flex;
@@ -463,8 +455,8 @@
     border-radius: 0.2rem;
     color: white;
     box-sizing: border-box;
-    font-size: clamp(0.7rem, 2vw, 0.9rem);
-    padding: clamp(0.4rem, 1vw, 0.5rem) clamp(0.7rem, 1vw, 1rem);
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
+    padding: clamp(0.3rem, 1vw, 0.5rem) clamp(0.7rem, 2vw, 1rem);
 }
 .closeRoutinePopUpStatepopUp{
     border:none;
@@ -493,7 +485,7 @@
 .routineDeleteButtonpopUp{
     border: none;
     color: #3e3e3e;
-    font-size: clamp(0.7rem, 2vw, 0.8rem);
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
     background-color: rgba(20,20,23);
 }
 .selectRoutineAndRoutineNameContainer{
@@ -508,16 +500,16 @@
 .selectedRoutineButtonGray{
     box-sizing: border-box;
     border: 1px solid rgba(45,45,45);
-    height: clamp(0.7rem, 2vw, 1rem);
-    width: clamp(0.7rem, 2vw, 1rem);
+    height: clamp(0.6rem, 2vw, 1rem);
+    width: clamp(0.6rem, 2vw, 1rem);
     border-radius: 50%;
     background-color: rgba(20,20,23);
 }
 .selectedRoutineButtonBlue{
     box-sizing: border-box;
     border: 1px solid #1577FF;
-    height: clamp(0.7rem, 2vw, 1rem);
-    width: clamp(0.7rem, 2vw, 1rem);
+    height: clamp(0.6rem, 2vw, 1rem);
+    width: clamp(0.6rem, 2vw, 1rem);
     border-radius: 50%;
     background-color: #1577FF;
     display: flex;
@@ -589,22 +581,36 @@
     width: 20rem;
 }
 .productSearchContainer{
-    padding: 0 clamp(0.7rem, 2vw, 1.5rem) clamp(0.7rem, 1vw, 1rem) clamp(0.7rem, 2vw, 1.5rem);
+    padding: 0 clamp(0.7rem, 2vw, 1.5rem) clamp(0.6rem, 1.5vw, 0.9rem) clamp(0.7rem, 2vw, 1.5rem);
 }
 .chevronIcon{
     display: block;
-    width: clamp(0.6rem, 1.5vw, 0.8rem);
-    height: clamp(0.6rem, 1.5vw, 0.8rem);
+    width: clamp(0.8rem, 2vw, 1rem);
+    height: clamp(0.8rem, 2vw, 1rem);
+    color: #3e3e3e;
 }
 .chevronIconUp{
     transform: rotate(180deg);
 }
 .chevronIconLeft{
     transform: rotate(90deg);
-
 }
-.chevronIconRight{
+.chevronIconchevronIconRight{
     transform: rotate(-90deg);
+}
+.chevronIconchevronIconLeftBlue{
+    display: block;
+    transform: rotate(90deg);
+    color: #1577FF;
+    width: clamp(0.7rem, 2vw, 1rem);
+    height: clamp(0.7rem, 2vw, 1rem);
+}
+.chevronIconchevronIconRightBlue{
+    display: block;
+    transform: rotate(-90deg);
+    color: #1577FF;
+    width: clamp(0.7rem, 2vw, 1rem);
+    height: clamp(0.7rem, 2vw, 1rem);
 }
 .searchedProductArray{
     display: flex;

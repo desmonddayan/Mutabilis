@@ -28,7 +28,7 @@
 }
 .indexOfCard{
     color: #ffffff;
-    font-size: clamp(0.5rem, 2vw, 0.9rem);
+    font-size: clamp(0.5rem, 1.5vw, 0.9rem);
 }
 .pointerContainer{
     display: flex;

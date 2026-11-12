@@ -118,9 +118,9 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
         return null
     }
 
-    function waterUnitFunction(){
+    function waterUnitFunction(count){
         if(waterUnitState === "Litres"){
-            if(waterCount === 1){
+            if(count === 1){
                 setWaterUnitState("Litre");
                 return "Litre";
             }
@@ -128,7 +128,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                 return "Litres";}
         }
         else{
-            if(waterCount === 1){
+            if(count === 1){
                 setWaterUnitState("Cup");
                 return "Cup";
             }
@@ -138,28 +138,10 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
             }
         }
     }
-    function stressUnitFunction(){
-        if(stressCount === 0){
-            setStressUnit("None");
-            return "None";
-
-        }
-        else if (stressCount === 1){
-            setStressUnit("Mild");
-            return "Mild";
-        }
-        else if(stressCount === 2){
-            setStressUnit("Moderate");
-            return "Moderate";
-        }
-        else if(stressCount === 3){
-            setStressUnit("High");
-            return "High";
-        }
-        else{
-            setStressUnit("Severe")
-            return "Severe";
-        }
+    function stressUnitFunction(count){
+        const stressLevels = ["None", "Mild", "Moderate", "High", "Severe"];
+        setStressUnit(stressLevels[count]);
+        return stressLevels[count];
     }
 
     function setIsRecordingFalse(){
@@ -330,7 +312,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                                             </div>
                                         )}
                                     </label>
-                                    {leftFacePhoto ? <button className="deletePhotoButton" type="button" onClick={() => {setLeftFacePhoto(""); setPhotoFiles(prev => ({...prev, ["left"]: null})); document.getElementById("photoUploadedLeft").value = ""}}>Delete</button> : null}
+                                    {leftFacePhoto ? <button className="deletePhotoButton" type="button" onClick={() => {setLeftFacePhoto(""); setPhotoFiles(prev => ({...prev, ["left"]: null})); document.getElementById("photoUploadLeft").value = ""}}>Remove</button> : null}
                                 </div>
                                 <div className="photoContainer">
                                     <input style={{display: "none"}} type="file" id="photoUploadMiddle" accept="image/*" onChange={(e) => handlePhotoSubmission("middle", e)}/>
@@ -344,6 +326,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                                             </div>
                                         )}
                                     </label>
+                                    {middleFacePhoto ? <button className="deletePhotoButton" type="button" onClick={() => {setMiddleFacePhoto(""); setPhotoFiles(prev => ({...prev, ["middle"]: null})); document.getElementById("photoUploadMiddle").value = ""}}>Remove</button> : null}
                                 </div>
                                 <div className="photoContainer">
                                     <input style={{display: "none"}} type="file" id="photoUploadRight" accept="image/*" onChange={(e) => handlePhotoSubmission("right", e)} />
@@ -356,8 +339,8 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                                                 <p className="textTwo">Tap & Drag to Upload</p>
                                             </div>
                                         )}
-
                                     </label>
+                                    {rightFacePhoto ? <button className="deletePhotoButton" type="button" onClick={() => {setRightFacePhoto(""); setPhotoFiles(prev => ({...prev, ["right"]: null})); document.getElementById("photoUploadRight").value = ""}}>Remove</button> : null}
                                 </div>
                             </div>
                         </div>
@@ -399,12 +382,14 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                                     <div className="waterIntakeContainer">
                                         <p className="factor">Water</p>
                                         <div className="waterUnitButtonContainer">
-                                            <button className="waterUnitButton" onClick={() => setWaterUnitState("Litres")}>Litres</button>
-                                            <button className="waterUnitButton" onClick={() => setWaterUnitState("Cups")}>Cups</button>
+                                            {waterUnitState === "Litres" || waterUnitState === "Litre" ?
+                                                (<button className="waterUnitButton" onClick={() => setWaterUnitState("Cups")}>Cups</button>)
+                                                : (<button className="waterUnitButton" onClick={() => setWaterUnitState("Litres")}>Litres</button>)
+                                        }
                                         </div>
                                     </div>
                                     <div className="counterContainer">
-                                        <button className="counterButton" onClick={() => {if(waterCount > 0){setWaterCount(waterCount - 0.25); waterUnitFunction()}}}><b>-</b></button>
+                                        <button className="counterButton" onClick={() => {if(waterCount > 0){const next = waterCount - 0.25; setWaterCount(next); waterUnitFunction(next)}}}><b>-</b></button>
                                         <p className="countedCounter">{waterCount} {waterUnitState}</p>
                                         <button className="counterButton" onClick={() => {setWaterCount(waterCount + 0.25); waterUnitFunction()}}><b>+</b></button>
                                     </div>
@@ -412,9 +397,9 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                                 <div className="singleLifeStyleFactorContainerOne">
                                     <p className="factor">Stress</p>
                                     <div className="counterContainer">
-                                        <button className="counterButton" onClick={() => {if(stressCount > 0){setStressCount(stressCount - 1); stressUnitFunction(stressCount)}}}><svg xmlns="http://www.w3.org/2000/svg" className={"chevronIcon chevronIconLeft"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg></button>
-                                        <p className="countedCounter">{stressUnit}</p>
-                                        <button className="counterButton" onClick={() => {if(stressCount < 4){setStressCount(stressCount + 1); stressUnitFunction(stressCount)}}}><svg xmlns="http://www.w3.org/2000/svg" className={"chevronIcon chevronIconRight"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg></button>
+                                        <button className="counterButton" onClick={() => {if(stressCount > 0){const next = stressCount - 1; setStressCount(next); stressUnitFunction(next)}}}><svg xmlns="http://www.w3.org/2000/svg" className={"chevronIconchevronIconLeftBlue"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg></button>
+                                            <p className="countedCounter">{stressUnit}</p>
+                                        <button className="counterButton" onClick={() => {if(stressCount < 4){const next = stressCount + 1; setStressCount(next); stressUnitFunction(next)}}}><svg xmlns="http://www.w3.org/2000/svg" className={"chevronIconchevronIconRightBlue"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg></button>
                                     </div>
                                 </div>
                             </div>
@@ -427,7 +412,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
                             <div className="submitAndDeleteEntryContainer">
                                 <div className="submitAndDeleteEntryInnerContainer1"></div>
                                 <div className="submitAndDeleteEntryInnerContainer2">
-                                    <button className="saveEntryButton" onClick={async ()=>{setIsRecordingFalse(); await handleDailyEntryUpdate(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit, selectedRoutineArray); setPopUpStateFalse();}}><b>Save Changes</b></button>
+                                    <button className="saveEntryButton" onClick={async ()=>{setIsRecordingFalse(); await handleDailyEntryUpdate(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit, selectedRoutineArray); setPopUpStateFalse();}}><b>Save</b></button>
                                 </div>
                                 <div className="submitAndDeleteEntryInnerContainer3">
                                     <button className="deleteEntryButton" onClick={() => handleDailyEntryDelete(date)}>Delete Entry</button>
@@ -436,7 +421,7 @@ export function PopUp({popUpState, setPopUpStateFalse, day, month, year, session
 
                             </div>
                     ) : (
-                        <button className="saveEntryButton" onClick={async ()=>{setIsRecordingFalse(); await handleDailyEntry(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit, selectedRoutineArray); setPopUpStateFalse()}}><b>Save Entry</b></button>
+                        <button className="saveEntryButton" onClick={async ()=>{setIsRecordingFalse(); await handleDailyEntry(diaryEntry, sleepCount, waterCount, waterUnitState, stressUnit, selectedRoutineArray); setPopUpStateFalse()}}><b>Submit</b></button>
                     )}
                 </div>
             </div>

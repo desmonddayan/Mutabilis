@@ -1,6 +1,6 @@
 .diaryTextBoxContainer{
     flex: 1;
-    min-height: 6rem;
+    min-height: 8rem;
     position: relative;
     margin-top: clamp(0.5rem, 2vw, 0.8rem);
 }
@@ -12,7 +12,7 @@
     box-sizing: border-box;
     background-color: rgba(20,20,23);
     resize: none;
-    font-size: clamp(0.7rem, 3vw, 0.9rem);
+    font-size: clamp(0.7rem, 2.5vw, 0.9rem);
     color: white;
     border-radius: clamp(0.4rem, 1vw, 0.7rem);
     outline: none;
@@ -23,7 +23,7 @@
 }
 .diaryEntryTextBox::placeholder{
     color: #3e3e3e;
-    font-size: clamp(0.7rem, 3vw, 0.9rem);
+    font-size: clamp(0.7rem, 2.5vw, 0.9rem);
 }
 .microphoneButtonContainer{
     display: flex;
