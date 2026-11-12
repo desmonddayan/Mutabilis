@@ -71,6 +71,7 @@
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
+    gap: clamp(1rem, 2vw, 3rem);
     width: 80%;
 }
 .landingPageScreenInformation{
@@ -88,7 +89,7 @@
 .landingPageThreeTextContainer{
     display: flex;
     width: 100%;
-    gap: 3rem;
+    gap: clamp(0.5rem, 2vw, 3rem);
     box-sizing: border-box;
 }
 .landingPageDivider{
@@ -112,7 +113,7 @@
     font-size: clamp(0.6rem, 1vw, 0.9rem);
 }
 .mutabilisLandingPageText{
-    font-size: clamp(3rem, 20vw, 20rem);
+    font-size: clamp(3rem, 15vw, 25rem);
     color: white;
 }
 .animationContainer{
