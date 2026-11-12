@@ -63,7 +63,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-bottom: 5rem;
+    margin-bottom: clamp(2rem, 2vw, 5rem);
 }
 
 .landingPageContainer{
@@ -78,7 +78,7 @@
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
-    margin-bottom: 5rem;
+    margin-bottom: clamp(2rem, 2vw, 5rem);
 }
 .landingPageInformationContainer{
     display: flex;
@@ -95,7 +95,7 @@
     width: 100%;
     border: none;
     border-top: 1px solid rgba(45,45,45);
-    margin-bottom: 1.5rem;
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
 }
 .individualLandingPageTextContainer{
     display: flex;
@@ -104,12 +104,12 @@
     gap: 0.5rem;
 }
 .landingPageHeaderText{
-    font-size: clamp(0.8rem, 1.5vw, 1rem);
+    font-size: clamp(0.7rem, 1.5vw, 1rem);
     color: white;
 }
 .landingPageDescriptionText{
     color: #979797;
-    font-size: clamp(0.7rem, 1vw, 0.9rem);
+    font-size: clamp(0.6rem, 1vw, 0.9rem);
 }
 .mutabilisLandingPageText{
     font-size: clamp(3rem, 20vw, 20rem);

@@ -1,4 +1,4 @@
-import "./PrivacyPolicy.css";
+import "./privacypolicy.css";
 
 const OPERATOR = "Desmond";
 const CONTACT_EMAIL = "desmondyokai@gmail.com";
