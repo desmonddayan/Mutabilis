@@ -48,8 +48,6 @@ flowchart LR
 - **Photo scoring:** photos are resized in the browser, uploaded to a private bucket, and scored by Gemini using a JSON schema so the results are always structured.
 - **Chat:** the API gathers scores, lifestyle data, routines, product ingredients and diary entries for the selected days and the 7 days before them, and sends them to Claude as context.
 
-You need your own Supabase project, Gemini API key and Anthropic API key. See the `.env.example` files for the variable names.
-
 ## Author
 
 (https://github.com/desmonddayan)
